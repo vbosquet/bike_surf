@@ -1,0 +1,64 @@
+<h3>Préférences de réservation</h1>
+<hr />
+<div class="row">
+     <div class="col-sm-7">
+        <label>Délai :</label>
+        <%= f.select(:advance_notice, Availability.advance_notices.keys, {prompt: 'Choisissez'}, {class: "form-control"})%>
+    </div>
+</div>
+<br>
+<h3>Durée de la location</h1>
+<hr />
+<div class="row">
+    <div class="col-sm-7">
+        <label>Durée minimum de location :</label>
+        <div class="input-group">
+            <%= f.number_field :minimum_rental, min: 1, class: "form-control" %>
+            <span class="input-group-addon">jours</span>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm-7">
+        <label>Durée maximum de location :</label>
+        <div class="input-group">
+            <%= f.number_field :maximum_rental, min: 1, class: "form-control" %>
+            <span class="input-group-addon">jours</span>
+        </div>
+    </div>
+</div>
+<br >
+<h3>Réception et dépôt</h1>
+<hr />
+<div class="row">
+    <div class="col-sm-7">
+        <label>Heure de réception :</label>
+        <div class="form-group">
+            <div class='input-group date' id='pickup_time'>
+                <%= f.text_field :pickup_time, class: "form-control" %>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<br >
+<div class="row">
+    <div class="col-sm-7">
+        <label>Heure de dépôt :</label>
+        <div class="form-group">
+            <div class='input-group date' id='dropoff_time'>
+                <%= f.text_field :dropoff_time, class: "form-control" %>
+                <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<br >
+<div>
+    <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+</div>

@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <%= render "listings/listing_management_sidebar" %>
+    </div>
+    <div class="col-sm-7">
+    	<h1>Disponibilité</h1>
+        <%= form_for [@listing, @availability] do |f| %>
+            <%= render partial: "availabilities/form", locals: {f: f} %>
+        <% end %>
+    </div>
+  </div>
+</div>

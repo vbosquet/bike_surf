@@ -1,0 +1,25 @@
+<ul class="nav flex-column">
+  <li class="nav-item">
+    <%= link_to "Détails de l'annonce", edit_listing_path(@listing) %>
+  </li>
+  <li class="nav-item">
+    <% if @listing.pricing.present? %>
+      <%= link_to "Tarif", edit_listing_pricing_path(listing_id: @listing.id, id: @listing.pricing.id) %>
+    <% else %>
+      <%= link_to "Tarif", new_listing_pricing_path(@listing) %>
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <% if @listing.availability.present? %>
+      <%= link_to "Disponibilité", edit_listing_availability_path(listing_id: @listing.id, id: @listing.availability.id) %>
+    <% else %>
+      <%= link_to "Disponibilité", new_listing_availability_path(@listing) %>
+    <% end %>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Prévisualiser l'annonce", listing_path(@listing) %>
+  </li>
+  <li class="nav-item">
+    <%= link_to "Retour", listings_path %>
+  </li>
+</ul>

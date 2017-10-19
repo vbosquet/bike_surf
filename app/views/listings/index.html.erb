@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <%= render "sidebar" %>
+    </div>
+    <div class="col-sm-9">
+        <% @listings.each do |listing| %>
+        <div class="card col-sm-4">
+          <%= image_tag listing.bike.photo.url(:medium), class: "card-img-top" %>
+          <div class="card-body">
+            <h4 class="card-title"><%= listing.title %></h4>
+            <p class="card-text">Taille : <%= listing.bike.size %></p>
+            <p class="card-text">Lumières : <%= listing.bike.lights ? "Oui" : "Non" %></p>
+            <%= link_to "Aperçu", listing_path(listing), class: "btn btn-primary" %>
+            <%= link_to "Gérer l'annnonce", edit_listing_path(listing), class: "btn btn-primary" %>
+          </div>
+          <br >
+        </div>
+        <% end %>
+    </div>
+  </div>
+</div>

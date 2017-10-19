@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <%= render "listing_management_sidebar" %>
+    </div>
+    <div class="col-sm-7">
+        <h1>Détails de l'annonce</h1>
+    	<%= form_for @listing, html: { multipart: true } do |f| %>
+    		<%= render partial: "form", locals: {f: f} %>
+    		<!--<div class="row">
+    			<div class="col-sm-5">
+    				<label>Statut de l'annonce :</label>
+    				<%= f.select(:listed, options_for_select([['Publiée', true], ['Désactivée', false]]), {prompt: 'Choisissez'}, {class: "form-control"}) %>
+    			</div>
+    		</div>-->
+    		<div>
+    			<%= f.submit "Enregistrer", class: "btn btn-primary" %>
+    		</div>
+    	<% end %>
+    </div>
+  </div>
+</div>

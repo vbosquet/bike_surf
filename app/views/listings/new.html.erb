@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-3">
+      <%= render "sidebar" %>
+    </div>
+    <div class="col-sm-7">
+    	<h1>Nouvelle annonce</h1>
+    	<%= form_for @listing, html: { multipart: true } do |f| %>
+    		<%= render partial: "form", locals: {f: f} %>
+    		<div>
+    			<%= f.submit "Continuer", class: "btn btn-primary" %>
+    		</div>
+    	<% end %>
+    </div>
+  </div>
+</div>
