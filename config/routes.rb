@@ -5,5 +5,7 @@ Rails.application.routes.draw do
   resources :listings do
   	resources :pricings
   	resources :availabilities
+  	get 'edit_status'
+  	patch 'update_status'
   end
 end

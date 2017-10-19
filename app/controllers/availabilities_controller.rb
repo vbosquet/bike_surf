@@ -10,7 +10,7 @@ class AvailabilitiesController < ApplicationController
 		availability = Availability.new(availability_params)
 		if availability.save
 			flash[:success] = "Informations enregistrées avec succès"
-			redirect_to listing_path(@listing)
+			redirect_to listing_edit_status_path(@listing)
 		else
 		end
 	end
