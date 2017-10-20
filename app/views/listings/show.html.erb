@@ -4,22 +4,24 @@
       <%= render "listing_management_sidebar" %>
     </div>
     <div class="col-sm-9">
-      <h1><%= @listing.title %></h1>
-      <div class="row">
-        <%= image_tag @listing.bike.photo.url(:medium), class: "card col-sm-4" %>
-        <div class="card col-sm-4">
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">Taille : <%= @listing.bike.size %></li>
-          <li class="list-group-item">Lumières : <%= @listing.bike.lights ? "Oui" : "Non" %></li>
-          <li class="list-group-item">Statut de l'annonce : <%= @listing.listed ? "Publiée" : "Désactivée" %></li>
-        </ul>
-      </div>
-      </div>
-      <br >
-      <div class="card w-75">
-        <div class="card-body">
-          <p class="card-text"><%= @listing.description %></p>
+      <div class="card-columns">
+        <div class="card">
+          <%= image_tag @listing.bike.photo.url(:medium), class: "card-img-top" %>
+          <div class="card-body">
+            <h4 class="card-title"><%= @listing.title %></h4>
+            <p class="card-text"><%= @listing.description %></p>
+          </div>
         </div>
+        <div class="card" style="width: 20rem;">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">Taille : <%= @listing.bike.size %></li>
+            <li class="list-group-item">Lumières : <%= @listing.bike.lights ? "Oui" : "Non" %></li>
+            <li class="list-group-item">Statut de l'annonce : <%= @listing.listed ? "Publiée" : "Désactivée" %></li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div id="map" style='width: 800px; height: 400px;'></div>
       </div>
     </div>
   </div>

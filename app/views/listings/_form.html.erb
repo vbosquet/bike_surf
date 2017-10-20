@@ -41,7 +41,7 @@
 <label>Adresse :</label>
 <%= f.fields_for :location do |location_form| %>
 <div class="row">
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <%= location_form.text_field :street_number, class: "form-control", placeholder: "Numéro"%>
     </div>
     <div class="col-sm-6">
@@ -50,7 +50,7 @@
 </div>
 <br >
 <div class="row">
-    <div class="col-sm-5">
+    <div class="col-sm-6">
         <%= location_form.text_field :locality, class: "form-control", placeholder: "Ville"%>
     </div>
     <div class="col-sm-3">

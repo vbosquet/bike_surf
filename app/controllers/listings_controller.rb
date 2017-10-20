@@ -7,6 +7,8 @@ class ListingsController < ApplicationController
 
 	def show
 		@listing = Listing.find(params[:id])
+		gon.latitude = @listing.location.latitude
+		gon.longitude = @listing.location.longitude
 	end
 
 	def new
