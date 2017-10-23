@@ -8,6 +8,7 @@
       <div class="card-columns">
         <% listings.each do |listing| %>
         <div class="card">
+          <div class="card-header"><%= listing.listed? ? "Publiée" : "Désactivée" %></div>
           <%= image_tag listing.bike.photo.url(:medium), class: "card-img-top" %>
           <div class="card-body">
             <h4 class="card-title"><%= listing.title %></h4>

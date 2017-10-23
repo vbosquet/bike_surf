@@ -13,7 +13,6 @@ class ListingsController < ApplicationController
 
 	def new
 		@listing = Listing.new
-		Rails.logger.debug("LISTING: #{@listing.persisted?.inspect}")
 		unless @listing.bike.present?
 			@listing.build_bike
 		end
