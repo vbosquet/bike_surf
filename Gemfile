@@ -45,6 +45,7 @@ gem 'popper_js', '~> 1.12.9'
 gem "font-awesome-rails", "~> 4.7.0.3"
 gem 'gon', "~> 6.1.0"
 gem 'ransack', "~> 1.8.8"
+gem 'ckeditor', '~> 4.2.4'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

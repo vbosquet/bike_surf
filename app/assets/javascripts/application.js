@@ -19,4 +19,7 @@
 //= require bootstrap-datetimepicker
 //= require jquery_ujs
 //= require turbolinks
+//= require ckeditor/init
+//= require ckeditor/plugins/wordcount/plugin
+//= require ckeditor/config
 //= require_tree .

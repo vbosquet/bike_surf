@@ -27,7 +27,7 @@
                         <%= image_tag @listing.bike.photo.url(:medium), class: "card-img-top" %>
                         <div class="card-body">
                           <h4 class="card-title"><%= @listing.title %></h4>
-                          <p class="card-text"><%= @listing.description %></p>
+                          <p class="card-text"><%= sanitize(@listing.description) %></p>
                         </div>
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item">Taille : <%= @listing.bike.size.humanize if @listing.bike.size.present? %></li>
