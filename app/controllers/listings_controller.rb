@@ -78,6 +78,6 @@ class ListingsController < ApplicationController
 	def listing_params
 		params.require(:listing).permit(:title, :description,
 			bike_attributes: [:id, :lights, :size, :photo, :listing_id],
-			location_attributes: [:id, :street_number, :route, :locality, :postal_code]).merge(user_id: current_user.id)
+			location_attributes: [:id, :street_number, :route, :locality, :postal_code, :country_code]).merge(user_id: current_user.id)
 	end
 end

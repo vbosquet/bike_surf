@@ -49,11 +49,14 @@
 </div>
 <br >
 <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-3">
         <%= location_form.text_field :locality, class: "form-control", placeholder: "Ville"%>
     </div>
     <div class="col-sm-3">
         <%= location_form.text_field :postal_code, class: "form-control", placeholder: "Code postal"%>
+    </div>
+    <div class="col-sm-3">
+      <%= location_form.country_select :country_code, {include_blank: 'Choisissez un pays', locale: 'fr'}, {class: "form-control"} %>
     </div>
 </div>
 <% end %>
