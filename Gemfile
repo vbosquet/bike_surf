@@ -8,8 +8,6 @@ end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.0.5'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -36,17 +34,17 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'mysql2'
-gem 'devise'
-gem "paperclip", "~> 5.0.0"
-gem 'geocoder'
-gem 'money'
-gem 'momentjs-rails', '>= 2.9.0'
+gem 'mysql2', "~> 0.5.1"
+gem 'devise', "~> 4.4.3"
+gem "paperclip", "~> 5.2.0"
+gem 'geocoder', "~> 1.4.7"
+gem 'money', "~> 6.11.3"
+gem 'momentjs-rails', '~> 2.20.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
-gem 'popper_js'
-gem "font-awesome-rails"
-gem 'gon'
-gem 'ransack'
+gem 'popper_js', '~> 1.12.9'
+gem "font-awesome-rails", "~> 4.7.0.3"
+gem 'gon', "~> 6.1.0"
+gem 'ransack', "~> 1.8.8"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
