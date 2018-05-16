@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   	get 'edit_status'
   	patch 'update_status'
   end
+  get 'search', to: 'listings#search'
 end

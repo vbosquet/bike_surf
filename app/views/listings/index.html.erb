@@ -1,28 +1,8 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-3">
-      <%= render "sidebar" %>
-    </div>
-    <div class="col-sm-9">
-      <% @listings.each_slice(3) do |listings| %>
-      <div class="card-columns">
-        <% listings.each do |listing| %>
-        <div class="card">
-          <div class="card-header"><%= listing.listed? ? "Publiée" : "Désactivée" %></div>
-          <%= image_tag listing.bike.photo.url(:medium), class: "card-img-top" %>
-          <div class="card-body">
-            <h4 class="card-title"><%= listing.title %></h4>
-            <p class="card-text">
-              Taille : <%= listing.bike.size %><br >
-              Lumières : <%= listing.bike.lights ? "Oui" : "Non" %>
-            </p>
-            <%= link_to "Aperçu", listing_path(listing), class: "card-link" %>
-            <%= link_to "Gérer l'annnonce", edit_listing_path(listing), class: "card-link" %>
-          </div>
-        </div>
-        <% end %>
-      </div>
-      <% end %>
+<div class="container-fluid">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <%= render "sidebar" %>
+    <div class="col main pt-5 mt-3">
+      <%= render partial: "listings/listings", locals: {listings: @listings} %>
     </div>
   </div>
 </div>

@@ -1,28 +1,30 @@
-<ul class="nav flex-column">
-  <li class="nav-item">
-    <%= link_to "Détails de l'annonce", edit_listing_path(@listing), class: "nav-link" %>
-  </li>
-  <li class="nav-item">
-    <% if @listing.pricing.present? %>
-      <%= link_to "Tarif", edit_listing_pricing_path(listing_id: @listing.id, id: @listing.pricing.id), class: "nav-link" %>
-    <% else %>
-      <%= link_to "Tarif", new_listing_pricing_path(@listing), class: "nav-link" %>
-    <% end %>
-  </li>
-  <li class="nav-item">
-    <% if @listing.availability.present? %>
-      <%= link_to "Disponibilité", edit_listing_availability_path(listing_id: @listing.id, id: @listing.availability.id), class: "nav-link" %>
-    <% else %>
-      <%= link_to "Disponibilité", new_listing_availability_path(@listing), class: "nav-link" %>
-    <% end %>
-  </li>
-  <li class="nav-item">
-    <%= link_to "Statut de l'annonce", listing_edit_status_path(@listing), class: "nav-link" %>
-  </li>
-  <li class="nav-item">
-    <%= link_to "Prévisualiser l'annonce", listing_path(@listing), class: "nav-link" %>
-  </li>
-  <li class="nav-item">
-    <%= link_to "Retour", listings_path, class: "nav-link" %>
-  </li>
-</ul>
+<div class="col-md-3 col-lg-2 sidebar-offcanvas bg-light pl-0" id="sidebar" role="navigation">
+    <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
+      <li class="nav-item">
+        <%= link_to "Détails de l'annonce", edit_listing_path(@listing), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <% if @listing.pricing.present? %>
+          <%= link_to "Tarif", edit_listing_pricing_path(listing_id: @listing.id, id: @listing.pricing.id), class: "nav-link" %>
+        <% else %>
+          <%= link_to "Tarif", new_listing_pricing_path(@listing), class: "nav-link" %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <% if @listing.availability.present? %>
+          <%= link_to "Disponibilité", edit_listing_availability_path(listing_id: @listing.id, id: @listing.availability.id), class: "nav-link" %>
+        <% else %>
+          <%= link_to "Disponibilité", new_listing_availability_path(@listing), class: "nav-link" %>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Statut de l'annonce", listing_edit_status_path(@listing), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Prévisualiser l'annonce", listing_path(@listing), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to "Retour", listings_path, class: "nav-link" %>
+      </li>
+    </ul>
+</div>

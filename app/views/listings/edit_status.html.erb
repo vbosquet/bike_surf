@@ -1,22 +1,21 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-3">
-      <%= render "listing_management_sidebar" %>
-    </div>
-    <div class="col-sm-7">
-        <h1>Statut de l'annonce</h1>
-        <hr >
-    	<%= form_for @listing, url: {action: "update_status"} do |f| %>
-    		<div class="row">
-    			<div class="col-sm-5">
-    				<%= f.select(:listed, [['Publiée', true], ['Désactivée', false]], {}, {class: "form-control"}) %>
-    			</div>
-    		</div>
-            <br >
-    		<div>
-    			<%= f.submit "Enregistrer", class: "btn btn-primary" %>
-    		</div>
-    	<% end %>
+<div class="container-fluid">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <%= render "listing_management_sidebar" %>
+    <div class="col main pt-5 mt-3">
+      <%= render 'layouts/messages' %>
+      <h1>Statut de l'annonce</h1>
+      <hr >
+      <%= form_for @listing, url: {action: "update_status"} do |f| %>
+      <div class="row">
+        <div class="col-sm-5">
+          <%= f.select(:listed, [['Publiée', true], ['Désactivée', false]], {}, {class: "form-control"}) %>
+        </div>
+      </div>
+      <br >
+      <div>
+        <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>

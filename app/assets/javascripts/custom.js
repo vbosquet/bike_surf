@@ -39,29 +39,13 @@ $(document).on("turbolinks:load", function(){
     }, 2000);
 
     $('.date').datetimepicker({
-        format: 'LT'
+        format: 'LT',
+        locale: 'fr',
+        icons: {
+          up: "fa fa-chevron-circle-up",
+          down: "fa fa-chevron-circle-down",
+          next: 'fa fa-chevron-circle-right',
+          previous: 'fa fa-chevron-circle-left'
+        }
     });
-
-    initMap();
-    function initMap() {
-        var latitude = 0;
-        var longitude = 0;
-        if(gon.latitude != null) {
-            latitude = gon.latitude;
-        }
-
-        if(gon.longitude != null) {
-            longitude = gon.longitude;
-        }
-        
-        var position = {lat: latitude, lng: longitude};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 15,
-          center: position
-      });
-        var marker = new google.maps.Marker({
-          position: position,
-          map: map
-      });
-    }
 });

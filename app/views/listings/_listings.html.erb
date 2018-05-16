@@ -1,0 +1,25 @@
+<div class="card-columns mb-3">
+  <% listings.each do |listing| %>
+  <div class="card card-inverse">
+    <div class="card-header">
+      <% if current_user.listings.include?(listing) %>
+      <%= listing.listed? ? "Publiée" : "Désactivée" %>
+      <% else %>
+      <%= listing.title %>
+      <% end %>
+    </div>
+    <%= image_tag listing.bike.photo.url(:medium), class: "card-img-top" %>
+    <div class="card-body">
+      <% if current_user.listings.include?(listing) %><h4 class="card-title"><%= listing.title %></h4><% end %>
+      <p class="card-text">
+        Taille : <%= listing.bike.size %><br >
+        Lumières : <%= listing.bike.lights ? "Oui" : "Non" %>
+      </p>
+      <%= link_to "Aperçu", listing_path(listing), class: "card-link" %>
+      <% if user_signed_in? && current_user.listings.include?(listing) %>
+      <%= link_to "Modifier", edit_listing_path(listing), class: "card-link" %>
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+</div>

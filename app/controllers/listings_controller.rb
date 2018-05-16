@@ -27,6 +27,7 @@ class ListingsController < ApplicationController
 			flash[:success] = "Annonce créée avec succès"
 			redirect_to new_listing_pricing_path(listing)
 		else
+			flash[:error] = "Une erreur s'est produite veuillez réessayer"
 		end
 	end
 
@@ -59,13 +60,23 @@ class ListingsController < ApplicationController
 			flash[:success] = "Annonce #{@listed} avec succès"
 			redirect_to listing_edit_status_path(listing)
 		else
+			flash[:error] = "Une erreur s'est produite veuillez réessayer"
+		end
+	end
+
+	def search
+		city = params[:city]
+		if city.present?
+			@listings = Listing.joins(:location).where("locations.locality like ?", "%#{city}%").where("listings.listed = ?", true)
+		else
+			@listings = Listing.where("listings.listed = ?", true)
 		end
 	end
 
 	private
 
 	def listing_params
-		params.require(:listing).permit(:title, :description, 
+		params.require(:listing).permit(:title, :description,
 			bike_attributes: [:id, :lights, :size, :photo, :listing_id],
 			location_attributes: [:id, :street_number, :route, :locality, :postal_code]).merge(user_id: current_user.id)
 	end

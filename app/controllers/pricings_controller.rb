@@ -12,6 +12,7 @@ class PricingsController < ApplicationController
 			flash[:success] = "Informations enregistrées avec succès"
 			redirect_to new_listing_availability_path(@listing)
 		else
+			flash[:error] = "Une erreur s'est produite veuillez réessayer"
 		end
 	end
 
@@ -25,13 +26,14 @@ class PricingsController < ApplicationController
 			flash[:success] = "Informations enregistrées avec succès"
 			redirect_to edit_listing_pricing_path(listing_id: @listing.id, id: pricing.id)
 		else
+			flash[:error] = "Une erreur s'est produite veuillez réessayer"
 		end
 	end
 
 	private
 
 	def pricing_params
-		params.require(:pricing).permit(:base_price, :average_weekly, :average_monthly, 
+		params.require(:pricing).permit(:base_price, :average_weekly, :average_monthly,
 			:currency, :weekend_pricing, :security_deposit, :maintenance_fee).merge(listing_id: @listing.id)
 	end
 

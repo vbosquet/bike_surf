@@ -12,6 +12,7 @@ class AvailabilitiesController < ApplicationController
 			flash[:success] = "Informations enregistrées avec succès"
 			redirect_to listing_edit_status_path(@listing)
 		else
+			flash[:error] = "Une erreur s'est produite veuillez réessayer"
 		end
 	end
 
@@ -25,13 +26,14 @@ class AvailabilitiesController < ApplicationController
 			flash[:success] = "Informations enregistrées avec succès"
 			redirect_to edit_listing_availability_path(listing_id: @listing.id, id: availability.id)
 		else
+			flash[:error] = "Une erreur s'est produite veuillez réessayer"
 		end
 	end
 
 	private
 
 	def availability_params
-		params.require(:availability).permit(:advance_notice, :minimum_rental, :maximum_rental, 
+		params.require(:availability).permit(:advance_notice, :minimum_rental, :maximum_rental,
 			:dropoff_time, :pickup_time).merge(listing_id: @listing.id)
 	end
 
