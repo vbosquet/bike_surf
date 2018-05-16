@@ -1,0 +1,14 @@
+fr:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "Une adresse e-mail est obligatoire."
+            password:
+              blank: "Un mot de passe est obligatoire."
+            firstname:
+              blank: "Un prénom est obligatoire."
+            lastname:
+              blank: "Un nom est obligatoire."

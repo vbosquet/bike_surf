@@ -13,5 +13,6 @@ module BikeSurf
     # -- all .rb files in that directory are automatically loaded.
 
     config.time_zone = 'Brussels'
+    config.i18n.default_locale = :fr
   end
 end

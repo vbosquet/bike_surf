@@ -22,8 +22,10 @@
             </div>
           </li>
         <% else %>
-          <li><a href="#" data-toggle="modal" data-target="#signup" class="dropdown-item">Inscription</a></li>
-          <li><a href="#" data-toggle="modal" data-target="#login" class="dropdown-item">Connection</a></li>
+          <%= link_to "Inscription", new_user_registration_path, class: "dropdown-item" %>
+          <!--<li><a href="#" data-toggle="modal" data-target="#signup" class="dropdown-item">Inscription</a></li>-->
+          <%= link_to "Connexion", new_user_session_path, class: "dropdown-item" %>
+          <!--<li><a href="#" data-toggle="modal" data-target="#login" class="dropdown-item">Connection</a></li>-->
         <% end %>
     </ul>
 

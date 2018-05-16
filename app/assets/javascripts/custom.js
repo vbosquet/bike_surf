@@ -34,9 +34,9 @@ $(document).on("turbolinks:load", function(){
         });
     });
 
-    setTimeout(function() {
+    /*setTimeout(function() {
         $('.alert').fadeOut('fast');
-    }, 2000);
+    }, 2000);*/
 
     $('.date').datetimepicker({
         format: 'LT',
