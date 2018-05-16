@@ -1,0 +1,2 @@
+module Web::ListingsHelper
+end

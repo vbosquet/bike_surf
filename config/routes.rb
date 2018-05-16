@@ -9,4 +9,7 @@ Rails.application.routes.draw do
   	patch 'update_status'
   end
   get 'search', to: 'listings#search'
+  namespace :web do
+    resources :listings, only: [:index, :show]
+  end
 end

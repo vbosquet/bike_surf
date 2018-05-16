@@ -1,21 +1,11 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-3">
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <%= link_to "Modifier le profil", edit_user_registration_path, class: "nav-link active"%>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Confiance et vérification</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Commentaires</a>
-        </li>
-      </ul>
-    </div>
-    <div class="col-sm-9">
-      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+<div class="container-fluid">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <%= render "profile_sidebar" %>
+    <div class="col main pt-5 mt-3">
+      <div class="col-sm-9">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
         <%= devise_error_messages! %>
+        <%= render 'layouts/messages' %>
 
         <div class="form-group row">
           <%= f.label "Prénom", class: "col-sm-3 col-form-label" %>
@@ -41,7 +31,8 @@
         <div>
           <%= f.submit "Enregistrer", class: "btn btn-primary" %>
         </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

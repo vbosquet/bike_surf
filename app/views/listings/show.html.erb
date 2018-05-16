@@ -5,69 +5,7 @@
     <% end %>
     <div class="col main pt-5 mt-3">
       <%= render 'layouts/messages' %>
-      <div class="card card-default card-body">
-          <ul id="tabsJustified" class="nav nav-tabs nav-justified">
-              <li class="nav-item">
-                  <a class="nav-link active" href="" data-target="#tab1" data-toggle="tab">Description</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="" data-target="#tab2" data-toggle="tab">Tarif</a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link" href="" data-target="#tab3" data-toggle="tab">Disponibilité</a>
-              </li>
-          </ul>
-          <!--/tabs-->
-          <br>
-          <div id="tabsJustifiedContent" class="tab-content">
-              <div class="tab-pane active" id="tab1">
-                <div class="row">
-                    <div class="col-sm-5">
-                      <div class="card">
-                        <%= image_tag @listing.bike.photo.url(:medium), class: "card-img-top" %>
-                        <div class="card-body">
-                          <h4 class="card-title"><%= @listing.title %></h4>
-                          <p class="card-text"><%= sanitize(@listing.description) %></p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                          <li class="list-group-item">Taille : <%= @listing.bike.size.humanize if @listing.bike.size.present? %></li>
-                          <li class="list-group-item">Lumières : <%= @listing.bike.lights ? "Oui" : "Non" %></li>
-                          <!--<li class="list-group-item">Statut de l'annonce : <%= @listing.listed ? "Publiée" : "Désactivée" %></li>-->
-                        </ul>
-                      </div>
-                    </div>
-                    <div class="col-sm-7">
-                      <div id="map" class="float-right img-responsive img-rounded"></div>
-                    </div>
-                </div>
-              </div>
-              <div class="tab-pane" id="tab2">
-                <ul class="list-group">
-                  <% if @listing.pricing.present? %>
-                    <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Prix par nuit : <%= @listing.pricing.base_price %></li>
-                    <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Prix à la semaine : <%= @listing.pricing.average_weekly %></li>
-                    <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Prix au mois : <%= @listing.pricing.average_monthly %></li>
-                    <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Tarif weekend : <%= @listing.pricing.weekend_pricing %></li>
-                    <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Frais de maintenance : <%= @listing.pricing.maintenance_fee %></li>
-                    <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Caution : <%= @listing.pricing.security_deposit %></li>
-                  <% end %>
-                </ul>
-              </div>
-              <div class="tab-pane" id="tab3">
-                  <div class="list-group">
-                    <% if @listing.availability.present? %>
-                      <li class="list-group-item">Délai de réservations : <%= @listing.availability.advance_notice %></li>
-                      <li class="list-group-item">Durée minimum de location : <%= @listing.availability.minimum_rental %> jours</li>
-                      <li class="list-group-item">Durée maximum de location : <%= @listing.availability.maximum_rental %> jours</li>
-                      <li class="list-group-item">Heure de réception : <%= @listing.availability.pickup_time %></li>
-                      <li class="list-group-item">Heure de dépôt : <%= @listing.availability.dropoff_time %></li>
-                    <% end %>
-                  </div>
-              </div>
-          </div>
-          <!--/tabs content-->
-      </div><!--/card-->
-
+      <%= render 'listing_details' %>
     </div>
   </div>
 </div>

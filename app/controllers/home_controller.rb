@@ -1,5 +1,5 @@
 class HomeController < ApplicationController
   def index
-    @listings = Listing.where("listed = ?", true)
+    @cities = Location.all.map(&:locality).uniq
   end
 end

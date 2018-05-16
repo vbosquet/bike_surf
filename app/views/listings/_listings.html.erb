@@ -15,9 +15,11 @@
         Taille : <%= listing.bike.size %><br >
         Lumières : <%= listing.bike.lights ? "Oui" : "Non" %>
       </p>
-      <%= link_to "Aperçu", listing_path(listing), class: "card-link" %>
       <% if user_signed_in? && current_user.listings.include?(listing) %>
-      <%= link_to "Modifier", edit_listing_path(listing), class: "card-link" %>
+        <%= link_to "Aperçu", listing_path(listing), class: "card-link" %>
+        <%= link_to "Modifier", edit_listing_path(listing), class: "card-link" %>
+      <% else %>
+        <%= link_to "Aperçu", web_listing_path(listing), class: "card-link" %>
       <% end %>
     </div>
   </div>
