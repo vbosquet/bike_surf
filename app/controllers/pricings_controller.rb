@@ -7,12 +7,13 @@ class PricingsController < ApplicationController
 	end
 
 	def create
-		pricing = Pricing.new(pricing_params)
-		if pricing.save
+		@pricing = Pricing.new(pricing_params)
+		if @pricing.save
 			flash[:success] = "Informations enregistrées avec succès"
 			redirect_to new_listing_availability_path(@listing)
 		else
-			flash[:error] = "Une erreur s'est produite veuillez réessayer"
+			flash.now[:error] = @pricing.errors.values
+			render 'new'
 		end
 	end
 
@@ -21,12 +22,13 @@ class PricingsController < ApplicationController
 	end
 
 	def update
-		pricing = Pricing.find(params[:id])
-		if pricing.update_attributes(pricing_params)
+		@pricing = Pricing.find(params[:id])
+		if @pricing.update_attributes(pricing_params)
 			flash[:success] = "Informations enregistrées avec succès"
-			redirect_to edit_listing_pricing_path(listing_id: @listing.id, id: pricing.id)
+			redirect_to edit_listing_pricing_path(listing_id: @listing.id, id: @pricing.id)
 		else
-			flash[:error] = "Une erreur s'est produite veuillez réessayer"
+			flash.now[:error] = @pricing.errors.values
+			render 'edit'
 		end
 	end
 

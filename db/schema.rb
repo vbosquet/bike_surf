@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171020082846) do
+ActiveRecord::Schema.define(version: 20180607093952) do
 
   create_table "availabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "advance_notice"
+    t.integer  "advance_notice",              default: 0
     t.string   "maximum_advance_notice_time"
-    t.integer  "minimum_rental"
-    t.integer  "maximum_rental"
-    t.string   "dropoff_time"
-    t.string   "pickup_time"
+    t.integer  "minimum_rental",              default: 1
+    t.integer  "maximum_rental",              default: 1
+    t.string   "dropoff_time",                default: "00:00"
+    t.string   "pickup_time",                 default: "00:00"
     t.integer  "listing_id"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
   end
 
   create_table "bikes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -34,6 +34,16 @@ ActiveRecord::Schema.define(version: 20171020082846) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+  end
+
+  create_table "bookings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "user_id"
+    t.integer  "listing_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.float    "total_price", limit: 24
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "listings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -59,16 +69,16 @@ ActiveRecord::Schema.define(version: 20171020082846) do
   end
 
   create_table "pricings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "base_price"
-    t.integer  "average_weekly"
-    t.integer  "average_monthly"
+    t.integer  "base_price",       default: 0
+    t.integer  "average_weekly",   default: 0
+    t.integer  "average_monthly",  default: 0
     t.string   "currency"
-    t.integer  "weekend_pricing"
-    t.integer  "security_deposit"
-    t.integer  "maintenance_fee"
+    t.integer  "weekend_pricing",  default: 0
+    t.integer  "security_deposit", default: 0
+    t.integer  "maintenance_fee",  default: 0
     t.integer  "listing_id"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

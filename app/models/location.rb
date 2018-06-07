@@ -3,6 +3,8 @@ class Location < ApplicationRecord
 	geocoded_by :address
 	after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed?}
 
+	validates :route, :postal_code, :locality, :country_code, presence: true
+	
 	def address
 		[self.street_number, self.route, self.postal_code, self.locality, self.country_code].compact.join(', ')
 	end

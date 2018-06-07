@@ -22,12 +22,13 @@ class ListingsController < ApplicationController
 	end
 
 	def create
-		listing = Listing.new(listing_params)
-		if listing.save
+		@listing = Listing.new(listing_params)
+		if @listing.save
 			flash[:success] = "Annonce créée avec succès"
-			redirect_to new_listing_pricing_path(listing)
+			redirect_to new_listing_pricing_path(@listing)
 		else
-			flash[:error] = "Une erreur s'est produite veuillez réessayer"
+			flash.now[:error] = @listing.errors.values
+			render 'new'
 		end
 	end
 
@@ -36,12 +37,13 @@ class ListingsController < ApplicationController
 	end
 
 	def update
-		listing = Listing.find(params[:id])
-		if listing.update_attributes(listing_params)
+		@listing = Listing.find(params[:id])
+		if @listing.update_attributes(listing_params)
 			flash[:success] = "Annonce modifiée avec succès"
-			redirect_to edit_listing_path(listing)
+			redirect_to edit_listing_path(@listing)
 		else
-			flash[:error] = "Une erreur s'est produite veuillez réessayer"
+			flash.now[:error] = @listing.errors.values
+			render 'edit'
 		end
 	end
 

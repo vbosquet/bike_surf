@@ -1,6 +1,8 @@
 class Pricing < ApplicationRecord
 	belongs_to :listing
 
+	validates :currency, presence: true
+
 	def self.all_currencies
 		currencies = []
 		Money::Currency.table.values.each do |currency|

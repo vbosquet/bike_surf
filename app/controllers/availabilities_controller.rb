@@ -7,12 +7,13 @@ class AvailabilitiesController < ApplicationController
 	end
 
 	def create
-		availability = Availability.new(availability_params)
-		if availability.save
+		@availability = Availability.new(availability_params)
+		if @availability.save
 			flash[:success] = "Informations enregistrées avec succès"
 			redirect_to listing_edit_status_path(@listing)
 		else
-			flash[:error] = "Une erreur s'est produite veuillez réessayer"
+			flash.now[:error] = @availability.errors.values
+			render 'new'
 		end
 	end
 
@@ -21,12 +22,13 @@ class AvailabilitiesController < ApplicationController
 	end
 
 	def update
-		availability = Availability.find(params[:id])
-		if availability.update_attributes(availability_params)
+		@availability = Availability.find(params[:id])
+		if @availability.update_attributes(availability_params)
 			flash[:success] = "Informations enregistrées avec succès"
-			redirect_to edit_listing_availability_path(listing_id: @listing.id, id: availability.id)
+			redirect_to edit_listing_availability_path(listing_id: @listing.id, id: @availability.id)
 		else
-			flash[:error] = "Une erreur s'est produite veuillez réessayer"
+			flash.now[:error] = @availability.errors.values
+			render 'edit'
 		end
 	end
 

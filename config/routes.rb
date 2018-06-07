@@ -12,4 +12,7 @@ Rails.application.routes.draw do
   namespace :web do
     resources :listings, only: [:index, :show]
   end
+  get '/bookings/resume', to: "bookings#resume"
+  get '/bookings/calculate', to: "bookings#calculate"
+  resources :bookings
 end

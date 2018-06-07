@@ -12,3 +12,29 @@ fr:
               blank: "Un prénom est obligatoire."
             lastname:
               blank: "Un nom est obligatoire."
+        listing:
+          attributes:
+            title:
+              blank: "Un titre est obligatoire."
+            description:
+              blank: "Une description est obligatoire."
+        location:
+          attributes:
+            route:
+              blank: "Le nom d'une rue est obligatoire."
+            postal_code:
+              blank: "Un code postal est obligatoire."
+            locality:
+              blank: "Le nom d'une ville est obligatoire."
+            country_code:
+              blank: "La mention du pays est obligatoire."
+        bike:
+          attributes:
+            size:
+              blank: "La taille du vélo est obligatoire."
+            photo:
+              blank: "Une photo du vélo est obligatoire."
+        pricing:
+          attributes:
+            currency:
+              blank: "Une devise est obligatoire."
