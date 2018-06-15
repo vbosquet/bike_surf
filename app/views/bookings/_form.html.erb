@@ -1,0 +1,27 @@
+<%= form_for @booking do |f| %>
+  <%= f.hidden_field :listing_id, value: @listing.id , id: "listingId" %>
+  <%= f.hidden_field :total_price, id: "totalPrice" %>
+  <div class="row">
+    <div class="form-group col-sm-7">
+      <label>Jour d'arrivée :</label>
+      <div class='input-group date'>
+        <%= f.text_field :start_date, class: "form-control" %>
+        <div class="input-group-addon">
+          <span class="fa fa-calendar"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="form-group col-sm-7">
+      <label>Jour de départ :</label>
+      <div class='input-group date'>
+        <%= f.text_field :end_date, class: "form-control" %>
+        <span class="input-group-addon">
+          <span class="fa fa-calendar"></span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <%= f.submit "Confirmer la réservation", class: "btn btn-primary bookingButton" %>
+<% end %>

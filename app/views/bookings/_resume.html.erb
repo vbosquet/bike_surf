@@ -1,7 +1,9 @@
-<div class="form-group col-sm-7 resume">
-  <ul class="list-group">
-    <li class="list-group-item">Durée de la location : <%= days.round %> jours</li>
-    <li class="list-group-item">Prix par nuit : <%= listing.pricing.base_price %> <%= listing.pricing.currency %></li>
-    <li class="list-group-item">Prix total : <%= total_price %> <%= listing.pricing.currency %></li>
-  </ul>
+<div class="row resume">
+  <div class="form-group col-sm-7">
+    <ul class="list-group">
+      <li class="list-group-item">Durée de la location : <%= @days.round %> jours</li>
+      <li class="list-group-item">Prix par nuit : <%= @listing.pricing.base_price %> <%= @listing.pricing.currency %></li>
+      <li class="list-group-item">Prix total : <%= @total_price %> <%= @listing.pricing.currency %></li>
+    </ul>
+  </div>
 </div>

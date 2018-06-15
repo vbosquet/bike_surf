@@ -1,39 +1,10 @@
-<div class="container-fluid">
+<div class="container">
   <div class="row row-offcanvas row-offcanvas-left">
-    <%= render "sidebar" %>
     <div class="col main pt-5 mt-3">
       <%= render 'layouts/messages' %>
       <h1>Nouvelle réservation</h1>
       <hr >
-    	<%= form_for @booking do |f| %>
-
-        <%= f.hidden_field :listing_id, value: @listing.id , id: "listingId" %>
-        <%= f.hidden_field :total_price, id: "totalPrice" %>
-
-        <div class="form-group col-sm-7">
-          <label>Jour d'arrivée :</label>
-          <div class='input-group date' id='startDate'>
-            <%= f.text_field :start_date, class: "form-control" %>
-            <span class="input-group-addon">
-              <span class="fa fa-calendar"></span>
-            </span>
-          </div>
-        </div>
-
-        <div class="form-group col-sm-7">
-          <label>Jour de départ :</label>
-          <div class='input-group date' id='endDate'>
-            <%= f.text_field :end_date, class: "form-control" %>
-            <span class="input-group-addon">
-              <span class="fa fa-calendar"></span>
-            </span>
-          </div>
-        </div>
-
-    		<div>
-    			<%= f.submit "Confirmer la réservation", class: "btn btn-primary bookingButton" %>
-    		</div>
-    	<% end %>
+      <%= render 'form' %>
     </div>
   </div>
 </div>

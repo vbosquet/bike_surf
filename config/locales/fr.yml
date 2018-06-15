@@ -38,3 +38,19 @@ fr:
           attributes:
             currency:
               blank: "Une devise est obligatoire."
+        booking:
+          attributes:
+            start_date:
+              blank: "Une date de début est obligatoire."
+            end_date:
+              blank: "Une date de départ est obligatoire."
+        availability:
+          attributes:
+            minimum_rental:
+              blank: "Une durée minimum de location est requise."
+            maximum_rental:
+              blank: "Une durée maximum de locatin est requise."
+            dropoff_time:
+              blank: "Une heure de dépôt est requise."
+            pickup_time:
+              blank: "Une heure de réception est requise."

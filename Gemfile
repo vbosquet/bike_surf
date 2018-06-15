@@ -48,6 +48,7 @@ gem 'ransack', "~> 1.8.8"
 gem 'ckeditor', '~> 4.2.4'
 gem 'country_select', "~> 3.1.1"
 gem 'time_difference', "~> 0.5.0"
+gem 'countries', "~> 2.1.4"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

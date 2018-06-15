@@ -3,6 +3,23 @@ class BookingsController < ApplicationController
   before_action :calculate_booking_data, only: [:calculate, :resume]
 
   def index
+    case params[:type]
+    when "upcoming"
+      @bookings = current_user.bookings.upcoming
+      @title = "Locations à venir"
+    when "past"
+      @bookings = current_user.bookings.past
+      @title = "Anciennes locations"
+    end
+
+    if request.xhr?
+      render partial: 'bookings'
+    end
+  end
+
+  def show
+    @booking = Booking.find(params[:id])
+    @days = TimeDifference.between(@booking.start_date, @booking.end_date).in_days
   end
 
   def new
@@ -11,12 +28,20 @@ class BookingsController < ApplicationController
   end
 
   def create
-    booking = Booking.new(booking_params)
-    if booking.save
+    @booking = Booking.new(booking_params)
+    @listing = Listing.find(params[:booking][:listing_id])
+
+    if current_user.listings.include?(@listing)
+      flash.now[:error] = "Vous ne pouvez pas réserver un vélo qui vous appartient déjà."
+      render 'new'
+    end and return
+
+    if @booking.save
       flash[:success] = "Votre réservation a été enregistrée avec succès."
-			redirect_to web_listing_path(booking.listing)
+			redirect_to web_listing_path(@booking.listing)
     else
-      flash[:error] = "Une erreur s'est produite veuillez réessayer"
+      flash.now[:error] = @booking.errors.values
+      render 'new'
     end
   end
 
@@ -26,7 +51,7 @@ class BookingsController < ApplicationController
 
   def resume
     if request.xhr?
-			render partial: 'resume', locals: {listing: @listing, days: @days, total_price: @total_price}
+			render partial: 'resume'
 		end
 
   end

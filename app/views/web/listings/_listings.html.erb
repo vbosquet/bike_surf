@@ -2,17 +2,16 @@
   <% listings.each do |listing| %>
   <div class="card card-inverse">
     <div class="card-header">
-      <%= listing.listed? ? "Publiée" : "Désactivée" %>
+      <%= listing.title %>
     </div>
     <%= image_tag listing.bike.photo.url(:medium), class: "card-img-top" %>
     <div class="card-body">
-      <h4 class="card-title"><%= listing.title %></h4>
       <p class="card-text">
         Taille : <%= listing.bike.size %><br >
         Lumières : <%= listing.bike.lights ? "Oui" : "Non" %>
       </p>
-      <%= link_to "Aperçu", listing_path(listing), class: "card-link" %>
-      <%= link_to "Modifier", edit_listing_path(listing), class: "card-link" %>
+      <%= link_to "Aperçu", web_listing_path(listing), class: "card-link" %>
+      <%= link_to "Réserver", new_booking_path(listing_id: listing.id), class: "card-link" %>
     </div>
   </div>
   <% end %>

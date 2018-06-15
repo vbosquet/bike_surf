@@ -15,7 +15,7 @@
               <%= link_to "Créer une annonce", new_listing_path, class: "dropdown-item" %>
             </div>
           </li>
-          <li class="nav-item"><%= link_to "Locations", bookings_path, class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Locations", bookings_path(type: "upcoming"), class: "nav-link" %></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Paramètres</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -25,9 +25,7 @@
           </li>
         <% else %>
           <%= link_to "Inscription", new_user_registration_path, class: "dropdown-item" %>
-          <!--<li><a href="#" data-toggle="modal" data-target="#signup" class="dropdown-item">Inscription</a></li>-->
           <%= link_to "Connexion", new_user_session_path, class: "dropdown-item" %>
-          <!--<li><a href="#" data-toggle="modal" data-target="#login" class="dropdown-item">Connection</a></li>-->
         <% end %>
     </ul>
 

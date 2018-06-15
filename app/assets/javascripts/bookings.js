@@ -1,5 +1,26 @@
 var ready = function () {
 
+  var displayBookings = function(event) {
+    var bookingsDiv = $('.bookings');
+    var bookingsType = $(this).data('type');
+
+    $.ajax({
+      type: "GET",
+      url: '/bookings?type='+bookingsType,
+      dataType: 'html',
+      success: function(xhr, statusText) {
+        $(bookingsDiv).empty();
+        $(bookingsDiv).html(xhr);
+      },
+      error: function(response) {
+        console.log(response.status);
+      }
+    });
+
+    event.preventDefault();
+
+  };
+
   var displayTotalPrice = function(event) {
     var listingId = $("#listingId").val();
     var button = $(".bookingButton");
@@ -57,7 +78,8 @@ var ready = function () {
     displayTotalPrice(event);
     calculateTotalPrice(event);
   });
-}
 
+  $('#upcomingBookings, #pastBookings').on('click', displayBookings);
+}
 
 $(document).on("turbolinks:load", ready);

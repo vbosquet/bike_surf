@@ -7,7 +7,7 @@
       <hr />
       <%= form_for [@listing, @pricing] do |f| %>
       <div class="row">
-        <div class="col-sm-5">
+        <div class="form-group col-sm-5">
           <label>Devise :</label>
           <%= f.select(:currency, Pricing.all_currencies, {prompt: 'Choisissez'}, {class: "form-control"})%>
         </div>
@@ -16,7 +16,7 @@
       <h3>Prix par nuit</h1>
         <hr />
         <div class="row">
-          <div class="col-sm-7">
+          <div class="form-group col-sm-7">
             <label>Prix de base :</label>
             <%= f.text_field :base_price, class: "form-control" %>
           </div>
@@ -25,14 +25,13 @@
         <h3>Prix en fonction de la durée du séjour</h1>
           <hr />
           <div class="row">
-            <div class="col-sm-7">
+            <div class="form-group col-sm-7">
               <label>Prix à la semaine :</label>
               <%= f.text_field :average_weekly, class: "form-control" %>
             </div>
           </div>
-          <br >
           <div class="row">
-            <div class="col-sm-7">
+            <div class="form-group col-sm-7">
               <label>Prix au mois :</label>
               <%= f.text_field :average_monthly, class: "form-control" %>
             </div>
@@ -41,21 +40,19 @@
           <h3>Frais supplémentaires</h1>
             <hr />
             <div class="row">
-              <div class="col-sm-7">
+              <div class="form-group col-sm-7">
                 <label>Frais de maintenance :</label>
                 <%= f.text_field :maintenance_fee, class: "form-control" %>
               </div>
             </div>
-            <br >
             <div class="row">
-              <div class="col-sm-7">
+              <div class="form-group col-sm-7">
                 <label>Caution :</label>
                 <%= f.text_field :security_deposit, class: "form-control" %>
               </div>
             </div>
-            <br >
             <div class="row">
-              <div class="col-sm-7">
+              <div class="form-group col-sm-7">
                 <label>Tarif weekend :</label>
                 <%= f.text_field :weekend_pricing, class: "form-control" %>
               </div>

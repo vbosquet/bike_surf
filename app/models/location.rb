@@ -4,7 +4,7 @@ class Location < ApplicationRecord
 	after_validation :geocode, if: ->(obj){ obj.address.present? and obj.address_changed?}
 
 	validates :route, :postal_code, :locality, :country_code, presence: true
-	
+
 	def address
 		[self.street_number, self.route, self.postal_code, self.locality, self.country_code].compact.join(', ')
 	end
@@ -13,4 +13,12 @@ class Location < ApplicationRecord
 		attrs = %w(street_number route postal_code locality country_code)
 		attrs.any?{|a| send "#{a}_changed?"}
 	end
+
+	def country_name
+		if country_code.present?
+			country = ISO3166::Country.new(country_code)
+	    country.translations[I18n.locale.to_s] || country.name
+		end
+  end
+
 end

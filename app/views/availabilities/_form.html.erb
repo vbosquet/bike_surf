@@ -7,7 +7,7 @@
         <%= form_for [@listing, @availability] do |f| %>
           <hr />
           <div class="row">
-            <div class="col-sm-7">
+            <div class="form-group col-sm-7">
               <label>Délai de réservation :</label>
               <%= f.select(:advance_notice, Availability.advance_notices.keys, {prompt: 'Choisissez'}, {class: "form-control"})%>
             </div>
@@ -16,52 +16,30 @@
           <h3>Durée de la location</h1>
             <hr />
             <div class="row">
-              <div class="col-sm-7">
+              <div class="form-group col-sm-7">
                 <label>Durée minimum de location :</label>
-                <div class="input-group">
-                  <%= f.number_field :minimum_rental, min: 1, class: "form-control" %>
-                  <span class="input-group-addon">jours</span>
-                </div>
+                <%= f.number_field :minimum_rental, min: 1, class: "form-control" %>
               </div>
             </div>
-            <br>
             <div class="row">
-              <div class="col-sm-7">
+              <div class="form-group col-sm-7">
                 <label>Durée maximum de location :</label>
-                <div class="input-group">
-                  <%= f.number_field :maximum_rental, min: 1, class: "form-control" %>
-                  <span class="input-group-addon">jours</span>
-                </div>
+                <%= f.number_field :maximum_rental, min: 1, class: "form-control" %>
               </div>
             </div>
             <br >
             <h3>Réception et dépôt</h1>
               <hr />
               <div class="row">
-                <div class="col-sm-7">
+                <div class="form-group col-sm-7">
                   <label>Heure de réception :</label>
-                  <div class="form-group">
-                    <div class='input-group time' id='pickup_time'>
-                      <%= f.text_field :pickup_time, class: "form-control" %>
-                      <span class="input-group-addon">
-                        <span class="fa fa-clock-o"></span>
-                      </span>
-                    </div>
-                  </div>
+                  <%= f.text_field :pickup_time, class: "form-control time" %>
                 </div>
               </div>
-              <br >
               <div class="row">
-                <div class="col-sm-7">
+                <div class="form-group col-sm-7">
                   <label>Heure de dépôt :</label>
-                  <div class="form-group">
-                    <div class='input-group time' id='dropoff_time'>
-                      <%= f.text_field :dropoff_time, class: "form-control" %>
-                      <span class="input-group-addon">
-                        <span class="fa fa-clock-o"></span>
-                      </span>
-                    </div>
-                  </div>
+                  <%= f.text_field :dropoff_time, class: "form-control time" %>
                 </div>
               </div>
               <br >
