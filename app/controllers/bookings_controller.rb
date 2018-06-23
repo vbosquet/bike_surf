@@ -1,4 +1,5 @@
 class BookingsController < ApplicationController
+  include ApplicationHelper
   before_action :authenticate_user!
   before_action :calculate_booking_data, only: [:calculate, :resume]
 
@@ -10,6 +11,9 @@ class BookingsController < ApplicationController
     when "past"
       @bookings = current_user.bookings.past
       @title = "Anciennes locations"
+    when "current"
+      @bookings = current_user.bookings.current
+      @title = "Locations en cours"
     end
 
     if request.xhr?
@@ -19,12 +23,16 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:id])
-    @days = TimeDifference.between(@booking.start_date, @booking.end_date).in_days
+    listing = @booking.listing
+    previous_bookings = listing.bookings.where("created_at < ?", @booking.created_at)
+    disabled_dates = previous_bookings.dates.select { |d| d >= @booking.start_date && d <= @booking.end_date}.uniq
+    @days = time_difference(@booking.start_date, @booking.end_date) - disabled_dates.size
   end
 
   def new
     @booking = Booking.new
     @listing = Listing.find(params[:listing_id])
+    gon.disabled_dates = @listing.bookings.dates
   end
 
   def create
@@ -63,9 +71,15 @@ class BookingsController < ApplicationController
 	end
 
   def calculate_booking_data
+    start_date = params[:start_date]
+    end_date = params[:end_date]
+
     @listing = Listing.find(params[:listing_id])
-    @days = TimeDifference.between(Time.parse(params[:start_date]), Time.parse(params[:end_date])).in_days
-    @total_price = @days * @listing.pricing.base_price
+    if start_date.present? && end_date.present?
+      disabled_dates = @listing.bookings.dates.select { |d| d >= Time.parse(start_date) && d <= Time.parse(end_date)}.uniq
+      @days = time_difference(start_date, end_date) - disabled_dates.size
+      @total_price = @days * @listing.pricing.base_price
+    end
   end
 
 end

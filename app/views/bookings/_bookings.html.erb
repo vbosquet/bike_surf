@@ -2,23 +2,25 @@
 <hr >
 
 <% if @bookings.present? %>
-  <div class="card-columns mb-3">
-    <% @bookings.each do |booking| %>
-      <div class="card card-inverse">
-        <div class="card-header">
-          <%= booking.listing.location.locality %>
+    <% @bookings.each_slice(3) do |bookings| %>
+      <div class="card-deck" style="margin-bottom: 15px">
+        <% bookings.each do |booking| %>
+        <div class="card card-inverse" style="max-width: 22rem;">
+          <div class="card-header">
+            <%= booking.listing.location.locality %>
+          </div>
+          <%= image_tag booking.listing.bike.photo.url(:medium), class: "card-img-top" %>
+          <div class="card-body">
+            <h4 class="card-title"><%= booking.listing.title %></h4>
+            <p class="card-text">
+              Du <%= booking.start_date.strftime("%d/%m/%Y") %> au <%= booking.end_date.strftime("%d/%m/%Y") %>
+            </p>
+            <%= link_to "Voir le reçu", booking_path(booking), class: "card-link" %>
+          </div>
         </div>
-        <%= image_tag booking.listing.bike.photo.url(:medium), class: "card-img-top" %>
-        <div class="card-body">
-          <h4 class="card-title"><%= booking.listing.title %></h4>
-          <p class="card-text">
-            Du <%= booking.start_date.strftime("%d/%m/%Y") %> au <%= booking.end_date.strftime("%d/%m/%Y") %>
-          </p>
-          <%= link_to "Voir le reçu", booking_path(booking), class: "card-link" %>
-        </div>
+        <% end %>
       </div>
     <% end %>
-</div>
 <% else %>
   <p>Aucune</p>
 <% end %>

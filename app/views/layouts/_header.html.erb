@@ -15,7 +15,7 @@
               <%= link_to "Créer une annonce", new_listing_path, class: "dropdown-item" %>
             </div>
           </li>
-          <li class="nav-item"><%= link_to "Locations", bookings_path(type: "upcoming"), class: "nav-link" %></li>
+          <li class="nav-item"><%= link_to "Locations", bookings_path(type: "current"), class: "nav-link" %></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Paramètres</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

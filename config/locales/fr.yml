@@ -1,5 +1,12 @@
 fr:
   activerecord:
+    attributes:
+      booking:
+        statuses:
+          pending: "En attente d'acceptation"
+          accepted: "Acceptée"
+          refused: "Refusée"
+          canceled: "Annulée"
     errors:
       models:
         user:
@@ -38,6 +45,18 @@ fr:
           attributes:
             currency:
               blank: "Une devise est obligatoire."
+            base_price:
+              blank: "Un prix de base est requis."
+            average_weekly:
+              blank: "Un prix à la semaine est requis."
+            average_monthly:
+              blank: "Un prix au mois est requis."
+            weekend_pricing:
+              blank: "Un tarif weekend est requis."
+            maintenance_fee:
+              blank: "Des frais de maintenance sont obligatoires."
+            security_deposit:
+              blank: "Une caution est obligatoire."
         booking:
           attributes:
             start_date:

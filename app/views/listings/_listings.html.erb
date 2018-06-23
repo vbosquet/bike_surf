@@ -1,6 +1,7 @@
-<div class="card-columns mb-3">
+<% @listings.each_slice(3) do |listings| %>
+<div class="card-deck" style="margin-bottom: 15px">
   <% listings.each do |listing| %>
-  <div class="card card-inverse">
+  <div class="card card-inverse" style="max-width: 22rem;">
     <div class="card-header">
       <%= listing.listed? ? "Publiée" : "Désactivée" %>
     </div>
@@ -17,3 +18,4 @@
   </div>
   <% end %>
 </div>
+<% end %>

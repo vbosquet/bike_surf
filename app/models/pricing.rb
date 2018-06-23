@@ -1,7 +1,8 @@
 class Pricing < ApplicationRecord
 	belongs_to :listing
 
-	validates :currency, presence: true
+	validates :currency, :base_price, :average_weekly, :average_monthly, :weekend_pricing,
+		:security_deposit, :maintenance_fee, presence: true
 
 	def self.all_currencies
 		currencies = []

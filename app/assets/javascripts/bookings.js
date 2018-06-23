@@ -64,22 +64,38 @@ var ready = function () {
     event.preventDefault();
   };
 
+  var convertDates = function(dates) {
+    var converted_dates = [];
+    $.each(dates, function(index, value) {
+      converted_dates.push(moment(value));
+    });
+    return converted_dates;
+  }
+
   $('.date').datetimepicker({
     format: 'L',
     locale: 'fr',
-    defaultDate: Date.now(),
+    minDate: Date.now(),
+    disabledDates: convertDates(gon.disabled_dates),
     icons: {
       next: "fa fa-chevron-circle-right",
       previous: "fa fa-chevron-circle-left"
     }
   });
 
-  $('#endDate, #startDate').on('dp.change', function(event) {
+  $('#startDate').on('dp.change', function(event) {
+    $('#endDate').data("DateTimePicker").minDate(event.date);
     displayTotalPrice(event);
     calculateTotalPrice(event);
   });
 
-  $('#upcomingBookings, #pastBookings').on('click', displayBookings);
+  $('#endDate').on('dp.change', function(event) {
+    $('#startDate').data("DateTimePicker").maxDate(event.date);
+    displayTotalPrice(event);
+    calculateTotalPrice(event);
+  });
+
+  $('#upcomingBookings, #pastBookings, #currentBookings').on('click', displayBookings);
 }
 
 $(document).on("turbolinks:load", ready);

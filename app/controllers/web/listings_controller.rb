@@ -1,8 +1,8 @@
 class Web::ListingsController < ApplicationController
 
   def index
-    city = params[:city]
-    @listings = Listing.joins(:location).where("listings.listed = ? and locations.locality = ?", true, city).distinct
+    @city = params[:city]
+    @listings = Listing.joins(:location).where("listings.listed = ? and locations.locality = ?", true, @city).distinct
   end
 
   def show

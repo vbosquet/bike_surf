@@ -1,10 +1,13 @@
 <div class="col-md-3 col-lg-2 sidebar-offcanvas pl-0" id="sidebar" role="navigation">
     <ul class="nav flex-column sticky-top pl-0 pt-5 mt-3">
       <li class="nav-item">
+        <%= link_to "Locations en cours", "#", class: "nav-link", id: "currentBookings", data: {type: "current"} %>
+      </li>
+      <li class="nav-item">
         <%= link_to "Locations à venir", "#", class: "nav-link", id: "upcomingBookings", data: {type: "upcoming"} %>
       </li>
       <li class="nav-item">
-        <%= link_to "Anciennes locations", "#", class: "nav-link", id: "pastBookings", data: {type: "past"} %>
+        <%= link_to "Anciennes location", "#", class: "nav-link", id: "pastBookings", data: {type: "past"} %>
       </li>
     </ul>
 </div>

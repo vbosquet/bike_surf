@@ -1,18 +1,20 @@
-<div class="card-columns mb-3">
-  <% listings.each do |listing| %>
-  <div class="card card-inverse">
-    <div class="card-header">
-      <%= listing.title %>
+<% @listings.each_slice(3) do |listings| %>
+  <div class="card-deck" style="margin-bottom: 15px">
+    <% listings.each do |listing| %>
+    <div class="card card-inverse" style="max-width: 22rem;">
+      <div class="card-header">
+        <%= listing.title %>
+      </div>
+      <%= image_tag listing.bike.photo.url(:medium), class: "card-img-top" %>
+      <div class="card-body">
+        <p class="card-text">
+          Taille : <%= listing.bike.size %><br >
+          Lumières : <%= listing.bike.lights ? "Oui" : "Non" %>
+        </p>
+        <%= link_to "Aperçu", web_listing_path(listing), class: "card-link" %>
+        <%= link_to "Réserver", new_booking_path(listing_id: listing.id), class: "card-link" %>
+      </div>
     </div>
-    <%= image_tag listing.bike.photo.url(:medium), class: "card-img-top" %>
-    <div class="card-body">
-      <p class="card-text">
-        Taille : <%= listing.bike.size %><br >
-        Lumières : <%= listing.bike.lights ? "Oui" : "Non" %>
-      </p>
-      <%= link_to "Aperçu", web_listing_path(listing), class: "card-link" %>
-      <%= link_to "Réserver", new_booking_path(listing_id: listing.id), class: "card-link" %>
-    </div>
+    <% end %>
   </div>
-  <% end %>
-</div>
+<% end %>

@@ -15,7 +15,7 @@
     <div id="tabsJustifiedContent" class="tab-content">
         <div class="tab-pane active" id="tab1">
           <div class="row">
-              <div class="col-sm-5">
+              <div class="col-sm-5" style="margin-bottom: 15px">
                 <div class="card">
                   <%= image_tag @listing.bike.photo.url(:medium), class: "card-img-top" %>
                   <div class="card-body">
@@ -37,7 +37,7 @@
         <div class="tab-pane" id="tab2">
           <ul class="list-group">
             <% if @listing.pricing.present? %>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Prix par nuit : <%= @listing.pricing.base_price %></li>
+              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Prix par jour : <%= @listing.pricing.base_price %></li>
               <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Prix à la semaine : <%= @listing.pricing.average_weekly %></li>
               <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Prix au mois : <%= @listing.pricing.average_monthly %></li>
               <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Tarif weekend : <%= @listing.pricing.weekend_pricing %></li>
