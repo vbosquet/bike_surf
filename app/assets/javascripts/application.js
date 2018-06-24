@@ -15,6 +15,7 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require moment
+//= require fullcalendar
 //= require moment/fr.js
 //= require bootstrap-datetimepicker
 //= require jquery_ujs

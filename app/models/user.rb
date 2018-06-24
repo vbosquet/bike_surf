@@ -7,4 +7,9 @@ class User < ApplicationRecord
 
   has_many :listings, dependent: :destroy
   has_many :bookings
+
+  def full_name
+    [self.firstname, self.lastname].compact.join(' ')
+  end
+
 end

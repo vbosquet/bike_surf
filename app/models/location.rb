@@ -21,4 +21,12 @@ class Location < ApplicationRecord
 		end
   end
 
+	def address_line_1
+		[self.street_number, self.route].compact.join(', ')
+	end
+
+	def address_line_2
+		[self.postal_code, self.locality].compact.join(', ')
+	end
+
 end

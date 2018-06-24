@@ -71,12 +71,12 @@ class BookingsController < ApplicationController
 	end
 
   def calculate_booking_data
-    start_date = params[:start_date]
-    end_date = params[:end_date]
-
+    start_date = Time.parse(params[:start_date]) rescue nil
+    end_date = Time.parse(params[:end_date]) rescue nil
     @listing = Listing.find(params[:listing_id])
+
     if start_date.present? && end_date.present?
-      disabled_dates = @listing.bookings.dates.select { |d| d >= Time.parse(start_date) && d <= Time.parse(end_date)}.uniq
+      disabled_dates = @listing.bookings.dates.select { |d| d >= start_date && d <= end_date}.uniq
       @days = time_difference(start_date, end_date) - disabled_dates.size
       @total_price = @days * @listing.pricing.base_price
     end

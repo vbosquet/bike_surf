@@ -37,23 +37,23 @@
         <div class="tab-pane" id="tab2">
           <ul class="list-group">
             <% if @listing.pricing.present? %>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Prix par jour : <%= @listing.pricing.base_price %></li>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Prix à la semaine : <%= @listing.pricing.average_weekly %></li>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Prix au mois : <%= @listing.pricing.average_monthly %></li>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Tarif weekend : <%= @listing.pricing.weekend_pricing %></li>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Frais de maintenance : <%= @listing.pricing.maintenance_fee %></li>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Caution : <%= @listing.pricing.security_deposit %></li>
+              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.base_price %> <%= @listing.pricing.currency %></span> Prix par jour :</li>
+              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.average_weekly %> <%= @listing.pricing.currency %></span> Prix à la semaine :</li>
+              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.average_monthly %> <%= @listing.pricing.currency %></span> Prix au mois :</li>
+              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.weekend_pricing %> <%= @listing.pricing.currency %></span> Tarif weekend :</li>
+              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.maintenance_fee %> <%= @listing.pricing.currency %></span> Frais de maintenance :</li>
+              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.security_deposit %> <%= @listing.pricing.currency %></span> Caution :</li>
             <% end %>
           </ul>
         </div>
         <div class="tab-pane" id="tab3">
             <div class="list-group">
               <% if @listing.availability.present? %>
-                <li class="list-group-item">Délai de réservations : <%= @listing.availability.advance_notice %></li>
-                <li class="list-group-item">Durée minimum de location : <%= @listing.availability.minimum_rental %> jours</li>
-                <li class="list-group-item">Durée maximum de location : <%= @listing.availability.maximum_rental %> jours</li>
-                <li class="list-group-item">Heure de réception : <%= @listing.availability.pickup_time %></li>
-                <li class="list-group-item">Heure de dépôt : <%= @listing.availability.dropoff_time %></li>
+                <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.availability.advance_notice %></span>Délai de réservations :</li>
+                <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.availability.minimum_rental %> jour(s)</span>Durée minimum de location :</li>
+                <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.availability.maximum_rental %> jour(s)</span>Durée maximum de location :</li>
+                <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.availability.pickup_time %></span>Heure de réception :</li>
+                <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.availability.dropoff_time %></span>Heure de dépôt :</li>
               <% end %>
             </div>
         </div>
