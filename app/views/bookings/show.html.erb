@@ -4,35 +4,45 @@
       <%= render 'layouts/messages' %>
       <h3>Location de <%= @days.round %> jours à <%= @booking.listing.location.locality %>, <%= @booking.listing.location.country_name %></h3>
       <hr >
-      <div class="row" style="margin-bottom: 15px">
+      <div class="row" style="margin-bottom: 25px">
         <div class="col">Réservée le <%= @booking.created_at.strftime("%d/%m/%Y") %></div>
-        <div class=" col text-right"><%= Booking.human_enum_name(:status, @booking.status) %></div>
+        <div class="col text-right"><%= Booking.human_enum_name(:status, @booking.status) %></div>
       </div>
-      <div class="row" style="margin-bottom: 15px">
-        <div class="border">
-          <h5><%= @booking.listing.title %></h5>
-          <p>
-            <%= @booking.listing.location.address_line_1 %><br />
-            <%= @booking.listing.location.address_line_2 %><br />
-            <%= @booking.listing.location.country_name %>
-          </p>
-          <hr >
-          <p>
-            Propriétaire : <%= @booking.listing.user.full_name %><br />
-            Numéro de téléphone : <%= @booking.listing.user.phone_number %>
-          </p>
-        </div>
-        <div class="border" style="width: 25rem;">
-          <h5>Frais</h5>
-          <div class="row">
-            <div class="col"><%= (@booking.total_price / @days.round).round %> <%= @booking.listing.pricing.currency %> x <%= @days.round %> jours</div>
-            <div class="col text-right"><%= @booking.total_price %> <%= @booking.listing.pricing.currency %></div>
+        <div class="row" style="margin-bottom: 15px">
+          <div class="col-5">
+            <div class="card" style="margin-bottom: 15px">
+              <div class="card-body">
+                <h5><%= @booking.listing.title %></h5>
+                <p>
+                  <%= @booking.listing.location.address_line_1 %><br />
+                  <%= @booking.listing.location.address_line_2 %><br />
+                  <%= @booking.listing.location.country_name %>
+                </p>
+                <hr >
+                <p>
+                  Propriétaire : <%= @booking.listing.user.full_name %><br />
+                  Numéro de téléphone : <%= @booking.listing.user.phone_number %>
+                </p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-body">
+                <h5>Frais</h5>
+                <div class="row">
+                  <div class="col"><%= (@booking.total_price / @days.round).round %> <%= @booking.listing.pricing.currency %> x <%= @days.round %> jours</div>
+                  <div class="col text-right"><%= @booking.total_price %> <%= @booking.listing.pricing.currency %></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-7">
+            <div class="card">
+              <div class="card-body">
+                <div id="calendar" data-id="<%= @booking.id %>"></div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div>
-      <div id="calendar"></div>
-      </div>
     </div>
   </div>
 </div>

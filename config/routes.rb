@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'users/registrations', sessions: 'users/sessions' }
   root to:'home#index'
-  get "dashboard", to: 'dashboard#index'
+  get 'dashboard', to: 'dashboard#index'
   resources :listings do
   	resources :pricings
   	resources :availabilities
@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   namespace :web do
     resources :listings, only: [:index, :show]
   end
-  get '/bookings/resume', to: "bookings#resume"
-  get '/bookings/calculate', to: "bookings#calculate"
-  resources :bookings
+  get '/bookings/resume', to: 'bookings#resume'
+  get '/bookings/calculate', to: 'bookings#calculate'
+  get '/bookings/current', to: 'bookings#current_bookings'
+  get '/bookings/past', to: 'bookings#past_bookings'
+  get '/bookings/upcoming', to: 'bookings#upcoming_bookings'
+  resources :bookings, except: [:index]
 end

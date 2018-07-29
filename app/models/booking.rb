@@ -18,7 +18,7 @@ class Booking < ApplicationRecord
     end
   end
 
-  def self.dates
+  def self.disabled_dates
     disabled_dates = []
     all.each do |booking|
       dates = (booking.start_date.to_date..booking.end_date.to_date).to_a

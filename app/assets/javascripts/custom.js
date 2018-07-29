@@ -14,11 +14,6 @@ var ready = function () {
         previous: 'fa fa-chevron-circle-left'
       }
   });
-
-  $('#calendar').fullCalendar({
-    defaultView: 'month',
-    locale: 'fr'
-  });
 }
 
 

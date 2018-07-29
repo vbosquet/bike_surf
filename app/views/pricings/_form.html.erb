@@ -7,7 +7,7 @@
       <hr />
       <%= form_for [@listing, @pricing] do |f| %>
       <div class="row">
-        <div class="form-group col-sm-5">
+        <div class="form-group col-sm-7">
           <label>Devise :</label>
           <%= f.select(:currency, Pricing.all_currencies, {prompt: 'Choisissez'}, {class: "form-control"})%>
         </div>
