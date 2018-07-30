@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180624141245) do
+ActiveRecord::Schema.define(version: 20180730123236) do
 
   create_table "availabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "advance_notice",              default: 0
@@ -70,16 +70,16 @@ ActiveRecord::Schema.define(version: 20180624141245) do
   end
 
   create_table "pricings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "base_price",       default: 0
-    t.integer  "average_weekly",   default: 0
-    t.integer  "average_monthly",  default: 0
+    t.integer  "base_price",                  default: 0
+    t.float    "average_weekly",   limit: 24, default: 0.0
+    t.float    "average_monthly",  limit: 24, default: 0.0
     t.string   "currency"
-    t.integer  "weekend_pricing",  default: 0
-    t.integer  "security_deposit", default: 0
-    t.integer  "maintenance_fee",  default: 0
+    t.integer  "weekend_pricing",             default: 0
+    t.integer  "security_deposit",            default: 0
+    t.integer  "maintenance_fee",             default: 0
     t.integer  "listing_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -100,6 +100,16 @@ ActiveRecord::Schema.define(version: 20180624141245) do
     t.string   "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  end
+
+  create_table "versions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4" do |t|
+    t.string   "item_type",  limit: 191,        null: false
+    t.integer  "item_id",                       null: false
+    t.string   "event",                         null: false
+    t.string   "whodunnit"
+    t.text     "object",     limit: 4294967295
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
   end
 
 end

@@ -39,6 +39,8 @@ class BookingsController < ApplicationController
       }
     end
 
+    @booking_pricing = @booking.listing.pricing.paper_trail.version_at(@booking.created_at)
+
     respond_to do |format|
       format.html { render 'show' }
       format.json { render json: available_dates }
@@ -95,7 +97,14 @@ class BookingsController < ApplicationController
     if start_date.present? && end_date.present?
       disabled_dates = @listing.bookings.disabled_dates.select { |d| d >= start_date && d <= end_date}.uniq
       @days = time_difference(start_date, end_date) - disabled_dates.size
-      @total_price = @days * @listing.pricing.base_price
+      base_price = @days * @listing.pricing.base_price
+      discount = 0
+      if @days >= 7 && @days < 28
+        discount = base_price * (@listing.pricing.average_weekly / 100)
+      elsif @days >= 28
+        discount = base_price * (@listing.pricing.average_monthly / 100)
+      end
+      @total_price = base_price - discount + @listing.pricing.maintenance_fee
     end
   end
 

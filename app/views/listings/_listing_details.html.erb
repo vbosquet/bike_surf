@@ -34,18 +34,7 @@
               </div>
           </div>
         </div>
-        <div class="tab-pane" id="tab2">
-          <ul class="list-group">
-            <% if @listing.pricing.present? %>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.base_price %> <%= @listing.pricing.currency %></span> Prix par jour :</li>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.average_weekly %> <%= @listing.pricing.currency %></span> Prix à la semaine :</li>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.average_monthly %> <%= @listing.pricing.currency %></span> Prix au mois :</li>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.weekend_pricing %> <%= @listing.pricing.currency %></span> Tarif weekend :</li>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.maintenance_fee %> <%= @listing.pricing.currency %></span> Frais de maintenance :</li>
-              <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.security_deposit %> <%= @listing.pricing.currency %></span> Caution :</li>
-            <% end %>
-          </ul>
-        </div>
+        <%= render 'listings/listing_details_pricing' %>
         <div class="tab-pane" id="tab3">
             <div class="list-group">
               <% if @listing.availability.present? %>

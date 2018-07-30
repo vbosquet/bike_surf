@@ -1,4 +1,6 @@
 class Pricing < ApplicationRecord
+	has_paper_trail
+	
 	belongs_to :listing
 
 	validates :currency, :base_price, :average_weekly, :average_monthly, :weekend_pricing,

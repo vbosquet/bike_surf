@@ -6,18 +6,20 @@ var ready = function () {
     var startDate = $('#startDate').data('date');
     var endDate = $('#endDate').data('date');
 
-    $.ajax({
-      type: "GET",
-      url: '/bookings/resume?listing_id='+listingId+'&start_date='+startDate+'&end_date='+endDate,
-      dataType: 'html',
-      success: function(xhr, statusText) {
-        $('.resume').remove();
-        $(button).before(xhr);
-      },
-      error: function(response) {
-        console.log(response.status);
-      }
-    });
+    if (startDate != 'undefined' && endDate != 'undefined') {
+      $.ajax({
+        type: "GET",
+        url: '/bookings/resume?listing_id='+listingId+'&start_date='+startDate+'&end_date='+endDate,
+        dataType: 'html',
+        success: function(xhr, statusText) {
+          $('.resume').remove();
+          $(button).before(xhr);
+        },
+        error: function(response) {
+          console.log(response.status);
+        }
+      });
+    }
 
     event.preventDefault();
   };
@@ -27,18 +29,20 @@ var ready = function () {
     var startDate = $('#startDate').data('date');
     var endDate = $('#endDate').data('date');
 
-    $.ajax({
-      type: "GET",
-      url: '/bookings/calculate',
-      dataType: 'json',
-      data : {start_date: startDate, end_date: endDate, listing_id: listingId},
-      success: function(data) {
-        $('#totalPrice').val(data);
-      },
-      error: function(response) {
-        console.log(response.status);
-      }
-    });
+    if(startDate != 'undefined' && endDate != 'undefined') {
+      $.ajax({
+        type: "GET",
+        url: '/bookings/calculate',
+        dataType: 'json',
+        data : {start_date: startDate, end_date: endDate, listing_id: listingId},
+        success: function(data) {
+          $('#totalPrice').val(data);
+        },
+        error: function(response) {
+          console.log(response.status);
+        }
+      });
+    }
 
     event.preventDefault();
   };

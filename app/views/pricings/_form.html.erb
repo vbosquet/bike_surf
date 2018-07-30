@@ -22,17 +22,26 @@
           </div>
         </div>
         <br >
-        <h3>Prix en fonction de la durée du séjour</h1>
+        <h3>Réductions en fonction de la durée du séjour</h1>
           <hr />
+          <p class="form-text text-muted mb-4">
+            Encouragez les voyageurs à utiliser votre vélo plus longtemps avec des réductions au mois ou à la semaine.
+          </p>
           <div class="row">
             <div class="form-group col-sm-7">
-              <label>Prix à la semaine :</label>
+              <label>Réduction à la semaine (%) :</label>
+              <small class="form-text text-muted mb-3">
+                Les réductions hebdomadaires concernent les locations de 7 jours ou plus.
+              </small>
               <%= f.text_field :average_weekly, class: "form-control" %>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-7">
-              <label>Prix au mois :</label>
+              <label>Réduction au mois (%) :</label>
+              <small class="form-text text-muted mb-3">
+                Les réductions mensuelles concernent les locations de 28 jours ou plus.
+              </small>
               <%= f.text_field :average_monthly, class: "form-control" %>
             </div>
           </div>
@@ -42,18 +51,27 @@
             <div class="row">
               <div class="form-group col-sm-7">
                 <label>Frais de maintenance :</label>
+                <small class="form-text text-muted mb-3">
+                  Ces frais s'appliqueront à chaque réservation.
+                </small>
                 <%= f.text_field :maintenance_fee, class: "form-control" %>
               </div>
             </div>
             <div class="row">
               <div class="form-group col-sm-7">
                 <label>Caution :</label>
+                <small class="form-text text-muted mb-3">
+                  Si vous effectuez une réclamation dans les 14 jours suivant la remise du vélo, l'utilisateur sera responsable des dommages à hauteur maximale de cette somme.
+                </small>
                 <%= f.text_field :security_deposit, class: "form-control" %>
               </div>
             </div>
             <div class="row">
               <div class="form-group col-sm-7">
                 <label>Tarif weekend :</label>
+                <small class="form-text text-muted mb-3">
+                  Ce prix par jour remplacera votre tarif de base pour les journées du samedi et du dimanche.
+                </small>
                 <%= f.text_field :weekend_pricing, class: "form-control" %>
               </div>
             </div>
