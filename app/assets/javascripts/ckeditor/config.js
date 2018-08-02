@@ -37,7 +37,7 @@ CKEDITOR.editorConfig = function (config) {
     maxWordCount: -1,
 
     // Maximum allowed Char Count, -1 is default for unlimited
-    maxCharCount: 2500,
+    maxCharCount: 1500,
 
     // How long to show the 'paste' warning, 0 is default for not auto-closing the notification
     pasteWarningDuration: 0,

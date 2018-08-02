@@ -1,6 +1,8 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :listing
+  has_one :message, dependent: :destroy
+  accepts_nested_attributes_for :message
 
   scope :upcoming, -> { where('start_date >= ?', Time.zone.now.beginning_of_day) }
   scope :past, -> { where('end_date <= ?', Time.zone.now.end_of_day) }

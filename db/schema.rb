@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180730123236) do
+ActiveRecord::Schema.define(version: 20180802075840) do
 
   create_table "availabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "advance_notice",              default: 0
@@ -47,6 +47,13 @@ ActiveRecord::Schema.define(version: 20180730123236) do
     t.integer  "status",                 default: 0
   end
 
+  create_table "conversations", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "sender_id"
+    t.integer  "recever_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "listings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.boolean  "listed",                    default: false
     t.integer  "user_id"
@@ -67,6 +74,14 @@ ActiveRecord::Schema.define(version: 20180730123236) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "listing_id"
+  end
+
+  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "conversation_id"
+    t.text     "body",            limit: 65535
+    t.integer  "booking_id"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
   end
 
   create_table "pricings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

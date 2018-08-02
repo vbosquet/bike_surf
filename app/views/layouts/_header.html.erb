@@ -11,10 +11,10 @@
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Annonces</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <%= link_to "Gérer mes annonces", listings_path, class: "dropdown-item" %>
-              <%= link_to "Gérer mes réservations", "#", class: "dropdown-item" %>
               <%= link_to "Créer une annonce", new_listing_path, class: "dropdown-item" %>
             </div>
           </li>
+          <li class="nav-item"><%= link_to "Boîte de réception", "#", class: "nav-link" %></li>
           <li class="nav-item"><%= link_to "Locations", bookings_current_path, class: "nav-link" %></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Paramètres</a>

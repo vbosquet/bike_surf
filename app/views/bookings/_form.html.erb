@@ -1,17 +1,32 @@
 <%= form_for @booking, :remote => true do |f| %>
   <%= f.hidden_field :listing_id, value: @listing.id , id: "listingId" %>
   <%= f.hidden_field :total_price, id: "totalPrice" %>
-  <div class="row">
-    <div class="form-group col-sm-7">
-      <label>Jour d'arrivée :</label>
-      <%= f.text_field :start_date, class: "form-control date", id: "startDate", placeholder: "Date d'arrivée" %>
+  <label>Durée de la location :</label>
+  <small id="passwordHelpBlock" class="form-text text-muted mb-3">
+    Indiquez au propriétaire les jours où vous viendrez chercher et déposer le vélo.
+  </small>
+  <div class="row mb-4">
+    <div class="col">
+      <div class="form-group">
+        <label>Jour d'arrivée :</label>
+        <%= f.text_field :start_date, class: "form-control date", id: "startDate", placeholder: "Date d'arrivée" %>
+      </div>
+    </div>
+    <div class="col">
+      <div class="form-group ">
+        <label>Jour de départ :</label>
+        <%= f.text_field :end_date, class: "form-control date", id: "endDate", placeholder: "Date de départ" %>
+      </div>
     </div>
   </div>
-  <div class="row">
-    <div class="form-group col-sm-7">
-      <label>Jour de départ :</label>
-      <%= f.text_field :end_date, class: "form-control date", id: "endDate", placeholder: "Date de départ" %>
-    </div>
+  <div class="form-group mb-5">
+      <label>Message :</label>
+      <small id="passwordHelpBlock" class="form-text text-muted mb-3">
+        Dites-en plus sur qui vous êtes et sur vos différentes expériences en cyclisme.
+      </small>
+      <%= f.fields_for :message do |message| %>
+        <%= message.cktext_area :body, :class => "form-control", ckeditor: { language: 'fr'} %>
+      <% end %>
   </div>
   <%= f.submit "Confirmer la réservation", class: "btn btn-primary bookingButton" %>
 <% end %>

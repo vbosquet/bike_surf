@@ -51,17 +51,30 @@ class BookingsController < ApplicationController
   def new
     @booking = Booking.new
     @listing = Listing.find(params[:listing_id])
+    @booking.build_message
     gon.disabled_dates = @listing.bookings.disabled_dates
   end
 
   def create
-    @booking = Booking.new(booking_params)
     @listing = Listing.find(params[:booking][:listing_id])
 
     if current_user.listings.include?(@listing)
       flash.now[:error] = "Vous ne pouvez pas réserver un vélo qui vous appartient déjà."
       render 'new'
     end and return
+
+    # find or create conversation
+    conversation = Conversation.all.where('sender_id = ? and recever_id = ?', current_user.id, @listing.user.id)
+    unless conversation.present?
+      conversation = Conversation.create(sender_id: current_user.id, recever_id: @listing.user.id)
+    end
+
+    # add conversation_if to params
+    params_updated = booking_params
+    if params_updated[:message_attributes].present?
+      params_updated[:message_attributes][:conversation_id] = conversation.id
+    end
+    @booking = Booking.new(params_updated)
 
     if @booking.save
       flash[:success] = "Votre réservation a été enregistrée avec succès."
@@ -86,7 +99,8 @@ class BookingsController < ApplicationController
   private
 
   def booking_params
-		params.require(:booking).permit(:listing_id, :start_date, :end_date, :total_price).merge(user_id: current_user.id)
+		params.require(:booking).permit(:listing_id, :start_date, :end_date, :total_price,
+      message_attributes: [:body, :conversation_id]).merge(user_id: current_user.id)
 	end
 
   def calculate_booking_data
