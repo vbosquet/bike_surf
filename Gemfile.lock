@@ -110,6 +110,18 @@ GEM
     jquery-ui-rails (6.0.1)
       railties (>= 3.2.16)
     json (2.1.0)
+    kaminari (1.1.1)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.1.1)
+      kaminari-activerecord (= 1.1.1)
+      kaminari-core (= 1.1.1)
+    kaminari-actionview (1.1.1)
+      actionview
+      kaminari-core (= 1.1.1)
+    kaminari-activerecord (1.1.1)
+      activerecord
+      kaminari-core (= 1.1.1)
+    kaminari-core (1.1.1)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -258,6 +270,7 @@ DEPENDENCIES
   gon (~> 6.1.0)
   jbuilder (~> 2.5)
   jquery-rails
+  kaminari (~> 1.1.1)
   listen (~> 3.0.5)
   momentjs-rails (~> 2.20.1)
   money (~> 6.11.3)
@@ -267,6 +280,7 @@ DEPENDENCIES
   popper_js (~> 1.12.9)
   puma (~> 3.0)
   rails (~> 5.0.5)
+  rails-html-sanitizer (~> 1.O.4)
   ransack (~> 1.8.8)
   sass-rails (~> 5.0)
   spring

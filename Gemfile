@@ -50,6 +50,8 @@ gem 'country_select', "~> 3.1.1"
 gem 'countries', "~> 2.1.4"
 gem 'fullcalendar-rails', "~> 3.0.0.0"
 gem 'paper_trail', "~> 9.2.0"
+gem 'rails-html-sanitizer', "~> 1.O.4"
+gem 'kaminari', "~> 1.1.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

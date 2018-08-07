@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   	resources :availabilities
   	get 'edit_status'
   	patch 'update_status'
+    resources :bookings, only: [:new, :create]
   end
   get 'search', to: 'listings#search'
   namespace :web do
@@ -17,5 +18,6 @@ Rails.application.routes.draw do
   get '/bookings/current', to: 'bookings#current_bookings'
   get '/bookings/past', to: 'bookings#past_bookings'
   get '/bookings/upcoming', to: 'bookings#upcoming_bookings'
-  resources :bookings, except: [:index]
+  resources :bookings, only: [:show]
+  resources :conversations
 end

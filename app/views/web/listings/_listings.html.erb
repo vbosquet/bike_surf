@@ -12,7 +12,7 @@
           Lumières : <%= listing.bike.lights ? "Oui" : "Non" %>
         </p>
         <%= link_to "Aperçu", web_listing_path(listing), class: "card-link" %>
-        <%= link_to "Réserver", new_booking_path(listing_id: listing.id), class: "card-link" %>
+        <%= link_to "Réserver", new_listing_booking_path(listing), class: "card-link" %>
       </div>
     </div>
     <% end %>

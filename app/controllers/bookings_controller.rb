@@ -1,5 +1,6 @@
 class BookingsController < ApplicationController
   include ApplicationHelper
+
   before_action :authenticate_user!
   before_action :calculate_booking_data, only: [:calculate, :resume]
 
@@ -57,24 +58,17 @@ class BookingsController < ApplicationController
 
   def create
     @listing = Listing.find(params[:booking][:listing_id])
+    @booking = Booking.new(updating_message_attributes)
 
     if current_user.listings.include?(@listing)
       flash.now[:error] = "Vous ne pouvez pas réserver un vélo qui vous appartient déjà."
       render 'new'
     end and return
 
-    # find or create conversation
-    conversation = Conversation.all.where('sender_id = ? and recever_id = ?', current_user.id, @listing.user.id)
-    unless conversation.present?
-      conversation = Conversation.create(sender_id: current_user.id, recever_id: @listing.user.id)
-    end
-
-    # add conversation_if to params
-    params_updated = booking_params
-    if params_updated[:message_attributes].present?
-      params_updated[:message_attributes][:conversation_id] = conversation.id
-    end
-    @booking = Booking.new(params_updated)
+    if checking_available_dates.present?
+      flash.now[:error] = "Vous avez déjà loué un vélo aux dates suivantes : #{checking_available_dates}"
+      render 'new'
+    end and return
 
     if @booking.save
       flash[:success] = "Votre réservation a été enregistrée avec succès."
@@ -100,7 +94,7 @@ class BookingsController < ApplicationController
 
   def booking_params
 		params.require(:booking).permit(:listing_id, :start_date, :end_date, :total_price,
-      message_attributes: [:body, :conversation_id]).merge(user_id: current_user.id)
+      message_attributes: [:body, :conversation_id, :user_id]).merge(user_id: current_user.id)
 	end
 
   def calculate_booking_data
@@ -120,6 +114,30 @@ class BookingsController < ApplicationController
       end
       @total_price = base_price - discount + @listing.pricing.maintenance_fee
     end
+  end
+
+  def checking_available_dates
+    start_date = Time.parse(booking_params[:start_date])
+    end_date = Time.parse(booking_params[:end_date])
+    dates = (start_date.to_date..end_date.to_date).to_a
+    disabled_dates = dates.select { |d| current_user.bookings.disabled_dates.include?(d) }.uniq
+    return disabled_dates
+  end
+
+  def updating_message_attributes
+    conversations = Conversation.all.where('borrower_id = ? and lender_id = ?', current_user.id, @listing.user.id)
+    if conversations.present?
+      conversation = conversations.last
+    else
+      conversation = Conversation.create(borrower_id: current_user.id, lender_id: @listing.user.id)
+    end
+
+    params_updated = booking_params
+    if params_updated[:message_attributes].present?
+      params_updated[:message_attributes][:conversation_id] = conversation.id
+      params_updated[:message_attributes][:user_id] = current_user.id
+    end
+    return params_updated
   end
 
 end

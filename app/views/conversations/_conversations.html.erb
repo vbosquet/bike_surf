@@ -1,0 +1,23 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item">
+    <a class="nav-link active" href="#bookings" data-toggle="tab">Locations</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#loans" data-toggle="tab">Prêts</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="bookings">
+    <div class="container">
+      <%= render partial: "bookings" %>
+      <%= paginate @booking_conversations %>
+    </div>
+  </div>
+  <div class="tab-pane" id="loans">
+    <div class="container border mt-4">
+      <%= render partial: "loans" %>
+      <%= paginate @loan_conversations %>
+    </div>
+  </div>
+</div>
