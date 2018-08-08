@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <div class="col main pt-5 mt-3">
+      <%= render 'layouts/messages' %>
+      <h1>Conversation avec <%= @recever.full_name %></h1>
+      <hr >
+      <div class="container col-md-6 float-left">
+        New content here...
+      </div>
+      <div class="container col-md-6 float-right">
+        <div class="container border pt-3 pb-3 mb-5">
+          <%= render partial: 'messages/form' %>
+        </div>
+        <% @conversation.messages.order(created_at: :desc).each do |message| %>
+            <% if message.booking.present? %>
+              <p class="text-center">Demande envoyée le <%= message.created_at.strftime("%d/%m/%Y") %></p>
+              <hr >
+              <div class="container border mb-3">
+                <div class="row mt-3 mb-3">
+                  <div class="col text-right"><%= link_to "Accepter", bookings_accept_path(booking_id: message.booking.id), method: :post, class:"btn btn-primary"%></div>
+                  <div class="col text-left"><%= link_to "Refuser", bookings_refuse_path(booking_id: message.booking.id), method: :post, class:"btn btn-outline-primary"%></div>
+                </div>
+              </div>
+            <% end %>
+              <div class="container border mb-5 <%= 'bg-light' if message.user == @current_user %>">
+                <p class="mt-3"><%= message.user.full_name %> a écrit :</p>
+                <p class="mt-3">"<%= @full_sanitizer.sanitize(message.body) %>"</p>
+                <p class="mt-3">le <%= message.created_at.strftime("%d/%m/%Y") %></p>
+              </div>
+            <% end %>
+        </div>
+      </div>
+    </div>
+</div>

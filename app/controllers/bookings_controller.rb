@@ -87,7 +87,28 @@ class BookingsController < ApplicationController
     if request.xhr?
 			render partial: 'resume'
 		end
+  end
 
+  def accept
+    booking = Booking.find(params[:booking_id])
+    booking.status = "accepted"
+    if booking.save
+      @conversation = booking.message.conversation
+      redirect_to conversation_path(@conversation)
+    else
+      render "conversations/show"
+    end
+  end
+
+  def refuse
+    booking = Booking.find(params[:booking_id])
+    booking.status = "refused"
+    if booking.save
+      @conversation = booking.message.conversation
+      redirect_to conversation_path(@conversation)
+    else
+      render "conversations/show"
+    end
   end
 
   private

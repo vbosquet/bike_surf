@@ -14,6 +14,16 @@ var ready = function () {
         previous: 'fa fa-chevron-circle-left'
       }
   });
+
+  $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+    localStorage.setItem('activeTab', $(e.target).attr('href'));
+  });
+
+  var activeTab = localStorage.getItem('activeTab');
+
+  if(activeTab){
+    $('.nav-tabs a[href="' + activeTab + '"]').tab('show');
+  }
 }
 
 
