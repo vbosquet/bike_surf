@@ -1,26 +1,30 @@
 <% @booking_conversations.each do |conversation| %>
   <div class="container">
     <div class="row mt-3">
-      <div class="col-md-3"><%= User.find(conversation.lender_id).full_name %></div>
-      <div class="col-md-4">
-        <% if conversation.messages.last.body.present? %>
-          <%= @full_sanitizer.sanitize(conversation.messages.last.body).truncate(50, separator: ' ') %>
-        <% else %>
-          <%= @full_sanitizer.sanitize(conversation.messages.order("id DESC").offset(1).first.body).truncate(50, separator: ' ') %>
-        <% end %>
+      <div class="col-sm-2"><%= image_tag User.find(conversation.lender_id).avatar.url(:thumb), class: "rounded-circle" %></div>
+      <div class="col-sm-9">
+        <div class="row mt-4">
+          <div class="col-4 col-sm-3"><%= User.find(conversation.lender_id).full_name %></div>
+          <div class="col-4 col-sm-6">
+            <% if conversation.messages.last.body.present? %>
+              <%= @full_sanitizer.sanitize(conversation.messages.last.body).truncate(50, separator: ' ') %>
+            <% else %>
+              <%= @full_sanitizer.sanitize(conversation.messages.order("id DESC").offset(1).first.body).truncate(50, separator: ' ') %>
+            <% end %>
+          </div>
+          <div class="col-4 col-sm-3"><%= Booking.human_enum_name(:status, conversation.messages.where('booking_id is not null').last.booking.booking_statuses.last.status) %></div>
+        </div>
+        <div class="row">
+          <div class="col-4 col-sm-3"><%= conversation.messages.last.created_at.strftime("%d/%m/%Y") %></div>
+          <div class="col-4 col-sm-6"><%= conversation.messages.where('booking_id is not null').last.booking.listing.title %></div>
+          <div class="col-4 col-sm-3"><%= conversation.messages.where('booking_id is not null').last.booking.total_price %> <%= conversation.messages.where('booking_id is not null').last.booking.listing.pricing.currency %></div>
+        </div>
       </div>
-      <div class="col-md-3"><%= Booking.human_enum_name(:status, conversation.messages.where('booking_id is not null').last.booking.booking_statuses.last.status) %></div>
-      <div class="col-md-2">
+      <div class="col-sm-1 mt-4">
         <%= link_to conversation_path(conversation) do %>
           <i class="fa fa-eye" aria-hidden="true"></i>
         <% end %>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-3"><%= conversation.messages.last.created_at.strftime("%d/%m/%Y") %></div>
-      <div class="col-md-4"><%= conversation.messages.where('booking_id is not null').last.booking.listing.title %></div>
-      <div class="col-md-3"><%= conversation.messages.where('booking_id is not null').last.booking.total_price %> <%= conversation.messages.where('booking_id is not null').last.booking.listing.pricing.currency %></div>
-      <div class="col-md-2"></div>
     </div>
   </div>
   <hr >

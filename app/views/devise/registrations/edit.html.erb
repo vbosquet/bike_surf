@@ -11,29 +11,42 @@
 
         <div class="form-group row">
           <%= f.label "Prénom", class: "col-sm-3 col-form-label" %>
-          <div class="col-sm-5">
+          <div class="col-sm-8">
             <%= f.text_field :firstname, class: "form-control" %>
           </div>
         </div>
 
         <div class="form-group row">
           <%= f.label "Nom", class: "col-sm-3 col-form-label" %>
-          <div class="col-sm-5">
+          <div class="col-sm-8">
             <%= f.text_field :lastname, class: "form-control" %>
           </div>
         </div>
 
         <div class="form-group row">
           <%= f.label "Adresse e-mail", class: "col-sm-3 col-form-label" %>
-          <div class="col-sm-5">
+          <div class="col-sm-8">
             <%= f.email_field :email, class: "form-control" %>
+            <small class="form-text text-muted">
+              Nous ne partagerons pas votre adresse e-mail privée avec d'autres utilisateurs
+            </small>
           </div>
         </div>
 
         <div class="form-group row">
           <%= f.label "Numéro de téléphone", class: "col-sm-3 col-form-label" %>
-          <div class="col-sm-5">
+          <div class="col-sm-8">
             <%= f.text_field :phone_number, class: "form-control" %>
+            <small class="form-text text-muted">
+              Cette information n'est partagée qu'une fois votre réservation confirmée par un autre utilisateur. Elle permet aux propriétaires et cyclistes de se contacter.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <%= f.label "Photo de profil", class: "col-sm-3 col-form-label" %>
+          <div class="col-sm-8">
+            <%= f.file_field :avatar, class: "form-control" %>
           </div>
         </div>
 
