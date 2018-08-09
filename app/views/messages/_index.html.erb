@@ -1,0 +1,24 @@
+<% @conversation.messages.order(created_at: :desc).each do |message| %>
+  <% if message.booking.present? %>
+    <% if message.booking.booking_statuses.where("created_at = ?", message.created_at).last.status == "pending" %>
+      <p class="text-center">Demande envoyée le <%= message.created_at.strftime("%d/%m/%Y") %></p>
+      <hr >
+      <% if message.booking.booking_statuses.last.status == "pending" %>
+        <div class="container border pt-3 pb-3 mb-3">
+          <%= render partial: 'conversations/form', locals: {message: message} %>
+        </div>
+      <% end %>
+    <% elsif message.booking.booking_statuses.where("created_at = ?", message.created_at).last.status == "accepted" %>
+      <p class="text-center">Demande acceptée le <%= message.created_at.strftime("%d/%m/%Y") %></p>
+      <hr >
+    <% elsif message.booking.booking_statuses.where("created_at = ?", message.created_at).last.status == "refused" %>
+      <p class="text-center">Demande refusée le <%= message.created_at.strftime("%d/%m/%Y") %></p>
+      <hr >
+    <% end %>
+  <% end %>
+  <div class="container border mb-5 <%= 'bg-light' if message.user == @current_user %>">
+    <p class="mt-3"><%= message.user.full_name %> a écrit :</p>
+    <p class="mt-3">"<%= @full_sanitizer.sanitize(message.body) %>"</p>
+    <p class="mt-3">le <%= message.created_at.strftime("%d/%m/%Y") %></p>
+  </div>
+<% end %>

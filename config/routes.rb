@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   	patch 'update_status'
     resources :bookings, only: [:new, :create]
   end
-  
+
   get 'search', to: 'listings#search'
   namespace :web do
     resources :listings, only: [:index, :show]
@@ -21,10 +21,8 @@ Rails.application.routes.draw do
   get '/bookings/current', to: 'bookings#current_bookings'
   get '/bookings/past', to: 'bookings#past_bookings'
   get '/bookings/upcoming', to: 'bookings#upcoming_bookings'
-  post '/bookings/accept', to: 'bookings#accept'
-  post '/bookings/refuse', to: 'bookings#refuse'
 
-  resources :bookings, only: [:show]
+  resources :bookings, only: [:show, :update]
   resources :conversations
   resources :messages
 end

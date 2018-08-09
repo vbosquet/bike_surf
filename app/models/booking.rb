@@ -1,8 +1,11 @@
 class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :listing
-  has_one :message, dependent: :destroy
-  accepts_nested_attributes_for :message
+
+  has_many :messages, dependent: :destroy
+  accepts_nested_attributes_for :messages
+  has_many :booking_statuses, dependent: :destroy
+  accepts_nested_attributes_for :booking_statuses
 
   scope :upcoming, -> { where('start_date >= ?', Time.zone.now.beginning_of_day) }
   scope :past, -> { where('end_date <= ?', Time.zone.now.end_of_day) }
@@ -10,8 +13,6 @@ class Booking < ApplicationRecord
 
   validates :start_date, :end_date, presence: true
   validate :start_date_is_before_end_date
-
-  enum status: [:pending, :accepted, :refused, :canceled]
 
   def start_date_is_before_end_date
     return if end_date.blank? || start_date.blank?

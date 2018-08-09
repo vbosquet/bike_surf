@@ -6,7 +6,7 @@
       <hr >
       <div class="row" style="margin-bottom: 25px">
         <div class="col">Réservée le <%= @booking.created_at.strftime("%d/%m/%Y") %></div>
-        <div class="col text-right"><%= Booking.human_enum_name(:status, @booking.status) %></div>
+        <div class="col text-right"><%= Booking.human_enum_name(:status, @booking.booking_statuses.last.status) %></div>
       </div>
         <div class="row" style="margin-bottom: 15px">
           <div class="col-5">

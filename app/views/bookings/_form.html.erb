@@ -24,9 +24,12 @@
       <small id="passwordHelpBlock" class="form-text text-muted mb-3">
         Dites-en plus sur qui vous êtes et sur vos différentes expériences en cyclisme.
       </small>
-      <%= f.fields_for :message do |message| %>
-        <%= message.cktext_area :body, :class => "form-control", ckeditor: { language: 'fr'} %>
+      <%= f.fields_for :messages do |ff| %>
+        <%= ff.cktext_area :body, :class => "form-control", ckeditor: { language: 'fr'} %>
       <% end %>
   </div>
+  <%= f.fields_for :booking_statuses do |ff| %>
+    <%= ff.hidden_field :status, value: "pending" %>
+  <% end %>
   <%= f.submit "Confirmer la réservation", class: "btn btn-primary bookingButton" %>
 <% end %>

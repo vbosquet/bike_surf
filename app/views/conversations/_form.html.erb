@@ -1,0 +1,12 @@
+<%= form_tag booking_path(message.booking), method: :put do %>
+  <%= hidden_field_tag :conversation_id, @conversation.id %>
+  <div  class="form-group">
+    <%= cktext_area_tag :body, nil, {:class => "form-control", ckeditor: { language: 'fr'}} %>
+  </div>
+  <div class="row mt-3">
+    <div class="col text-right">
+      <%= submit_tag "Accepter", class:"btn btn-primary"%>
+      <%= submit_tag "Refuser", class:"btn btn-outline-primary"%>
+    </div>
+  </div>
+<% end %>

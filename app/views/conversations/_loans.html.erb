@@ -3,7 +3,7 @@
     <div class="row mt-3">
       <div class="col-md-3"><%= User.find(conversation.borrower_id).full_name %></div>
       <div class="col-md-4"><%= @full_sanitizer.sanitize(conversation.messages.last.body).truncate(50, separator: ' ') %></div>
-      <div class="col-md-3"><%= Booking.human_enum_name(:status, conversation.messages.where('booking_id is not null').last.booking.status) %></div>
+      <div class="col-md-3"><%= Booking.human_enum_name(:status, conversation.messages.where('booking_id is not null').last.booking.booking_statuses.last.status) %></div>
       <div class="col-md-2">
         <%= link_to conversation_path(conversation) do %>
           <i class="fa fa-eye" aria-hidden="true"></i>

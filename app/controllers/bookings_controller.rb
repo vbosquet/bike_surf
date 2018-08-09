@@ -52,13 +52,14 @@ class BookingsController < ApplicationController
   def new
     @booking = Booking.new
     @listing = Listing.find(params[:listing_id])
-    @booking.build_message
+    @booking.messages.build
+    @booking.booking_statuses.build
     gon.disabled_dates = @listing.bookings.disabled_dates
   end
 
   def create
     @listing = Listing.find(params[:booking][:listing_id])
-    @booking = Booking.new(updating_message_attributes)
+    @booking = Booking.new(updating_messages_attributes)
 
     if current_user.listings.include?(@listing)
       flash.now[:error] = "Vous ne pouvez pas réserver un vélo qui vous appartient déjà."
@@ -79,6 +80,22 @@ class BookingsController < ApplicationController
     end
   end
 
+  def update
+    booking = Booking.find(params[:id])
+
+    conversation = Conversation.find(params[:conversation_id])
+    conversation.messages.create({conversation_id: conversation.id, user_id: current_user.id,
+      body: params[:body], booking_id: booking.id})
+
+    if params[:commit] == "Accepter"
+      booking.booking_statuses.create({status: "accepted"})
+    elsif params[:commit] == "Refuser"
+      booking.booking_statuses.create({status: "refused"})
+    end
+    
+    redirect_to conversation_path(conversation)
+  end
+
   def calculate
     render json: @total_price
   end
@@ -89,33 +106,12 @@ class BookingsController < ApplicationController
 		end
   end
 
-  def accept
-    booking = Booking.find(params[:booking_id])
-    booking.status = "accepted"
-    if booking.save
-      @conversation = booking.message.conversation
-      redirect_to conversation_path(@conversation)
-    else
-      render "conversations/show"
-    end
-  end
-
-  def refuse
-    booking = Booking.find(params[:booking_id])
-    booking.status = "refused"
-    if booking.save
-      @conversation = booking.message.conversation
-      redirect_to conversation_path(@conversation)
-    else
-      render "conversations/show"
-    end
-  end
-
   private
 
   def booking_params
 		params.require(:booking).permit(:listing_id, :start_date, :end_date, :total_price,
-      message_attributes: [:body, :conversation_id, :user_id]).merge(user_id: current_user.id)
+      messages_attributes: [:body, :conversation_id, :user_id],
+      booking_statuses_attributes: [:status]).merge(user_id: current_user.id)
 	end
 
   def calculate_booking_data
@@ -145,7 +141,7 @@ class BookingsController < ApplicationController
     return disabled_dates
   end
 
-  def updating_message_attributes
+  def updating_messages_attributes
     conversations = Conversation.all.where('borrower_id = ? and lender_id = ?', current_user.id, @listing.user.id)
     if conversations.present?
       conversation = conversations.last
@@ -154,9 +150,9 @@ class BookingsController < ApplicationController
     end
 
     params_updated = booking_params
-    if params_updated[:message_attributes].present?
-      params_updated[:message_attributes][:conversation_id] = conversation.id
-      params_updated[:message_attributes][:user_id] = current_user.id
+    if params_updated[:messages_attributes].present?
+      params_updated[:messages_attributes]["0"][:conversation_id] = conversation.id
+      params_updated[:messages_attributes]["0"][:user_id] = current_user.id
     end
     return params_updated
   end
