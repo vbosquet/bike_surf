@@ -8,18 +8,39 @@
 </ul>
 
 <div class="tab-content">
+
   <div class="tab-pane active" id="bookings">
-    <div class="container">
-      <%= render partial: "bookings" %>
-      <%= paginate @booking_conversations, :params => { :anchor => 'bookings' } %>
-    </div>
-  </div>
-  <div class="tab-pane" id="loans">
-    <div class="container border mt-4">
-      <%= render partial: "loans" %>
-      <div class="container pagination justify-content-center" >
-        <%= paginate @loan_conversations, :params => { :anchor => 'loans' } %>
+    <% if @booking_conversations.present? %>
+      <div class="container border mt-4">
+        <%= render partial: "bookings" %>
+        <div class="container pagination justify-content-center" >
+          <%= paginate @booking_conversations, :params => { :anchor => 'bookings' } %>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <div class="container">
+        <div class="row mt-4">
+          <p>Empruntez dès à présent votre premier vélo !</p>
+        </div>
+      </div>
+    <% end %>
   </div>
+
+  <div class="tab-pane" id="loans">
+      <% if @loan_conversations.present? %>
+        <div class="container border mt-4">
+          <%= render partial: "loans" %>
+          <div class="container pagination justify-content-center" >
+            <%= paginate @loan_conversations, :params => { :anchor => 'loans' } %>
+          </div>
+        </div>
+      <% else %>
+        <div class="container">
+          <div class="row mt-4">
+            <p>Vous possédez des vélos que vous n'utilisez plus ? Faites-en profiter dès à présent la communauté des BikeSurfers !</p>
+          </div>
+        </div>
+      <% end %>
+  </div>
+
 </div>

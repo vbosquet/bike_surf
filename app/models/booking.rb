@@ -14,6 +14,8 @@ class Booking < ApplicationRecord
   validates :start_date, :end_date, presence: true
   validate :start_date_is_before_end_date
 
+  strip_attributes
+
   def start_date_is_before_end_date
     return if end_date.blank? || start_date.blank?
     if start_date > end_date
