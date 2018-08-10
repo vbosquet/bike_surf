@@ -1,11 +1,43 @@
 <div class="container-fluid">
   <div class="row row-offcanvas row-offcanvas-left">
-    <%= render 'sidebar' %>
+    <%= render "listings/listing_management_sidebar" %>
     <div class="col main pt-5 mt-3">
       <%= render 'layouts/messages' %>
-      <div class="bookings">
-        <%= render partial: 'bookings' %>
-      </div>
+      <h1>Historique des réservations</h1>
+      <hr >
+      <table class="table border">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Statut</th>
+            <th scope="col">Dates et lieu</th>
+            <th scope="col">Cycliste</th>
+            <th scope="col">Détails</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @bookings.each do |booking| %>
+            <tr>
+              <td><%= Booking.human_enum_name(:status, booking.booking_statuses.last.status) %></th>
+              <td>
+                Du <%= booking.start_date.strftime("%d/%m/%Y") %> au <%= booking.end_date.strftime("%d/%m/%Y") %><br >
+                <%= booking.listing.location.locality %>
+              </th>
+              <td>
+                <div class="media">
+                  <%= image_tag booking.user.avatar.url(:thumb), class: "rounded-circle mr-3" %>
+                  <div class="media-body">
+                    <%= booking.user.full_name %>
+                  </div>
+                </div>
+              </th>
+              <td>
+                <%= booking.total_price %> <%= booking.listing.pricing.currency %> total<br >
+                <%= link_to "Historique des messages", conversation_path(booking.messages.last.conversation) %><br>
+              </th>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

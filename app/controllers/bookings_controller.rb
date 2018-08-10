@@ -4,24 +4,29 @@ class BookingsController < ApplicationController
   before_action :authenticate_user!
   before_action :calculate_booking_data, only: [:calculate, :resume]
 
-  def current_bookings
+  def current_rentals
     @bookings = current_user.bookings.current
     @title = "Locations en cours"
-    render :index
+    render :rentals
   end
 
-  def past_bookings
+  def past_rentals
     @bookings = current_user.bookings.past
     @title = "Anciennes locations"
-    render :index
+    render :rentals
   end
 
-  def upcoming_bookings
+  def upcoming_rentals
     @bookings = current_user.bookings.upcoming
     @title = "Locations à venir"
-    render :index
+    render :rentals
   end
 
+  def index
+    @listing = Listing.find(params[:listing_id])
+    @bookings = @listing.bookings
+    render :index
+  end
 
   def show
     @booking = Booking.find(params[:id])
@@ -59,18 +64,20 @@ class BookingsController < ApplicationController
 
   def create
     @listing = Listing.find(params[:booking][:listing_id])
-    @booking = Booking.new(updating_messages_attributes)
 
     if current_user.listings.include?(@listing)
       flash.now[:error] = "Vous ne pouvez pas réserver un vélo qui vous appartient déjà."
+      @booking = Booking.new
       render 'new'
     end and return
 
     if checking_available_dates.present?
       flash.now[:error] = "Vous avez déjà loué un vélo aux dates suivantes : #{checking_available_dates}"
+      @booking = Booking.new
       render 'new'
     end and return
 
+    @booking = Booking.new(updating_messages_attributes)
     if @booking.save
       flash[:success] = "Votre réservation a été enregistrée avec succès."
 			redirect_to web_listing_path(@booking.listing)
@@ -92,7 +99,7 @@ class BookingsController < ApplicationController
     elsif params[:commit] == "Refuser"
       booking.booking_statuses.create({status: "refused"})
     end
-    
+
     redirect_to conversation_path(conversation)
   end
 

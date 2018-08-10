@@ -7,7 +7,7 @@
       <hr >
       <%= form_for @listing, url: {action: "update_status"} do |f| %>
       <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-8">
           <%= f.select(:listed, [['Publiée', true], ['Désactivée', false]], {}, {class: "form-control"}) %>
         </div>
       </div>

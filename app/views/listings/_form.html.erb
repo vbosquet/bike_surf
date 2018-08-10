@@ -1,12 +1,13 @@
 <hr />
-<div class="form-group">
-    <label>Titre :</label>
-    <%= f.text_field :title, class: "form-control" %>
-</div>
-
-<div class="form-group">
-    <label>Description :</label>
-    <%= f.cktext_area :description, :class => "form-control", ckeditor: { language: 'fr'} %>
+<div class="row">
+  <div class="form-group col-sm-8">
+      <label>Titre :</label>
+      <%= f.text_field :title, class: "form-control" %>
+  </div>
+  <div class="form-group col-sm-8">
+      <label>Description :</label>
+      <%= f.cktext_area :description, :class => "form-control", ckeditor: { language: 'fr'} %>
+  </div>
 </div>
 
 <br >
@@ -14,22 +15,27 @@
 <hr />
 
 <%= f.fields_for :bike do |bike_form| %>
-<div class="form-group">
-    <label>Photo :</label>
-    <%= bike_form.file_field :photo, class: "form-control-file" %>
+<div class="row">
+  <div class="form-group col-sm-8">
+      <label>Photo :</label>
+      <%= bike_form.file_field :photo, class: "form-control-file" %>
+  </div>
 </div>
-<div class="form-check">
-    <label class="form-check-label">
-        <%= bike_form.check_box :lights, class: "form-check-input" %> Lumières
-    </label>
-</div>
-<br>
 
 <div class="row">
-    <div class="col-sm-5">
-        <label>Taille :</label>
-        <%= bike_form.select(:size, Bike.sizes.keys, {prompt: 'Choisissez'}, {class: "form-control"})%>
-    </div>
+  <div class="form-check">
+      <label class="form-check-label">
+          <%= bike_form.check_box :lights, class: "form-check-input" %> Lumières
+      </label>
+  </div>
+</div>
+
+<br>
+<div class="row">
+  <div class="col-sm-8">
+      <label>Taille :</label>
+      <%= bike_form.select(:size, Bike.sizes.keys, {prompt: 'Choisissez'}, {class: "form-control"})%>
+  </div>
 </div>
 <% end %>
 
@@ -43,7 +49,7 @@
     <div class="col-sm-3">
         <%= location_form.text_field :street_number, class: "form-control", placeholder: "Numéro"%>
     </div>
-    <div class="col-sm-6">
+    <div class="col-sm-5">
         <%= location_form.text_field :route, class: "form-control", placeholder: "Rue"%>
     </div>
 </div>
@@ -52,7 +58,7 @@
     <div class="col-sm-3">
         <%= location_form.text_field :locality, class: "form-control", placeholder: "Ville"%>
     </div>
-    <div class="col-sm-3">
+    <div class="col-sm-2">
         <%= location_form.text_field :postal_code, class: "form-control", placeholder: "Code postal"%>
     </div>
     <div class="col-sm-3">

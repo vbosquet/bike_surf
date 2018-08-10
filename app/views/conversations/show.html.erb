@@ -10,7 +10,7 @@
       <div class="container col-md-6 float-right">
         <% unless @conversation.messages.last.booking.present? &&
             @conversation.messages.last.booking.booking_statuses.last.status == "pending" &&
-            @conversation.lender_id == @current_user.id %>
+            @conversation.lender_id == current_user.id %>
           <div class="container border pt-3 pb-3 mb-5">
             <%= render partial: 'messages/form' %>
           </div>

@@ -7,7 +7,7 @@
       <hr />
       <%= form_for [@listing, @pricing] do |f| %>
       <div class="row">
-        <div class="form-group col-sm-7">
+        <div class="form-group col-sm-8">
           <label>Devise :</label>
           <%= f.select(:currency, Pricing.all_currencies, {prompt: 'Choisissez'}, {class: "form-control"})%>
         </div>
@@ -16,7 +16,7 @@
       <h3>Prix par jour</h1>
         <hr />
         <div class="row">
-          <div class="form-group col-sm-7">
+          <div class="form-group col-sm-8">
             <label>Prix de base :</label>
             <%= f.text_field :base_price, class: "form-control" %>
           </div>
@@ -28,7 +28,7 @@
             Encouragez les voyageurs à utiliser votre vélo plus longtemps avec des réductions au mois ou à la semaine.
           </p>
           <div class="row">
-            <div class="form-group col-sm-7">
+            <div class="form-group col-sm-8">
               <label>Réduction à la semaine (%) :</label>
               <small class="form-text text-muted mb-3">
                 Les réductions hebdomadaires concernent les locations de 7 jours ou plus.
@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="form-group col-sm-7">
+            <div class="form-group col-sm-8">
               <label>Réduction au mois (%) :</label>
               <small class="form-text text-muted mb-3">
                 Les réductions mensuelles concernent les locations de 28 jours ou plus.
@@ -49,7 +49,7 @@
           <h3>Frais supplémentaires</h1>
             <hr />
             <div class="row">
-              <div class="form-group col-sm-7">
+              <div class="form-group col-sm-8">
                 <label>Frais de maintenance :</label>
                 <small class="form-text text-muted mb-3">
                   Ces frais s'appliqueront à chaque réservation.
@@ -58,7 +58,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="form-group col-sm-7">
+              <div class="form-group col-sm-8">
                 <label>Caution :</label>
                 <small class="form-text text-muted mb-3">
                   Si vous effectuez une réclamation dans les 14 jours suivant la remise du vélo, l'utilisateur sera responsable des dommages à hauteur maximale de cette somme.
@@ -67,7 +67,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="form-group col-sm-7">
+              <div class="form-group col-sm-8">
                 <label>Tarif weekend :</label>
                 <small class="form-text text-muted mb-3">
                   Ce prix par jour remplacera votre tarif de base pour les journées du samedi et du dimanche.

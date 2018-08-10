@@ -14,6 +14,7 @@
       </p>
       <%= link_to "Aperçu", listing_path(listing), class: "card-link" %>
       <%= link_to "Modifier", edit_listing_path(listing), class: "card-link" %>
+      <%= link_to "#{listing.bookings.size} réservation(s)", listing_bookings_path(listing), class: "card-link" %>
     </div>
   </div>
   <% end %>

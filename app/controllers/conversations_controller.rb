@@ -10,7 +10,6 @@ class ConversationsController < ApplicationController
   def show
     @conversation = Conversation.find(params[:id])
     @recever = @conversation.borrower_id != current_user.id ? User.find(@conversation.borrower_id) : User.find(@conversation.lender_id)
-    @current_user = current_user
   end
 
   def set_full_sanitizer

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   	resources :availabilities
   	get 'edit_status'
   	patch 'update_status'
-    resources :bookings, only: [:new, :create]
+    resources :bookings, only: [:new, :create, :index]
   end
 
   get 'search', to: 'listings#search'
@@ -18,9 +18,9 @@ Rails.application.routes.draw do
 
   get '/bookings/resume', to: 'bookings#resume'
   get '/bookings/calculate', to: 'bookings#calculate'
-  get '/bookings/current', to: 'bookings#current_bookings'
-  get '/bookings/past', to: 'bookings#past_bookings'
-  get '/bookings/upcoming', to: 'bookings#upcoming_bookings'
+  get '/rentals/current', to: 'bookings#current_rentals'
+  get '/rentals/past', to: 'bookings#past_rentals'
+  get '/rentals/upcoming', to: 'bookings#upcoming_rentals'
 
   resources :bookings, only: [:show, :update]
   resources :conversations
