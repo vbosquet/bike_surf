@@ -9,6 +9,10 @@ class Location < ApplicationRecord
 		[self.street_number, self.route, self.postal_code, self.locality, self.country_code].compact.join(', ')
 	end
 
+	def full_address
+		[self.street_number, self.route, self.postal_code, self.locality, self.country_name].compact.join(', ')
+	end
+
 	def address_changed?
 		attrs = %w(street_number route postal_code locality country_code)
 		attrs.any?{|a| send "#{a}_changed?"}

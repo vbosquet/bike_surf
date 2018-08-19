@@ -3,11 +3,14 @@ Rails.application.routes.draw do
   root to:'home#index'
   get 'dashboard', to: 'dashboard#index'
 
-  resources :listings do
+  resources :listings, except: [:show] do
   	resources :pricings
   	resources :availabilities
   	get 'edit_status'
   	patch 'update_status'
+    get 'preview'
+    get 'details'
+    get 'details/description', to: 'listings#edit_description'
     resources :bookings, only: [:new, :create, :index]
   end
 

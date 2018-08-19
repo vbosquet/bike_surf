@@ -1,0 +1,70 @@
+<div class="container">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <!--<%= render "listing_management_sidebar" %>-->
+    <div class="col main pt-5 mt-3">
+      <%= render 'layouts/messages' %>
+
+      <div>
+        <%= link_to "Prévisualiser l'annonce", listing_preview_path(@listing), class: "btn btn-primary float-sm-right" %>
+        <h1 class="mb-4"><%= @listing.title %></h1>
+      </div>
+
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="#details" data-toggle="tab">Détails de l'annonce</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#pricings" data-toggle="tab">Tarif</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#availabilities" data-toggle="tab">Disponibilité</a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="details">
+          <div class="mt-4">
+            <div id="photoSection">
+              <%= link_to "Modifier", "#", class: "btn btn-outline-primary float-sm-right" %>
+              <h5 class="mt-4 mb-4">Photo</h5>
+              <%= image_tag @listing.bike.photo.url(:thumb) %>
+            </div>
+            <hr>
+            <div id="descriptionSection">
+              <%= link_to "Modifier", listing_details_description_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
+              <h5 class="mt-4 mb-4">Titre et description</h5>
+              <p><%= @listing.title %></p>
+              <p class="collapse" id="description" aria-expanded="false"><%= @full_sanitizer.sanitize(@listing.description) %></p>
+              <a role="button" class="collapsed" data-toggle="collapse" href="#description" aria-expanded="false" aria-controls="description">
+            </div>
+            <hr>
+            <div id="equipmentSection">
+              <%= link_to "Modifier", "#", class: "btn btn-outline-primary float-sm-right" %>
+              <h5 class="mt-4 mb-4">Equipements</h5>
+            </div>
+            <hr>
+            <div id="locationSection">
+              <%= link_to "Modifier", "#", class: "btn btn-outline-primary float-sm-right" %>
+              <h5 class="mt-4 mb-4">
+                Adresse
+                <small class="form-text text-muted">Visible uniquement par les utilisateurs ayant une réservation</small>
+              </h5>
+              <p><%= @listing.location.full_address %></p>
+            </div>
+            <hr>
+            <div id="statusSection">
+              <%= link_to "Modifier", "#", class: "btn btn-outline-primary float-sm-right" %>
+              <h5 class="mt-4 mb-4">Statut de l'annonce</h5>
+              <p><%= @listing.listed? ? "Publiée" : "Désactivée" %></p>
+            </div>
+            <hr>
+          </div>
+        </div>
+        <div class="tab-pane" id="pricings">
+        </div>
+        <div class="tab-pane" id="availabilities">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
