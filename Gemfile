@@ -53,6 +53,7 @@ gem 'paper_trail', "~> 9.2.0"
 gem 'rails-html-sanitizer', "~> 1.O.4"
 gem 'kaminari', "~> 1.1.1"
 gem "strip_attributes", "~> 1.8.0"
+gem 'pluck_to_hash', "~> 1.0.2"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

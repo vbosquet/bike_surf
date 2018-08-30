@@ -15,6 +15,8 @@ class ListingsController < ApplicationController
 
 	def details
 		@listing = Listing.find(params[:listing_id])
+		@equipments = Bike.where('id = ?', @listing.bike.id).pluck_to_hash(:lights, :helmet, :fonts,
+			:basket, :hasBackPedalBrake).first
 		render 'details'
 	end
 
@@ -39,49 +41,40 @@ class ListingsController < ApplicationController
 		end
 	end
 
-	def edit
-		@listing = Listing.find(params[:id])
-	end
-
 	def edit_description
 		@listing = Listing.find(params[:listing_id])
-		session[:return_to] ||= request.referer
-		render 'edit_description'
+		render "listings/edit/edit_description"
+	end
+
+	def edit_location
+		@listing = Listing.find(params[:listing_id])
+		render "listings/edit/edit_location"
+	end
+
+	def edit_status
+		@listing = Listing.find(params[:listing_id])
+		render "listings/edit/edit_status"
+	end
+
+	def edit_bike
+		@listing = Listing.find(params[:listing_id])
+		render "listings/edit/edit_bike"
 	end
 
 	def update
 		@listing = Listing.find(params[:id])
 
 		if params[:commit] == "Annuler"
-			redirect_to session.delete(:return_to)
+			redirect_to listing_details_path(@listing)
 			return nil
 		end
 
 		if @listing.update_attributes(listing_params)
 			flash[:success] = "Annonce modifiée avec succès"
-			redirect_to session.delete(:return_to)
+			redirect_to listing_details_path(@listing)
 		else
-			flash.now[:error] = @listing.errors.values
-			render 'edit'
-		end
-	end
-
-	def edit_status
-		@listing = Listing.find(params[:listing_id])
-	end
-
-	def update_status
-		listing = Listing.find(params[:listing_id])
-		if listing.update_attributes(listed: params[:listing][:listed])
-			if listing.listed?
-				@listed = "publiée"
-			else
-				@listed = "désactivée"
-			end
-			flash[:success] = "Annonce #{@listed} avec succès"
-			redirect_to listing_edit_status_path(listing)
-		else
-			flash[:error] = "Une erreur s'est produite veuillez réessayer"
+			flash[:error] = @listing.errors.values
+			redirect_to :back
 		end
 	end
 
@@ -97,8 +90,8 @@ class ListingsController < ApplicationController
 	private
 
 	def listing_params
-		params.require(:listing).permit(:title, :description,
-			bike_attributes: [:id, :lights, :size, :photo, :listing_id],
+		params.require(:listing).permit(:title, :description, :listed,
+			bike_attributes: [:id, :lights, :size, :photo, :listing_id, :helmet, :fonts, :basket, :hasBackPedalBrake],
 			location_attributes: [:id, :street_number, :route, :locality, :postal_code, :country_code]).merge(user_id: current_user.id)
 	end
 

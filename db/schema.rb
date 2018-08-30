@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180809135601) do
+ActiveRecord::Schema.define(version: 20180829135923) do
 
   create_table "availabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "advance_notice",              default: 0
@@ -34,6 +34,10 @@ ActiveRecord::Schema.define(version: 20180809135601) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.boolean  "hasBackPedalBrake",  default: false
+    t.boolean  "helmet",             default: false
+    t.boolean  "basket",             default: false
+    t.boolean  "fonts",              default: false
   end
 
   create_table "booking_statuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -94,8 +98,8 @@ ActiveRecord::Schema.define(version: 20180809135601) do
 
   create_table "pricings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "base_price",                  default: 0
-    t.float    "average_weekly",   limit: 24, default: 0.0
-    t.float    "average_monthly",  limit: 24, default: 0.0
+    t.float    "weekly_discount",  limit: 24, default: 0.0
+    t.float    "monthly_discount", limit: 24, default: 0.0
     t.string   "currency"
     t.integer  "weekend_pricing",             default: 0
     t.integer  "security_deposit",            default: 0

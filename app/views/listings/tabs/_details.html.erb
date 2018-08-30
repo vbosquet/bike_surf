@@ -1,0 +1,42 @@
+<div class="mt-4">
+  <div id="photoSection">
+    <%= link_to "Modifier", "#", class: "btn btn-outline-primary float-sm-right" %>
+    <h5 class="mt-4 mb-4">Photo</h5>
+    <%= image_tag @listing.bike.photo.url(:thumb) %>
+  </div>
+  <hr>
+  <div id="descriptionSection">
+    <%= link_to "Modifier", listing_details_description_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
+    <h5 class="mt-4 mb-4">Titre et description</h5>
+    <p><%= @listing.title %></p>
+    <p class="collapse" id="description" aria-expanded="false"><%= @full_sanitizer.sanitize(@listing.description) %></p>
+    <a role="button" class="collapsed" data-toggle="collapse" href="#description" aria-expanded="false" aria-controls="description">
+  </div>
+  <hr>
+  <div id="equipmentSection">
+    <%= link_to "Modifier", listing_details_bike_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
+    <h5 class="mt-4 mb-4">Caractéristiques & équipements</h5>
+    <p>Taille : <%= Bike.human_enum_name(:size, @listing.bike.size) %></p>
+    <% @equipments.keys.each do |key| %>
+      <% if @equipments[key] %>
+        <p><i class="fa fa-bicycle"></i> <%= Bike.human_attribute_name(key) %></p>
+      <% end %>
+    <% end %>
+  </div>
+  <hr>
+  <div id="locationSection">
+    <%= link_to "Modifier", listing_details_location_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
+    <h5 class="mt-4 mb-4">
+      Adresse
+      <small class="form-text text-muted">Visible uniquement par les utilisateurs ayant une réservation</small>
+    </h5>
+    <p><%= @listing.location.full_address %></p>
+  </div>
+  <hr>
+  <div id="statusSection">
+    <%= link_to "Modifier", listing_details_status_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
+    <h5 class="mt-4 mb-4">Statut de l'annonce</h5>
+    <p><%= @listing.listed? ? "Publiée" : "Désactivée" %></p>
+  </div>
+  <hr>
+</div>

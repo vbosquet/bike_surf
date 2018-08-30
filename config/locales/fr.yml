@@ -13,6 +13,16 @@ fr:
           accepted: "Acceptée"
           refused: "Refusée"
           canceled: "Annulée"
+      bike:
+        sizes:
+          small: "Petit"
+          medium: "Medium"
+          large: "Large"
+        lights: "Lumières"
+        helmet: "Casque"
+        fonts: "Fontes"
+        basket: "Panier"
+        hasBackPedalBrake: "Frein à pédale arrière"
     errors:
       models:
         user:

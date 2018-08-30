@@ -1,85 +1,75 @@
-<div class="container-fluid">
-  <div class="row row-offcanvas row-offcanvas-left">
-    <%= render "listings/listing_management_sidebar" %>
-    <div class="col main pt-5 mt-3">
-      <%= render 'layouts/messages' %>
-      <h1>Tarif</h1>
+<%= form_for [@listing, @pricing] do |f| %>
+    <div class="row">
+      <div class="form-group col-sm-8">
+        <label>Devise :</label>
+        <%= f.select(:currency, Pricing.all_currencies, {prompt: 'Choisissez'}, {class: "form-control"})%>
+      </div>
+    </div>
+    <br >
+    <h3>Prix par jour</h1>
       <hr />
-      <%= form_for [@listing, @pricing] do |f| %>
       <div class="row">
         <div class="form-group col-sm-8">
-          <label>Devise :</label>
-          <%= f.select(:currency, Pricing.all_currencies, {prompt: 'Choisissez'}, {class: "form-control"})%>
+          <label>Prix de base :</label>
+          <%= f.text_field :base_price, class: "form-control" %>
         </div>
       </div>
       <br >
-      <h3>Prix par jour</h1>
+      <h3>Réductions en fonction de la durée du séjour</h1>
         <hr />
+        <p class="form-text text-muted mb-4">
+          Encouragez les voyageurs à utiliser votre vélo plus longtemps avec des réductions au mois ou à la semaine.
+        </p>
         <div class="row">
           <div class="form-group col-sm-8">
-            <label>Prix de base :</label>
-            <%= f.text_field :base_price, class: "form-control" %>
+            <label>Réduction à la semaine (%) :</label>
+            <small class="form-text text-muted mb-3">
+              Les réductions hebdomadaires concernent les locations de 7 jours ou plus.
+            </small>
+            <%= f.text_field :average_weekly, class: "form-control" %>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-sm-8">
+            <label>Réduction au mois (%) :</label>
+            <small class="form-text text-muted mb-3">
+              Les réductions mensuelles concernent les locations de 28 jours ou plus.
+            </small>
+            <%= f.text_field :average_monthly, class: "form-control" %>
           </div>
         </div>
         <br >
-        <h3>Réductions en fonction de la durée du séjour</h1>
+        <h3>Frais supplémentaires</h1>
           <hr />
-          <p class="form-text text-muted mb-4">
-            Encouragez les voyageurs à utiliser votre vélo plus longtemps avec des réductions au mois ou à la semaine.
-          </p>
           <div class="row">
             <div class="form-group col-sm-8">
-              <label>Réduction à la semaine (%) :</label>
+              <label>Frais de maintenance :</label>
               <small class="form-text text-muted mb-3">
-                Les réductions hebdomadaires concernent les locations de 7 jours ou plus.
+                Ces frais s'appliqueront à chaque réservation.
               </small>
-              <%= f.text_field :average_weekly, class: "form-control" %>
+              <%= f.text_field :maintenance_fee, class: "form-control" %>
             </div>
           </div>
           <div class="row">
             <div class="form-group col-sm-8">
-              <label>Réduction au mois (%) :</label>
+              <label>Caution :</label>
               <small class="form-text text-muted mb-3">
-                Les réductions mensuelles concernent les locations de 28 jours ou plus.
+                Si vous effectuez une réclamation dans les 14 jours suivant la remise du vélo, l'utilisateur sera responsable des dommages à hauteur maximale de cette somme.
               </small>
-              <%= f.text_field :average_monthly, class: "form-control" %>
+              <%= f.text_field :security_deposit, class: "form-control" %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-sm-8">
+              <label>Tarif weekend :</label>
+              <small class="form-text text-muted mb-3">
+                Ce prix par jour remplacera votre tarif de base pour les journées du samedi et du dimanche.
+              </small>
+              <%= f.text_field :weekend_pricing, class: "form-control" %>
             </div>
           </div>
           <br >
-          <h3>Frais supplémentaires</h1>
-            <hr />
-            <div class="row">
-              <div class="form-group col-sm-8">
-                <label>Frais de maintenance :</label>
-                <small class="form-text text-muted mb-3">
-                  Ces frais s'appliqueront à chaque réservation.
-                </small>
-                <%= f.text_field :maintenance_fee, class: "form-control" %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-sm-8">
-                <label>Caution :</label>
-                <small class="form-text text-muted mb-3">
-                  Si vous effectuez une réclamation dans les 14 jours suivant la remise du vélo, l'utilisateur sera responsable des dommages à hauteur maximale de cette somme.
-                </small>
-                <%= f.text_field :security_deposit, class: "form-control" %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="form-group col-sm-8">
-                <label>Tarif weekend :</label>
-                <small class="form-text text-muted mb-3">
-                  Ce prix par jour remplacera votre tarif de base pour les journées du samedi et du dimanche.
-                </small>
-                <%= f.text_field :weekend_pricing, class: "form-control" %>
-              </div>
-            </div>
-            <br >
-            <div>
-              <%= f.submit "Enregistrer", class: "btn btn-primary" %>
-            </div>
-            <% end %>
+          <div>
+            <%= f.submit "Enregistrer", class: "btn btn-primary" %>
           </div>
-        </div>
-      </div>
+          <% end %>

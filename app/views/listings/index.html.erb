@@ -7,7 +7,28 @@
         <%= link_to "Créer une nouvelle annonce", new_listing_path, class: "btn btn-outline-primary float-sm-right" %>
       </h1>
       <hr >
-      <%= render partial: "listings" %>
+      <% @listings.each_slice(3) do |listings| %>
+      <div class="card-deck" style="margin-bottom: 15px">
+        <% listings.each do |listing| %>
+        <div class="card card-inverse" style="max-width: 22rem;">
+          <div class="card-header">
+            <%= listing.listed? ? "Publiée" : "Désactivée" %>
+          </div>
+          <%= image_tag listing.bike.photo.url(:medium), class: "card-img-top" %>
+          <div class="card-body">
+            <h4 class="card-title"><%= listing.title %></h4>
+            <p class="card-text">
+              Taille : <%= listing.bike.size %><br >
+              Lumières : <%= listing.bike.lights ? "Oui" : "Non" %>
+            </p>
+            <%= link_to "Aperçu", listing_preview_path(listing), class: "card-link" %>
+            <%= link_to "Modifier", listing_details_path(listing), class: "card-link" %>
+            <%= link_to "#{listing.bookings.size} réservation(s)", listing_bookings_path(listing), class: "card-link" %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>

@@ -32,6 +32,10 @@ class PricingsController < ApplicationController
 		end
 	end
 
+	def daily_price
+		render 'daily_price'
+	end
+
 	private
 
 	def pricing_params

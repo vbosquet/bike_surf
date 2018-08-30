@@ -4,13 +4,17 @@ Rails.application.routes.draw do
   get 'dashboard', to: 'dashboard#index'
 
   resources :listings, except: [:show] do
-  	resources :pricings
+  	resources :pricings do
+      get 'daily_price'
+    end
   	resources :availabilities
-  	get 'edit_status'
-  	patch 'update_status'
+    resources :bikes
     get 'preview'
     get 'details'
     get 'details/description', to: 'listings#edit_description'
+    get 'details/location', to: 'listings#edit_location'
+    get 'details/status', to: 'listings#edit_status'
+    get 'details/bike', to: 'listings#edit_bike'
     resources :bookings, only: [:new, :create, :index]
   end
 

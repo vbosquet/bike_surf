@@ -35,13 +35,13 @@
                 <% if @days >= 7 && @days < 28 %>
                 <div class="row">
                   <div class="col">Réduction hebdomataire</div>
-                  <div class="col text-right">- <%= (@booking_pricing.base_price * @days) * (@booking_pricing.average_weekly / 100) %> <%= @booking_pricing.currency %></div>
+                  <div class="col text-right">- <%= (@booking_pricing.base_price * @days) * (@booking_pricing.weekly_discount / 100) %> <%= @booking_pricing.currency %></div>
                 </div>
                 <% end %>
                 <% if @days >= 28 %>
                 <div class="row">
                   <div class="col">Réduction mensuelle</div>
-                  <div class="col text-right">- <%= (@booking_pricing.base_price * @days) * (@booking_pricing.average_monthly / 100) %> <%= @booking_pricing.currency %></div>
+                  <div class="col text-right">- <%= (@booking_pricing.base_price * @days) * (@booking_pricing.monthly_discount / 100) %> <%= @booking_pricing.currency %></div>
                 </div>
                 <% end %>
                 <div class="row">

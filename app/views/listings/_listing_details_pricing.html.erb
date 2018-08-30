@@ -3,13 +3,13 @@
     <% if @listing.pricing.present? %>
       <li class="list-group-item"><span class="float-right label label-info label-pill"><%= @listing.pricing.base_price %> <%= @listing.pricing.currency %></span> Prix par jour :</li>
       <li class="list-group-item">
-        <span class="float-right label label-info label-pill"><%= @listing.pricing.average_weekly.round %> %</span> Réduction à la semaine :
+        <span class="float-right label label-info label-pill"><%= @listing.pricing.average_weekly.round %> <%= @listing.pricing.currency %></span> Prix à la semaine :
         <small class="form-text text-muted">
           Vous bénéficiez de cette réduction si la durée de votre location est de 7 jours ou plus.
         </small>
       </li>
       <li class="list-group-item">
-        <span class="float-right label label-info label-pill"><%= @listing.pricing.average_monthly.round %> %</span> Réduction au mois :
+        <span class="float-right label label-info label-pill"><%= @listing.pricing.average_monthly.round %> <%= @listing.pricing.currency %></span> Prix au mois :
         <small class="form-text text-muted">
           Vous bénéficiez de cette réduction si la durée de votre location est de 28 jours ou plus.
         </small>
