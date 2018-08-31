@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <div class="col main pt-5 mt-3">
+      <%= render 'layouts/messages' %>
+      <h1>Réductions en fonction de la durée de la location</h1>
+      <hr>
+      <p class="form-text text-muted mb-4">
+        Encouragez les voyageurs à utiliser votre vélo plus longtemps avec des réductions au mois ou à la semaine.
+        <a href="#discountsModal" data-toggle="modal">En savoir plus</a>
+      </p>
+      <%= form_for [@listing, @pricing] do |f| %>
+      <div class="row">
+        <div class="form-group col-sm-8">
+          <label>Réduction à la semaine (%) :</label>
+          <small class="form-text text-muted">
+            Prix moyen à la semaine avec une réduction de <%= content_tag('span', @pricing.weekly_discount, id: 'discount_weekly') %> % : €<%= content_tag('span', @pricing.average_weekly, id: 'average_weekly') %>
+          </small>
+          <%= f.text_field :weekly_discount, class: "form-control", data: {pricing_id: @pricing.id } %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="form-group col-sm-8">
+          <label>Réduction au mois (%) :</label>
+          <small class="form-text text-muted">
+            Prix moyen au mois avec une réduction de <%= content_tag('span', @pricing.monthly_discount, id: 'discount_monthly') %> % : €<%= content_tag('span', @pricing.average_monthly, id: 'average_monthly') %>
+          </small>
+          <%= f.text_field :monthly_discount, class: "form-control", data: {pricing_id: @pricing.id } %>
+        </div>
+      </div>
+      <div>
+        <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+        <%= f.submit "Annuler", class: "btn btn-outline-primary" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<%= render partial: "modals/discounts" %>

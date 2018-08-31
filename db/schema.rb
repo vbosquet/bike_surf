@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180829135923) do
+ActiveRecord::Schema.define(version: 20180830150701) do
 
   create_table "availabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "advance_notice",              default: 0
@@ -97,16 +97,16 @@ ActiveRecord::Schema.define(version: 20180829135923) do
   end
 
   create_table "pricings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "base_price",                  default: 0
-    t.float    "weekly_discount",  limit: 24, default: 0.0
-    t.float    "monthly_discount", limit: 24, default: 0.0
+    t.integer  "base_price",       default: 0
+    t.integer  "weekly_discount",  default: 0
+    t.integer  "monthly_discount", default: 0
     t.string   "currency"
-    t.integer  "weekend_pricing",             default: 0
-    t.integer  "security_deposit",            default: 0
-    t.integer  "maintenance_fee",             default: 0
+    t.integer  "weekend_pricing",  default: 0
+    t.integer  "security_deposit", default: 0
+    t.integer  "maintenance_fee",  default: 0
     t.integer  "listing_id"
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

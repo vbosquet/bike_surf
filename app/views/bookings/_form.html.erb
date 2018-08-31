@@ -2,7 +2,7 @@
   <%= f.hidden_field :listing_id, value: @listing.id , id: "listingId" %>
   <%= f.hidden_field :total_price, id: "totalPrice" %>
   <label>Durée de la location :</label>
-  <small id="passwordHelpBlock" class="form-text text-muted mb-3">
+  <small class="form-text text-muted mb-3">
     Indiquez au propriétaire les jours où vous viendrez chercher et déposer le vélo.
   </small>
   <div class="row mb-4">
@@ -19,7 +19,7 @@
   </div>
   <div class="form-group mb-5">
       <label>Message :</label>
-      <small id="passwordHelpBlock" class="form-text text-muted mb-3">
+      <small class="form-text text-muted mb-3">
         Dites-en plus sur qui vous êtes et sur vos différentes expériences en cyclisme.
       </small>
       <%= f.fields_for :messages do |ff| %>

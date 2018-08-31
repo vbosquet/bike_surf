@@ -7,13 +7,13 @@
     <p class="form-text text-muted">Vous êtes responsable du choix du prix de votre vélo.</p>
   </div>
   <div>
-    <%= link_to "Modifier", "#", class: "btn btn-outline-primary float-sm-right" %>
+    <%= link_to "Modifier", listing_pricing_discounts_path(listing_id: @listing, pricing_id: @listing.pricing), class: "btn btn-outline-primary float-sm-right" %>
     <h5 class="mt-5 mb-5">Réductions en fonction de la durée de la location</h5>
-    <p><span class="float-right label label-info label-pill"><%= @listing.pricing.average_weekly.round %> <%= @listing.pricing.currency %></span> Hebdomadaire moyen </p>
+    <p><span class="float-right label label-info label-pill"><%= @listing.pricing.average_weekly %> <%= @listing.pricing.currency %></span> Hebdomadaire moyen </p>
     <hr>
-    <p><span class="float-right label label-info label-pill"><%= @listing.pricing.average_monthly.round %> <%= @listing.pricing.currency %></span> Mensuel moyen</p>
+    <p><span class="float-right label label-info label-pill"><%= @listing.pricing.average_monthly %> <%= @listing.pricing.currency %></span> Mensuel moyen</p>
     <hr>
-    <p class="form-text text-muted">Encouragez les cyclistes à louer votre vélo plus longtemps avec des réductions au mois ou à la semaine. <a href="#reductionsExplanationModal" data-toggle="modal">En savoir plus</a></p>
+    <p class="form-text text-muted">Encouragez les cyclistes à louer votre vélo plus longtemps avec des réductions au mois ou à la semaine. <a href="#discountsModal" data-toggle="modal">En savoir plus</a></p>
   </div>
   <div>
     <%= link_to "Modifier", "#", class: "btn btn-outline-primary float-sm-right" %>
@@ -33,22 +33,4 @@
   </div>
 </div>
 
-<div class="modal fade" id="reductionsExplanationModal" tabindex="-1" role="dialog" aria-labelledby="reductionsExplanationModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="reductionsExplanationModalLabel">À propos des réductions en fonction de la durée de la location</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>En accordant des réductions hebdomadaires et mensuelles, vous avez la certitude que votre annonce s'affichera dans les résultats de recherche lorsque les personnes souhaitent effectuer des réservations de 7 jours ou plus. Les réductions hebdomadaires concernent les locations de 7 jours ou plus. Les réductions mensuelles concernent les locations de 28 jours ou plus.</p>
-        <p>Le prix final dépend du prix par jour et des réductions hebdomadaires/mensuelles. Le prix à la semaine ou au mois est une moyenne du prix par jour (calculé en fonction de votre prix de base) pour les prochains 90 jours.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">J'ai compris</button>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render partial: "modals/discounts" %>

@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <div class="col main pt-5 mt-3">
+      <%= render 'layouts/messages' %>
+      <h1>Prix par jour</h1>
+      <hr>
+      <%= form_for [@listing, @pricing] do |f| %>
+        <div class="row">
+          <div class="form-group col-sm-8 mb-3">
+            <label>Prix de base :</label>
+            <%= f.text_field :base_price, class: "form-control" %>
+          </div>
+        </div>
+        <div>
+          <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+          <%= f.submit "Annuler", class: "btn btn-outline-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

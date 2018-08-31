@@ -1,6 +1,6 @@
 class PricingsController < ApplicationController
 	before_action :authenticate_user!
-	before_action :find_listing
+	before_action :find_listing, except: [:calculate_average]
 
 	def new
 		@pricing = Pricing.new
@@ -17,29 +17,46 @@ class PricingsController < ApplicationController
 		end
 	end
 
-	def edit
-		@pricing = Pricing.find(params[:id])
-	end
-
 	def update
 		@pricing = Pricing.find(params[:id])
+
+		if params[:commit] == "Annuler"
+			redirect_to listing_details_path(@listing)
+			return nil
+		end
+
 		if @pricing.update_attributes(pricing_params)
 			flash[:success] = "Informations enregistrées avec succès"
-			redirect_to edit_listing_pricing_path(listing_id: @listing.id, id: @pricing.id)
+			redirect_to listing_details_path(@listing)
 		else
 			flash.now[:error] = @pricing.errors.values
-			render 'edit'
+			redirect_to :back
 		end
 	end
 
 	def daily_price
-		render 'daily_price'
+		@pricing = Pricing.find(params[:pricing_id])
+		render 'pricings/edit/daily_price'
+	end
+
+	def discounts
+		@pricing = Pricing.find(params[:pricing_id])
+		render 'pricings/edit/discounts'
+	end
+
+	def calculate_average
+		discount = params[:discount].to_i
+		type = params[:average_type]
+		pricing = Pricing.find(params[:pricing_id])
+		price = type == "weekly" ? pricing.base_price * 7 : pricing.base_price * 28
+		average = price - (price * (discount / 100.0))
+		render json: average.round
 	end
 
 	private
 
 	def pricing_params
-		params.require(:pricing).permit(:base_price, :average_weekly, :average_monthly,
+		params.require(:pricing).permit(:base_price, :weekly_discount, :monthly_discount,
 			:currency, :weekend_pricing, :security_deposit, :maintenance_fee).merge(listing_id: @listing.id)
 	end
 

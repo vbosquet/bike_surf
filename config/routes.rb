@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   root to:'home#index'
   get 'dashboard', to: 'dashboard#index'
 
-  resources :listings, except: [:show] do
-  	resources :pricings do
+  resources :listings, except: [:show, :edit] do
+  	resources :pricings, except: [:edit] do
       get 'daily_price'
+      get 'discounts'
     end
   	resources :availabilities
     resources :bikes
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
   get '/rentals/current', to: 'bookings#current_rentals'
   get '/rentals/past', to: 'bookings#past_rentals'
   get '/rentals/upcoming', to: 'bookings#upcoming_rentals'
+  get '/pricings/calculate_average', to: 'pricings#calculate_average'
 
   resources :bookings, only: [:show, :update]
   resources :conversations
