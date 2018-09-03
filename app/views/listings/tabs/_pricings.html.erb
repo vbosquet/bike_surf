@@ -16,7 +16,7 @@
     <p class="form-text text-muted">Encouragez les cyclistes à louer votre vélo plus longtemps avec des réductions au mois ou à la semaine. <a href="#discountsModal" data-toggle="modal">En savoir plus</a></p>
   </div>
   <div>
-    <%= link_to "Modifier", "#", class: "btn btn-outline-primary float-sm-right" %>
+    <%= link_to "Modifier", listing_pricing_extra_fees_path(listing_id: @listing, pricing_id: @listing.pricing), class: "btn btn-outline-primary float-sm-right" %>
     <h5 class="mt-5 mb-5">Frais supplémentaires</h5>
     <p><span class="float-right label label-info label-pill"><%= @listing.pricing.maintenance_fee %> <%= @listing.pricing.currency %></span> Frais de maintenance</p>
     <hr>
@@ -26,7 +26,7 @@
     <hr>
   </div>
   <div>
-    <%= link_to "Modifier", "#", class: "btn btn-outline-primary float-sm-right" %>
+    <%= link_to "Modifier", listing_pricing_currency_path(listing_id: @listing, pricing_id: @listing.pricing), class: "btn btn-outline-primary float-sm-right" %>
     <h5 class="mt-5 mb-5">Devise</h5>
     <span class="float-right label label-info label-pill"><%= @listing.pricing.currency %></span> Devise
     <hr>

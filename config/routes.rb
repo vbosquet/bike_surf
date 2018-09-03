@@ -7,8 +7,14 @@ Rails.application.routes.draw do
   	resources :pricings, except: [:edit] do
       get 'daily_price'
       get 'discounts'
+      get 'extra_fees'
+      get 'currency'
     end
-  	resources :availabilities
+  	resources :availabilities, except: [:edit] do
+      get 'checkin_setting'
+      get 'rental_length'
+      get 'reservation_preferences'
+    end
     resources :bikes
     get 'preview'
     get 'details'

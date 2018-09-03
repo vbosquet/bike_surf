@@ -17,9 +17,9 @@ var ready = function () {
   }
 
   $("#pricing_weekly_discount").on('change paste keyup', function(event) {
-    discount = $(this).val();
-    pricingId = $(this).data('pricing-id');
-    type = "weekly";
+    var discount = $(this).val();
+    var pricingId = $(this).data('pricing-id');
+    var type = "weekly";
     if (!Number.isInteger(parseInt(discount)) || discount === null ||
       discount === 'undefined') {
       discount = 0;
@@ -29,9 +29,9 @@ var ready = function () {
   });
 
   $("#pricing_monthly_discount").on('change paste keyup', function(event) {
-    discount = $(this).val();
-    pricingId = $(this).data('pricing-id');
-    type = "monthly";
+    var discount = $(this).val();
+    var pricingId = $(this).data('pricing-id');
+    var type = "monthly";
     if (!Number.isInteger(parseInt(discount)) || discount === null ||
       discount === 'undefined') {
       discount = 0;

@@ -1,0 +1,31 @@
+<div class="mt-4">
+  <div>
+    <%= link_to "Modifier", listing_availability_reservation_preferences_path(listing_id: @listing, availability_id: @listing.availability), class: "btn btn-outline-primary float-sm-right" %>
+    <h5 class="mt-5 mb-5">Préférences de réservation</h5>
+    <p>
+      <span class="float-right label label-info label-pill">
+        <% if @listing.availability.advance_notice == Availability.advance_notices.keys.first %>
+          <%= @listing.availability.advance_notice %>, jusqu'à <%= @listing.availability.deadline %>
+        <% else %>
+          <%= @listing.availability.advance_notice %>
+        <% end %>
+      </span> Délai
+    </p>
+    <hr>
+  </div>
+  <div>
+    <%= link_to "Modifier", listing_availability_rental_length_path(listing_id: @listing, availability_id: @listing.availability), class: "btn btn-outline-primary float-sm-right" %>
+    <h5 class="mt-5 mb-5">Durée de la location</h5>
+    <p><span class="float-right label label-info label-pill"><%= @listing.availability.minimum_rental %> jour(s)</span> Durée minimum</p>
+    <hr>
+    <p><span class="float-right label label-info label-pill"><%= @listing.availability.maximum_rental %> jour(s)</span> Durée maximum</p>
+    <hr>
+  <div>
+    <%= link_to "Modifier", listing_availability_checkin_setting_path(listing_id: @listing, availability_id: @listing.availability), class: "btn btn-outline-primary float-sm-right" %>
+    <h5 class="mt-5 mb-5">Réception et dépôt</h5>
+    <p><span class="float-right label label-info label-pill">A partir de <%= @listing.availability.pickup_time %></span> Heure de réception</p>
+    <hr>
+    <p><span class="float-right label label-info label-pill">Avant <%= @listing.availability.dropoff_time %></span> Heure de dépôt</p>
+    <hr>
+  </div>
+</div>

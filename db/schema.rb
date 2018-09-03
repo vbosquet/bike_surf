@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180830150701) do
+ActiveRecord::Schema.define(version: 20180831145024) do
 
   create_table "availabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
-    t.integer  "advance_notice",              default: 0
-    t.string   "maximum_advance_notice_time"
-    t.integer  "minimum_rental",              default: 1
-    t.integer  "maximum_rental",              default: 1
-    t.string   "dropoff_time",                default: "00:00"
-    t.string   "pickup_time",                 default: "00:00"
+    t.integer  "advance_notice", default: 0
+    t.integer  "minimum_rental", default: 1
+    t.integer  "maximum_rental", default: 1
+    t.string   "dropoff_time",   default: "00:00"
+    t.string   "pickup_time",    default: "00:00"
     t.integer  "listing_id"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "deadline",       default: "00:00"
   end
 
   create_table "bikes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

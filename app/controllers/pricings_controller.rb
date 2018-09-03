@@ -44,6 +44,16 @@ class PricingsController < ApplicationController
 		render 'pricings/edit/discounts'
 	end
 
+	def extra_fees
+		@pricing = Pricing.find(params[:pricing_id])
+		render 'pricings/edit/extra_fees'
+	end
+
+	def currency
+		@pricing = Pricing.find(params[:pricing_id])
+		render 'pricings/edit/currency'
+	end
+
 	def calculate_average
 		discount = params[:discount].to_i
 		type = params[:average_type]
