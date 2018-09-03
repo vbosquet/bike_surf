@@ -11,10 +11,18 @@
   min-height: 42px !important;
 }
 
-#descriptionSection a.collapsed:after  {
+#descriptionSection .expandLink.collapsed:after  {
     content: '+ Plus';
 }
 
-/*#descriptionSection a:not(.collapsed):after {
-    content: '- Less';
-}*/
+#descriptionSection .expandLink:not(.collapsed):after {
+    content: '- Moins';
+}
+
+#equipmentSection .expandLink.collapsed:after  {
+    content: '+ Plus';
+}
+
+#equipmentSection .expandLink:not(.collapsed):after {
+    content: '- Moins';
+}

@@ -16,11 +16,38 @@ class BikesController < ApplicationController
 		end
 	end
 
+  def photos
+    @bike = Bike.find(params[:bike_id])
+    render 'bikes/edit/photos'
+  end
+
+  def equipments
+    @bike = Bike.find(params[:bike_id])
+    render 'bikes/edit/equipments'
+  end
+
+  def update
+    @bike = Bike.find(params[:id])
+
+		if params[:commit] == "Annuler"
+			redirect_to listing_details_path(@listing)
+			return nil
+		end
+
+		if @bike.update_attributes(bike_params)
+			flash[:success] = "Informations enregistrées avec succès"
+			redirect_to listing_details_path(@listing)
+		else
+			flash.now[:error] = @bike.errors.values
+			redirect_to :back
+		end
+  end
+
   private
 
 	def bike_params
 		params.require(:pricing).permit(:size, :lights, :hasBackPedalBrake,
-			:helmet, :basket, :fonts, :photo).merge(listing_id: @listing.id)
+			:helmet, :basket, :fonts, :photo, :child_seat).merge(listing_id: @listing.id)
 	end
 
 	def find_listing

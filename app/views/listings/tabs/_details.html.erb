@@ -1,7 +1,7 @@
 <div class="mt-4">
   <div id="photoSection">
-    <%= link_to "Modifier", "#", class: "btn btn-outline-primary float-sm-right" %>
-    <h5 class="mt-4 mb-4">Photo</h5>
+    <%= link_to "Modifier", listing_bike_photos_path(listing_id: @listing, bike_id: @listing.bike), class: "btn btn-outline-primary float-sm-right" %>
+    <h5 class="mt-4 mb-4">Photos</h5>
     <%= image_tag @listing.bike.photo.url(:thumb) %>
   </div>
   <hr>
@@ -10,18 +10,21 @@
     <h5 class="mt-4 mb-4">Titre et description</h5>
     <p><%= @listing.title %></p>
     <p class="collapse" id="description" aria-expanded="false"><%= @full_sanitizer.sanitize(@listing.description) %></p>
-    <a role="button" class="collapsed" data-toggle="collapse" href="#description" aria-expanded="false" aria-controls="description">
+    <a role="button" class="collapsed expandLink" data-toggle="collapse" href="#description" aria-expanded="false" aria-controls="description"></a>
   </div>
   <hr>
   <div id="equipmentSection">
-    <%= link_to "Modifier", listing_details_bike_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
+    <%= link_to "Modifier", listing_bike_equipments_path(listing_id: @listing, bike_id: @listing.bike), class: "btn btn-outline-primary float-sm-right" %>
     <h5 class="mt-4 mb-4">Caractéristiques & équipements</h5>
     <p>Taille : <%= Bike.human_enum_name(:size, @listing.bike.size) %></p>
-    <% @equipments.keys.each do |key| %>
-      <% if @equipments[key] %>
-        <p><i class="fa fa-bicycle"></i> <%= Bike.human_attribute_name(key) %></p>
+    <div class="collapse" id="equipments" aria-expanded="false">
+      <% @equipments.keys.each do |key| %>
+        <% if @equipments[key] %>
+          <p><i class="fa fa-bicycle"></i> <%= Bike.human_attribute_name(key) %></p>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
+    <a role="button" class="collapsed expandLink" data-toggle="collapse" href="#equipments" aria-expanded="false" aria-controls="equipments"></a>
   </div>
   <hr>
   <div id="locationSection">

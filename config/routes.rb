@@ -15,13 +15,15 @@ Rails.application.routes.draw do
       get 'rental_length'
       get 'reservation_preferences'
     end
-    resources :bikes
+    resources :bikes, except: [:edit] do
+      get 'photos'
+      get 'equipments'
+    end
     get 'preview'
     get 'details'
     get 'details/description', to: 'listings#edit_description'
     get 'details/location', to: 'listings#edit_location'
     get 'details/status', to: 'listings#edit_status'
-    get 'details/bike', to: 'listings#edit_bike'
     resources :bookings, only: [:new, :create, :index]
   end
 

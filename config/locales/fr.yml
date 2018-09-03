@@ -23,6 +23,7 @@ fr:
         fonts: "Fontes"
         basket: "Panier"
         hasBackPedalBrake: "Frein à pédale arrière"
+        child_seat: "Siège enfant"
     errors:
       models:
         user:

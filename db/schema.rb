@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180831145024) do
+ActiveRecord::Schema.define(version: 20180903082252) do
 
   create_table "availabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "advance_notice", default: 0
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20180831145024) do
     t.boolean  "helmet",             default: false
     t.boolean  "basket",             default: false
     t.boolean  "fonts",              default: false
+    t.boolean  "child_seat",         default: false
   end
 
   create_table "booking_statuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
