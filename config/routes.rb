@@ -16,8 +16,8 @@ Rails.application.routes.draw do
       get 'reservation_preferences'
     end
     resources :bikes, except: [:edit] do
-      get 'photos'
       get 'equipments'
+      resources :photos
     end
     get 'preview'
     get 'details'

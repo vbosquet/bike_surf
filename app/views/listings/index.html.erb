@@ -14,7 +14,9 @@
           <div class="card-header">
             <%= listing.listed? ? "Publiée" : "Désactivée" %>
           </div>
-          <%= image_tag listing.bike.photo.url(:medium), class: "card-img-top" %>
+          <% if listing.bike.photos.present? %>
+            <%= image_tag listing.bike.photos.first.attachment.url(:medium), class: "card-img-top" %>
+          <% end %>
           <div class="card-body">
             <h4 class="card-title"><%= listing.title %></h4>
             <p class="card-text">

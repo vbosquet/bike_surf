@@ -1,0 +1,24 @@
+.img-thumbnail .btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  font-size: 16px;
+  padding: 12px 24px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  display: none;
+}
+
+.img-thumbnail:hover .btn {
+   display: block; /* On :hover of div show button */
+}
+
+.img-thumbnail a {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 12px 24px;
+}

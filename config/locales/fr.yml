@@ -1,4 +1,8 @@
 fr:
+  photos:
+    zero: photo
+    one: photo
+    other: photos
   views:
     pagination:
       first: "&laquo;"

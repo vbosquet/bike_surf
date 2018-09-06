@@ -2,7 +2,21 @@
   <div id="photoSection">
     <%= link_to "Modifier", listing_bike_photos_path(listing_id: @listing, bike_id: @listing.bike), class: "btn btn-outline-primary float-sm-right" %>
     <h5 class="mt-4 mb-4">Photos</h5>
-    <%= image_tag @listing.bike.photo.url(:thumb) %>
+    <% if @listing.bike.photos.present? %>
+    <div class="row">
+      <% @listing.bike.photos.take(3).each do |photo| %>
+      <div class="col-md-4 mb-4">
+        <div class="img-thumbnail">
+          <%= image_tag photo.attachment.url(:medium), style: "width:100%" %>
+          <% if photo ==  @listing.bike.photos.take(3).last %>
+            <%= link_to "#{@listing.bike.photos.count} #{t(:photos, count: @listing.bike.photos.count)}" ,
+              listing_bike_photos_path(listing_id: @listing, bike_id: @listing.bike) %>
+          <% end %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+    <% end %>
   </div>
   <hr>
   <div id="descriptionSection">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180903082252) do
+ActiveRecord::Schema.define(version: 20180905080057) do
 
   create_table "availabilities", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "advance_notice", default: 0
@@ -26,19 +26,15 @@ ActiveRecord::Schema.define(version: 20180903082252) do
 
   create_table "bikes", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "size"
-    t.boolean  "lights",             default: false
+    t.boolean  "lights",            default: false
     t.integer  "listing_id"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.string   "photo_file_name"
-    t.string   "photo_content_type"
-    t.integer  "photo_file_size"
-    t.datetime "photo_updated_at"
-    t.boolean  "hasBackPedalBrake",  default: false
-    t.boolean  "helmet",             default: false
-    t.boolean  "basket",             default: false
-    t.boolean  "fonts",              default: false
-    t.boolean  "child_seat",         default: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.boolean  "hasBackPedalBrake", default: false
+    t.boolean  "helmet",            default: false
+    t.boolean  "basket",            default: false
+    t.boolean  "fonts",             default: false
+    t.boolean  "child_seat",        default: false
   end
 
   create_table "booking_statuses", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
@@ -95,6 +91,17 @@ ActiveRecord::Schema.define(version: 20180903082252) do
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "user_id"
+  end
+
+  create_table "photos", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "bike_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "attachment_file_name"
+    t.string   "attachment_content_type"
+    t.integer  "attachment_file_size"
+    t.datetime "attachment_updated_at"
+    t.string   "legend"
   end
 
   create_table "pricings", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|

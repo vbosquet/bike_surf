@@ -16,11 +16,6 @@ class BikesController < ApplicationController
 		end
 	end
 
-  def photos
-    @bike = Bike.find(params[:bike_id])
-    render 'bikes/edit/photos'
-  end
-
   def equipments
     @bike = Bike.find(params[:bike_id])
     render 'bikes/edit/equipments'
@@ -47,7 +42,7 @@ class BikesController < ApplicationController
 
 	def bike_params
 		params.require(:pricing).permit(:size, :lights, :hasBackPedalBrake,
-			:helmet, :basket, :fonts, :photo, :child_seat).merge(listing_id: @listing.id)
+			:helmet, :basket, :fonts, :child_seat).merge(listing_id: @listing.id)
 	end
 
 	def find_listing

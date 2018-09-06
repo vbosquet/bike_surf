@@ -55,16 +55,6 @@ class ListingsController < ApplicationController
 		render "listings/edit/edit_status"
 	end
 
-	def edit_bike
-		@listing = Listing.find(params[:listing_id])
-		render "listings/edit/edit_bike"
-	end
-
-	def edit_photos
-		@listing = Listing.find(params[:listing_id])
-		render "listings/edit/edit_photos"
-	end
-
 	def update
 		@listing = Listing.find(params[:id])
 
@@ -95,7 +85,7 @@ class ListingsController < ApplicationController
 
 	def listing_params
 		params.require(:listing).permit(:title, :description, :listed,
-			bike_attributes: [:id, :lights, :size, :photo, :listing_id, :helmet, :fonts, :basket, :hasBackPedalBrake, :child_seat],
+			bike_attributes: [:id, :lights, :size, :listing_id, :helmet, :fonts, :basket, :hasBackPedalBrake, :child_seat],
 			location_attributes: [:id, :street_number, :route, :locality, :postal_code, :country_code]).merge(user_id: current_user.id)
 	end
 

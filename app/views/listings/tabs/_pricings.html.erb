@@ -1,7 +1,7 @@
 <div class="mt-4">
   <div>
     <%= link_to "Modifier", listing_pricing_daily_price_path(listing_id: @listing, pricing_id: @listing.pricing), class: "btn btn-outline-primary float-sm-right" %>
-    <h5 class="mt-5 mb-5">
+    <h5 class="mt-5 mb-4">
       Prix par jour
       <small class="form-text text-muted">Vous êtes responsable du choix du prix de votre vélo.</small>
     </h5>
@@ -10,7 +10,7 @@
   </div>
   <div>
     <%= link_to "Modifier", listing_pricing_discounts_path(listing_id: @listing, pricing_id: @listing.pricing), class: "btn btn-outline-primary float-sm-right" %>
-    <h5 class="mt-5 mb-5">
+    <h5 class="mt-5 mb-4">
       Réductions en fonction de la durée de la location
       <small class="form-text text-muted">Encouragez les cyclistes à louer votre vélo plus longtemps avec des réductions au mois ou à la semaine. <a href="#discountsModal" data-toggle="modal">En savoir plus</a></small>
     </h5>

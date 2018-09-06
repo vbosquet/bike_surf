@@ -6,11 +6,9 @@
       <%= render 'layouts/messages' %>
       <div>
         <%= link_to "Modifier l'annonce", listing_details_path(@listing), class: "btn btn-primary float-sm-right" %>
-        <h1 class="mb-4"><%= @listing.title %></h1>
+        <h1 class="mt-4 mb-4"><%= @listing.title %></h1>
+        <hr>
       </div>
-      <%= render 'listing_details' %>
     </div>
   </div>
 </div>
-
-<%= render partial: "map" %>
