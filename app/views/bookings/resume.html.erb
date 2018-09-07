@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <div class="col main pt-5 mt-3">
+      <%= render 'layouts/messages' %>
+      <div class="row">
+        <div class="col-sm-7">
+          <div id="titleSection">
+            <h1 class="mt-4 mb-4">Consultez les détails de la location</h1>
+            <hr >
+          </div>
+          <div id="locationDurationSection">
+            <h5 class="mt-4 mb-4">2 jours à Bruxelles</h5>
+            <hr>
+          </div>
+          <div id="locationInfosSection">
+            <h5 class="mt-4 mb-4">Quelque points à retenir</h5>
+            <hr>
+          </div>
+          <div>
+            <%= link_to "Accepter et payer" , "#", class: "btn btn-primary btn-lg" %>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="border pt-4 pb-4 pl-4 pr-4">
+            <% if @listing.bike.photos.present? %>
+              <%= image_tag @listing.bike.photos.first.attachment.url(:thumb), class: "float-sm-right" %>
+            <% end %>
+            <div class="mt-4 mb-4">
+              <h5><%= @listing.title %></h5>
+              <p><%= @listing.location.locality %></p>
+            </div>
+            <hr>
+            <%= render partial: "bookings/pricing_details" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

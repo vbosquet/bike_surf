@@ -36,7 +36,8 @@ var ready = function () {
         dataType: 'json',
         data : {start_date: startDate, end_date: endDate, listing_id: listingId},
         success: function(data) {
-          $('#totalPrice').val(data);
+          console.log(data);
+          // $('#totalPrice').val(data);
         },
         error: function(response) {
           console.log(response.status);
@@ -68,13 +69,13 @@ var ready = function () {
 
   $('#startDate').on('dp.change', function(event) {
     $('#endDate').data("DateTimePicker").minDate(event.date);
-    displayTotalPrice(event);
+    // displayTotalPrice(event);
     calculateTotalPrice(event);
   });
 
   $('#endDate').on('dp.change', function(event) {
     $('#startDate').data("DateTimePicker").maxDate(event.date);
-    displayTotalPrice(event);
+    // displayTotalPrice(event);
     calculateTotalPrice(event);
   });
 

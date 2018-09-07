@@ -9,6 +9,7 @@ class Web::ListingsController < ApplicationController
 		@listing = Listing.find(params[:id])
 		gon.latitude = @listing.location.latitude
 		gon.longitude = @listing.location.longitude
+    @full_sanitizer = Rails::Html::FullSanitizer.new
 	end
 
 end

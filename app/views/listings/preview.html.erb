@@ -1,71 +1,8 @@
 <div class="container">
   <div class="row row-offcanvas row-offcanvas-left">
-    <% if current_user.listings.include?(@listing) %>
-    <% end %>
     <div class="col main pt-5 mt-3">
       <%= render 'layouts/messages' %>
-      <div>
-        <div id="titleSection" class="col-sm-12">
-          <%= link_to "Modifier l'annonce", listing_details_path(@listing), class: "btn btn-primary float-sm-right" %>
-          <div class="mt-4 mb-4">
-            <h1><%= @listing.title %></h1>
-            <p class="form-text text-muted"><%= @listing.location.locality %></p>
-          </div>
-        </div>
-        <div id="photoSection" class="col-sm-8">
-          <div class="row">
-            <% @listing.bike.photos.take(3).each do |photo| %>
-              <div class="col-md-4 mb-4">
-                <div class="img-thumbnail">
-                  <%= image_tag photo.attachment.url(:medium), style: "width:100%" %>
-                </div>
-              </div>
-            <% end %>
-          </div>
-          <% if @listing.bike.photos.size > 3 %>
-            <div class="mb-4">
-              <%= link_to "+ Plus" , "#" %>
-            </div>
-          <% end %>
-        </div>
-        <div id="descriptionSection" class="col-sm-8">
-          <p class="collapse" id="description" aria-expanded="false"><%= @full_sanitizer.sanitize(@listing.description) %></p>
-          <a role="button" class="collapsed expandLink" data-toggle="collapse" href="#description" aria-expanded="false" aria-controls="description"></a>
-          <hr>
-        </div>
-        <div id="equipmentSection" class="col-sm-8">
-          <h5 class="mt-4 mb-4">Caractéristiques & équipements</h5>
-          <p>Taille : <%= Bike.human_enum_name(:size, @listing.bike.size) %></p>
-          <div class="collapse" id="equipments" aria-expanded="false">
-            <% @listing.bike.equipments.keys.each do |key| %>
-              <% if @listing.bike.equipments[key] %>
-                <p><i class="fa fa-bicycle"></i> <%= Bike.human_attribute_name(key) %></p>
-              <% end %>
-            <% end %>
-          </div>
-          <a role="button" class="collapsed expandLink" data-toggle="collapse" href="#equipments" aria-expanded="false" aria-controls="equipments"></a>
-          <hr>
-        </div>
-        <div id="availabilitySection" class="col-sm-8">
-          <h5 class="mt-4 mb-4">Disponibilité</h5>
-          <div id="calendar" data-url='/listings/<%= @listing.id %>/bookings.json'></div>
-          <hr>
-        </div>
-        <div id="commentSection" class="col-sm-8">
-          <h5 class="mt-4 mb-4">Commentaires</h5>
-          <hr>
-        </div>
-        <div id="userSection" class="col-sm-8">
-          <%= image_tag @listing.user.avatar.url(:thumb), class: "rounded-circle float-sm-right" %>
-          <div class="mt-4 mb-4">
-            <h5 >Propriétaire : <%= @listing.user.firstname %></h5>
-            <p>Membre depuis <%= l(@listing.user.created_at, format: :short) %></p>
-          </div>
-          <p>Langues : <%= @listing.user.languages.compact.join(' ')%></p>
-          <%= link_to "Contacter le propriétaire", "#", class: "btn btn-outline-primary" %>
-          <hr>
-        </div>
-      </div>
+      <%= render 'listings/preview' %>
     </div>
   </div>
 </div>

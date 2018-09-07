@@ -28,31 +28,7 @@
             <div class="card">
               <div class="card-body">
                 <h5>Frais</h5>
-                <div class="row">
-                  <div class="col"><%= @booking_pricing.base_price %> <%= @booking_pricing.currency %> x <%= @days.round %> jours</div>
-                  <div class="col text-right"><%= @booking_pricing.base_price * @days %> <%= @booking_pricing.currency %></div>
-                </div>
-                <% if @days >= 7 && @days < 28 %>
-                <div class="row">
-                  <div class="col">Réduction hebdomataire</div>
-                  <div class="col text-right">- <%= (@booking_pricing.base_price * @days) * (@booking_pricing.weekly_discount / 100) %> <%= @booking_pricing.currency %></div>
-                </div>
-                <% end %>
-                <% if @days >= 28 %>
-                <div class="row">
-                  <div class="col">Réduction mensuelle</div>
-                  <div class="col text-right">- <%= (@booking_pricing.base_price * @days) * (@booking_pricing.monthly_discount / 100) %> <%= @booking_pricing.currency %></div>
-                </div>
-                <% end %>
-                <div class="row">
-                  <div class="col">Frais de maintenance</div>
-                  <div class="col text-right"><%= @booking_pricing.maintenance_fee %> <%= @booking_pricing.currency %></div>
-                </div>
-                <hr >
-                <div class="row">
-                  <div class="col">Prix total</div>
-                  <div class="col text-right"><%= @booking.total_price %> <%= @booking_pricing.currency %></div>
-                </div>
+                <%= render partial: "bookings/pricing_details" %>
               </div>
             </div>
           </div>

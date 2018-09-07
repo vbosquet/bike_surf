@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div id="titleSection">
+      <% if @listing.user == current_user %>
+        <%= link_to "Modifier l'annonce", listing_details_path(@listing), class: "btn btn-primary float-sm-right" %>
+      <% end %>
+      <div class="mt-4 mb-4">
+        <h1><%= @listing.title %></h1>
+        <p class="form-text text-muted"><%= @listing.location.locality %></p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-7">
+    <div id="photoSection">
+      <div class="row">
+        <% @listing.bike.photos.take(3).each do |photo| %>
+          <div class="col-md-4 mb-4">
+            <div class="img-thumbnail">
+              <%= image_tag photo.attachment.url(:medium), style: "width:100%" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <% if @listing.bike.photos.size > 3 %>
+        <div class="mb-4">
+          <%= link_to "+ Plus" , "#" %>
+        </div>
+      <% end %>
+    </div>
+    <div id="descriptionSection">
+      <p class="collapse" id="description" aria-expanded="false"><%= @full_sanitizer.sanitize(@listing.description) %></p>
+      <a role="button" class="collapsed expandLink" data-toggle="collapse" href="#description" aria-expanded="false" aria-controls="description"></a>
+      <div class="mt-4"><%= link_to "Contacter le propriétaire", "#" %></div>
+      <hr>
+    </div>
+    <div id="equipmentSection">
+      <h5 class="mt-4 mb-4">Caractéristiques & équipements</h5>
+      <p>Taille : <%= Bike.human_enum_name(:size, @listing.bike.size) %></p>
+      <div class="collapse" id="equipments" aria-expanded="false">
+        <% @listing.bike.equipments.keys.each do |key| %>
+          <% if @listing.bike.equipments[key] %>
+            <p><i class="fa fa-bicycle"></i> <%= Bike.human_attribute_name(key) %></p>
+          <% end %>
+        <% end %>
+      </div>
+      <a role="button" class="collapsed expandLink" data-toggle="collapse" href="#equipments" aria-expanded="false" aria-controls="equipments"></a>
+      <hr>
+    </div>
+    <div id="availabilitySection">
+      <h5 class="mt-4 mb-4">Disponibilité</h5>
+      <div id="calendar" data-url='/listings/<%= @listing.id %>/bookings.json'></div>
+      <hr>
+    </div>
+    <div id="commentSection">
+      <h5 class="mt-4 mb-4">Commentaires</h5>
+      <hr>
+    </div>
+    <div id="userSection">
+      <%= image_tag @listing.user.avatar.url(:thumb), class: "rounded-circle float-sm-right" %>
+      <div class="mt-4 mb-4">
+        <h5 >Propriétaire : <%= @listing.user.firstname %></h5>
+        <p>Membre depuis <%= l(@listing.user.created_at, format: :short) %></p>
+      </div>
+      <p>Langues : <%= @listing.user.languages.compact.join(' ')%></p>
+      <%= link_to "Contacter le propriétaire", "#" %>
+      <hr>
+    </div>
+  </div>
+  <div id="bookingSection" class="col-sm-5">
+    <div class="border pt-4 pb-4 pl-4 pr-4">
+      <h5><%= @listing.pricing.present? ? @listing.pricing.base_price : 0 %>€ par jour</h5>
+      <hr>
+      <%= form_tag listing_bookings_resume_path(@listing), method: :get do %>
+        <%= hidden_field_tag :listing_id, @listing.id , id: "listingId" %>
+        <label>Durée de la location :</label>
+        <div class="row">
+          <div class="col">
+            <div class="form-group">
+              <%= text_field_tag :start_date, nil, {class: "form-control date", id: "startDate", placeholder: "Jour d'arrivée"} %>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group ">
+              <%= text_field_tag :end_date, nil, {class: "form-control date", id: "endDate", placeholder: "Jour de départ"} %>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <%= submit_tag "Demande de réservation", class: "btn btn-primary btn-block" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

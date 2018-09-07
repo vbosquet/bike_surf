@@ -1,8 +1,6 @@
 class BookingsController < ApplicationController
-  include ApplicationHelper
-
   before_action :authenticate_user!
-  before_action :calculate_booking_data, only: [:calculate, :resume]
+  before_action :find_booking_data, only: [:calculate, :resume]
 
   def current_rentals
     @bookings = current_user.bookings.current
@@ -42,10 +40,12 @@ class BookingsController < ApplicationController
 
   def show
     @booking = Booking.find(params[:id])
-    listing = @booking.listing
-    previous_bookings = listing.bookings.where("created_at < ?", @booking.created_at)
-    disabled_dates = previous_bookings.dates.select { |d| d >= @booking.start_date && d <= @booking.end_date}.uniq
-    @days = time_difference(@booking.start_date, @booking.end_date) - disabled_dates.size
+    @booking_pricing = @booking.listing.pricing.paper_trail.version_at(@booking.created_at)
+    @listing = @booking.listing
+
+    previous_bookings = @listing.bookings.where("created_at < ?", @booking.created_at)
+    @days = previous_bookings.days(@booking.start_date, @booking.end_date)
+    pricing_details(@booking_pricing)
 
     dates = (@booking.start_date.to_date..@booking.end_date.to_date).to_a
     available_dates = dates.select { |d| !previous_bookings.where.not(id: @booking.id).dates.include?(d) }.uniq
@@ -57,8 +57,6 @@ class BookingsController < ApplicationController
       }
     end
 
-    @booking_pricing = @booking.listing.pricing.paper_trail.version_at(@booking.created_at)
-
     respond_to do |format|
       format.html { render 'show' }
       format.json { render json: available_dates }
@@ -66,13 +64,13 @@ class BookingsController < ApplicationController
 
   end
 
-  def new
-    @booking = Booking.new
-    @listing = Listing.find(params[:listing_id])
-    @booking.messages.build
-    @booking.booking_statuses.build
-    gon.disabled_dates = @listing.bookings.dates
-  end
+  #def new
+    #@booking = Booking.new
+    #@listing = Listing.find(params[:listing_id])
+    #@booking.messages.build
+    #@booking.booking_statuses.build
+    #gon.disabled_dates = @listing.bookings.dates
+  #end
 
   def create
     @listing = Listing.find(params[:booking][:listing_id])
@@ -120,9 +118,6 @@ class BookingsController < ApplicationController
   end
 
   def resume
-    if request.xhr?
-			render partial: 'resume'
-		end
   end
 
   private
@@ -133,23 +128,24 @@ class BookingsController < ApplicationController
       booking_statuses_attributes: [:status]).merge(user_id: current_user.id)
 	end
 
-  def calculate_booking_data
+  def find_booking_data
     start_date = Time.parse(params[:start_date]) rescue nil
     end_date = Time.parse(params[:end_date]) rescue nil
     @listing = Listing.find(params[:listing_id])
-
     if start_date.present? && end_date.present?
-      disabled_dates = @listing.bookings.dates.select { |d| d >= start_date && d <= end_date}.uniq
-      @days = time_difference(start_date, end_date) - disabled_dates.size
-      base_price = @days * @listing.pricing.base_price
-      discount = 0
-      if @days >= 7 && @days < 28
-        discount = base_price * (@listing.pricing.average_weekly / 100)
-      elsif @days >= 28
-        discount = base_price * (@listing.pricing.average_monthly / 100)
-      end
-      @total_price = base_price - discount + @listing.pricing.maintenance_fee
+      @days = @listing.bookings.days(start_date, end_date)
+      pricing_details(@listing.pricing)
     end
+  end
+
+  def pricing_details(pricing)
+    base_price = @days * pricing.base_price
+    if @days >= 7 && @days < 28
+      @discount = base_price * (pricing.weekly_discount / 100.0)
+    elsif @days >= 28
+      @discount = base_price * (pricing.monthly_discount / 100.0)
+    end
+    @total_price = base_price - @discount + pricing.maintenance_fee
   end
 
   def checking_available_dates

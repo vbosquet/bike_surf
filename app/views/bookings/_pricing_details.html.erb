@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col"><%= @listing.pricing.base_price %> <%= @listing.pricing.currency %> x <%= @days %> jours</div>
+  <div class="col text-right"><%= @listing.pricing.base_price * @days %> <%= @listing.pricing.currency %></div>
+</div>
+<% if @days >= 7 %>
+  <div class="row">
+    <div class="col">Réduction</div>
+    <div class="col text-right">- <%= @discount %> <%= @listing.pricing.currency %></div>
+  </div>
+<% end %>
+<div class="row">
+  <div class="col">Frais de maintenance</div>
+  <div class="col text-right"><%= @listing.pricing.maintenance_fee %> <%= @listing.pricing.currency %></div>
+</div>
+<hr>
+<div class="row">
+  <div class="col">Prix total</div>
+  <div class="col text-right"><%= @total_price %> <%= @listing.pricing.currency %></div>
+</div>

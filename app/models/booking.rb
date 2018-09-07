@@ -1,4 +1,5 @@
 class Booking < ApplicationRecord
+
   belongs_to :user
   belongs_to :listing
 
@@ -30,6 +31,19 @@ class Booking < ApplicationRecord
       all_dates.concat(dates)
     end
     return all_dates.sort
+  end
+
+  def self.days(start_date, end_date)
+    disabled_dates = all.dates.select { |d| d >= start_date && d <= end_date}.uniq
+    days = time_difference(start_date, end_date) - disabled_dates.size
+    return days
+  end
+
+  private
+
+  def self.time_difference(start_date, end_date)
+    dates = (start_date.to_date..end_date.to_date).to_a
+    return dates.size
   end
 
 end

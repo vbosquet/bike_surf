@@ -24,7 +24,8 @@ Rails.application.routes.draw do
     get 'details/description', to: 'listings#edit_description'
     get 'details/location', to: 'listings#edit_location'
     get 'details/status', to: 'listings#edit_status'
-    resources :bookings, only: [:new, :create, :index]
+    resources :bookings, only: [:create, :index]
+    get 'bookings/resume', to: 'bookings#resume'
   end
 
   get 'search', to: 'listings#search'
