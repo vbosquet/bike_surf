@@ -9,7 +9,9 @@
           <div class="card-header">
             <%= booking.listing.location.locality %>
           </div>
-          <%= image_tag booking.listing.bike.photo.url(:medium), class: "card-img-top" %>
+          <% if booking.listing.bike.photos.present? %>
+            <%= image_tag booking.listing.bike.photos.first.attachment.url(:medium), class: "card-img-top" %>
+          <% end %>
           <div class="card-body">
             <h4 class="card-title"><%= booking.listing.title %></h4>
             <p class="card-text">

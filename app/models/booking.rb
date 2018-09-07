@@ -23,13 +23,13 @@ class Booking < ApplicationRecord
     end
   end
 
-  def self.disabled_dates
-    disabled_dates = []
+  def self.dates
+    all_dates = []
     all.each do |booking|
       dates = (booking.start_date.to_date..booking.end_date.to_date).to_a
-      disabled_dates.concat(dates)
+      all_dates.concat(dates)
     end
-    return disabled_dates.sort
+    return all_dates.sort
   end
 
 end

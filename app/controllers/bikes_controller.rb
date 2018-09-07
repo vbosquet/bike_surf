@@ -41,7 +41,7 @@ class BikesController < ApplicationController
   private
 
 	def bike_params
-		params.require(:pricing).permit(:size, :lights, :hasBackPedalBrake,
+		params.require(:bike).permit(:size, :lights, :hasBackPedalBrake,
 			:helmet, :basket, :fonts, :child_seat).merge(listing_id: @listing.id)
 	end
 

@@ -15,7 +15,6 @@ class ListingsController < ApplicationController
 
 	def details
 		@listing = Listing.find(params[:listing_id])
-		@equipments = Bike.where('id = ?', @listing.bike.id).pluck_to_hash(:lights, :helmet, :fonts, :basket, :hasBackPedalBrake, :child_seat).first
 		render 'details'
 	end
 

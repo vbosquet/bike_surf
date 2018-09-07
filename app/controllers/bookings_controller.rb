@@ -25,18 +25,30 @@ class BookingsController < ApplicationController
   def index
     @listing = Listing.find(params[:listing_id])
     @bookings = @listing.bookings
-    render :index
+
+    available_dates = @bookings.dates.map do |d|
+      {
+        start: d.iso8601,
+        allDay: true,
+        rendering: 'background'
+      }
+    end
+
+    respond_to do |format|
+      format.html { render 'index' }
+      format.json { render json: available_dates }
+    end
   end
 
   def show
     @booking = Booking.find(params[:id])
     listing = @booking.listing
     previous_bookings = listing.bookings.where("created_at < ?", @booking.created_at)
-    disabled_dates = previous_bookings.disabled_dates.select { |d| d >= @booking.start_date && d <= @booking.end_date}.uniq
+    disabled_dates = previous_bookings.dates.select { |d| d >= @booking.start_date && d <= @booking.end_date}.uniq
     @days = time_difference(@booking.start_date, @booking.end_date) - disabled_dates.size
 
     dates = (@booking.start_date.to_date..@booking.end_date.to_date).to_a
-    available_dates = dates.select { |d| !previous_bookings.where.not(id: @booking.id).disabled_dates.include?(d) }.uniq
+    available_dates = dates.select { |d| !previous_bookings.where.not(id: @booking.id).dates.include?(d) }.uniq
     available_dates = available_dates.map do |d|
       {
         start: d.iso8601,
@@ -59,7 +71,7 @@ class BookingsController < ApplicationController
     @listing = Listing.find(params[:listing_id])
     @booking.messages.build
     @booking.booking_statuses.build
-    gon.disabled_dates = @listing.bookings.disabled_dates
+    gon.disabled_dates = @listing.bookings.dates
   end
 
   def create
@@ -127,7 +139,7 @@ class BookingsController < ApplicationController
     @listing = Listing.find(params[:listing_id])
 
     if start_date.present? && end_date.present?
-      disabled_dates = @listing.bookings.disabled_dates.select { |d| d >= start_date && d <= end_date}.uniq
+      disabled_dates = @listing.bookings.dates.select { |d| d >= start_date && d <= end_date}.uniq
       @days = time_difference(start_date, end_date) - disabled_dates.size
       base_price = @days * @listing.pricing.base_price
       discount = 0
@@ -144,7 +156,7 @@ class BookingsController < ApplicationController
     start_date = Time.parse(booking_params[:start_date])
     end_date = Time.parse(booking_params[:end_date])
     dates = (start_date.to_date..end_date.to_date).to_a
-    disabled_dates = dates.select { |d| current_user.bookings.disabled_dates.include?(d) }.uniq
+    disabled_dates = dates.select { |d| current_user.bookings.dates.include?(d) }.uniq
     return disabled_dates
   end
 

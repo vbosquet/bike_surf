@@ -12,8 +12,21 @@ class User < ApplicationRecord
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "75x75#", mini: "30x30#" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\z/
 
+  serialize :languages, Array
+
   def full_name
     [self.firstname, self.lastname].compact.join(' ')
+  end
+
+  def self.language_list
+    [
+      ['English', 'en'],
+      ['Français', 'fr'],
+      ['Deutsch', 'de'],
+      ['Español', 'es'],
+      ['Nederlands', 'nl'],
+      ['Italiano', 'it']
+    ]
   end
 
 end

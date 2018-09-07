@@ -1,5 +1,5 @@
 function eventCalendar() {
-  var bookingId = $('#calendar').data('id');
+  var url = $('#calendar').data('url');
   return $('#calendar').fullCalendar({
     defaultView: 'month',
     locale: 'fr',
@@ -12,7 +12,7 @@ function eventCalendar() {
       list: "liste"
     },
     events : {
-      url: '/bookings/' + bookingId + '.json'
+      url: url
     }
   });
 };

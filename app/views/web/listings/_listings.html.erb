@@ -5,7 +5,9 @@
       <div class="card-header">
         <%= listing.title %>
       </div>
-      <%= image_tag listing.bike.photo.url(:medium), class: "card-img-top" %>
+      <% if listing.bike.photos.present? %>
+        <%= image_tag listing.bike.photos.first.attachment.url(:medium), class: "card-img-top" %>
+      <% end %>
       <div class="card-body">
         <p class="card-text">
           Taille : <%= listing.bike.size %><br >

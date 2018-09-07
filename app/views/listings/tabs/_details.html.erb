@@ -5,7 +5,7 @@
     <% if @listing.bike.photos.present? %>
     <div class="row">
       <% @listing.bike.photos.take(3).each do |photo| %>
-      <div class="col-md-4 mb-4">
+      <div class="col-md-3 mb-4">
         <div class="img-thumbnail">
           <%= image_tag photo.attachment.url(:medium), style: "width:100%" %>
           <% if photo ==  @listing.bike.photos.take(3).last %>
@@ -32,8 +32,8 @@
     <h5 class="mt-4 mb-4">Caractéristiques & équipements</h5>
     <p>Taille : <%= Bike.human_enum_name(:size, @listing.bike.size) %></p>
     <div class="collapse" id="equipments" aria-expanded="false">
-      <% @equipments.keys.each do |key| %>
-        <% if @equipments[key] %>
+      <% @listing.bike.equipments.keys.each do |key| %>
+        <% if @listing.bike.equipments[key] %>
           <p><i class="fa fa-bicycle"></i> <%= Bike.human_attribute_name(key) %></p>
         <% end %>
       <% end %>
