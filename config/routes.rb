@@ -26,15 +26,14 @@ Rails.application.routes.draw do
     get 'details/status', to: 'listings#edit_status'
     resources :bookings, only: [:create, :index]
     get 'bookings/resume', to: 'bookings#resume'
+    get 'bookings/payment', to: 'bookings#payment'
   end
 
   get 'search', to: 'listings#search'
   namespace :web do
     resources :listings, only: [:index, :show]
   end
-
-  get '/bookings/resume', to: 'bookings#resume'
-  get '/bookings/calculate', to: 'bookings#calculate'
+  
   get '/rentals/current', to: 'bookings#current_rentals'
   get '/rentals/past', to: 'bookings#past_rentals'
   get '/rentals/upcoming', to: 'bookings#upcoming_rentals'

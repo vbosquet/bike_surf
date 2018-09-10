@@ -1,6 +1,6 @@
 class BookingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_booking_data, only: [:calculate, :resume]
+  before_action :find_booking_data, only: [:resume, :payment]
 
   def current_rentals
     @bookings = current_user.bookings.current
@@ -64,36 +64,27 @@ class BookingsController < ApplicationController
 
   end
 
-  #def new
-    #@booking = Booking.new
-    #@listing = Listing.find(params[:listing_id])
-    #@booking.messages.build
-    #@booking.booking_statuses.build
-    #gon.disabled_dates = @listing.bookings.dates
-  #end
-
   def create
     @listing = Listing.find(params[:booking][:listing_id])
 
     if current_user.listings.include?(@listing)
-      flash.now[:error] = "Vous ne pouvez pas réserver un vélo qui vous appartient déjà."
-      @booking = Booking.new
-      render 'new'
+      flash[:error] = "Vous ne pouvez pas réserver un vélo qui vous appartient déjà."
+      redirect_to web_listing_path(@listing)
     end and return
 
     if checking_available_dates.present?
-      flash.now[:error] = "Vous avez déjà loué un vélo aux dates suivantes : #{checking_available_dates}"
-      @booking = Booking.new
-      render 'new'
+      flash[:error] = "Vous avez déjà loué un vélo aux dates suivantes : #{checking_available_dates}"
+      redirect_to web_listing_path(@listing)
     end and return
 
     @booking = Booking.new(updating_messages_attributes)
     if @booking.save
       flash[:success] = "Votre réservation a été enregistrée avec succès."
-			redirect_to web_listing_path(@booking.listing)
+			redirect_to web_listing_path(@listing)
     else
-      flash.now[:error] = @booking.errors.values
-      render 'new'
+      flash[:error] = @booking.errors.values
+      redirect_to listing_bookings_payment_path(listing_id: @listing,
+        start_date: params[:booking][:start_date], end_date: params[:booking][:end_date])
     end
   end
 
@@ -113,11 +104,13 @@ class BookingsController < ApplicationController
     redirect_to conversation_path(conversation)
   end
 
-  def calculate
-    render json: @total_price
+  def resume
   end
 
-  def resume
+  def payment
+    @booking = Booking.new
+    @booking.messages.build
+    @booking.booking_statuses.build
   end
 
   private
@@ -129,17 +122,18 @@ class BookingsController < ApplicationController
 	end
 
   def find_booking_data
-    start_date = Time.parse(params[:start_date]) rescue nil
-    end_date = Time.parse(params[:end_date]) rescue nil
+    @start_date = Time.parse(params[:start_date]) rescue nil
+    @end_date = Time.parse(params[:end_date]) rescue nil
     @listing = Listing.find(params[:listing_id])
-    if start_date.present? && end_date.present?
-      @days = @listing.bookings.days(start_date, end_date)
+    if @start_date.present? && @end_date.present?
+      @days = @listing.bookings.days(@start_date, @end_date)
       pricing_details(@listing.pricing)
     end
   end
 
   def pricing_details(pricing)
     base_price = @days * pricing.base_price
+    @discount = 0
     if @days >= 7 && @days < 28
       @discount = base_price * (pricing.weekly_discount / 100.0)
     elsif @days >= 28

@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <div class="col main pt-5 mt-3">
+      <%= render 'layouts/messages' %>
+      <div class="row">
+        <div class="col-sm-7">
+          <div id="titleSection">
+            <h1 class="mt-4 mb-4">Confirmer la réservation</h1>
+            <hr >
+            <%= form_for [@listing, @booking] do |f| %>
+              <div class="form-group">
+                  <label>Dites un petit mot à <%= @listing.user.firstname %></label>
+                  <small class="form-text text-muted">
+                    Dites-en plus sur qui vous êtes et sur vos différentes expériences en cyclisme.
+                  </small>
+                  <%= f.fields_for :messages do |ff| %>
+                    <%= ff.cktext_area :body, :class => "form-control", ckeditor: { language: 'fr'} %>
+                    <% end %>
+                </div>
+              <%= f.hidden_field :listing_id, value: @listing.id %>
+              <%= f.hidden_field :total_price, value: @total_price %>
+              <%= f.hidden_field :start_date, value: @start_date %>
+              <%= f.hidden_field :end_date, value: @end_date %>
+              <%= f.fields_for :booking_statuses do |ff| %>
+                <%= ff.hidden_field :status, value: "pending" %>
+              <% end %>
+              <%= f.submit "Payer", class: "btn btn-primary btn-lg mt-5" %>
+            <% end %>
+            </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="border pt-4 pb-4 pl-4 pr-4">
+            <% if @listing.bike.photos.present? %>
+              <%= image_tag @listing.bike.photos.first.attachment.url(:thumb), class: "float-sm-right" %>
+            <% end %>
+            <div class="mt-4 mb-4">
+              <h5><%= @listing.title %></h5>
+              <p><%= @listing.location.locality %></p>
+            </div>
+            <hr>
+            <p><i class="fa fa-calendar"></i> <%= l(@start_date, format: :long) %> -> <%= l(@end_date, format: :long) %></p>
+            <hr>
+            <%= render partial: "bookings/pricing_details" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

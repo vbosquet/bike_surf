@@ -9,15 +9,29 @@
             <hr >
           </div>
           <div id="locationDurationSection">
-            <h5 class="mt-4 mb-4">2 jours à Bruxelles</h5>
+            <h5 class="mt-4 mb-4"><%= @days %> jours à Bruxelles</h5>
+            <div class="row">
+              <div class="col-sm-6 mb-3">
+                <strong><%= l(@start_date, format: "%d %b") %></strong><br>
+                Retrait <%= l(@start_date, format: "%A") %><br>
+                A partir de <%= @listing.availability.pickup_time %>
+              </div>
+              <div class="col-sm-6 mb-3">
+                <strong><%= l(@end_date, format: "%d %b") %></strong><br>
+                Dépôt <%= l(@end_date, format: "%A") %><br>
+                Avant <%= @listing.availability.dropoff_time %>
+              </div>
+            </div>
             <hr>
           </div>
           <div id="locationInfosSection">
             <h5 class="mt-4 mb-4">Quelque points à retenir</h5>
+            <p>Le premier jour de votre location, votre vélo sera disponible à partir de <%= @listing.availability.pickup_time %>.
+              Retour avant <%= @listing.availability.dropoff_time %>.</p>
             <hr>
-          </div>
-          <div>
-            <%= link_to "Accepter et payer" , "#", class: "btn btn-primary btn-lg" %>
+            <p>En cas de réclamation du propriétaire dans les 14 jours suivant la fin de votre location,
+              vous serez responsable des dommages à hauteur maximale de <%= @listing.pricing.security_deposit %> <%= @listing.pricing.currency %>.</p>
+            <hr>
           </div>
         </div>
         <div class="col-sm-5">
@@ -30,8 +44,16 @@
               <p><%= @listing.location.locality %></p>
             </div>
             <hr>
+            <p><i class="fa fa-calendar"></i> <%= l(@start_date, format: :long) %> -> <%= l(@end_date, format: :long) %></p>
+            <hr>
             <%= render partial: "bookings/pricing_details" %>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div><%= link_to "Continuer" , listing_bookings_payment_path(start_date: @start_date, end_date: @end_date),
+            class: "btn btn-primary btn-lg mt-5" %></div>
         </div>
       </div>
     </div>
