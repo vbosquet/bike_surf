@@ -9,7 +9,7 @@
             <hr >
           </div>
           <div id="locationDurationSection">
-            <h5 class="mt-4 mb-4"><%= @days %> jours à Bruxelles</h5>
+            <h5 class="mt-4 mb-4"><%= @days %> <%= t(:days, count: @days) %> à Bruxelles</h5>
             <div class="row">
               <div class="col-sm-6 mb-3">
                 <strong><%= l(@start_date, format: "%d %b") %></strong><br>
@@ -25,7 +25,7 @@
             <hr>
           </div>
           <div id="locationInfosSection">
-            <h5 class="mt-4 mb-4">Quelque points à retenir</h5>
+            <h5 class="mt-4 mb-4">Quelques points à retenir</h5>
             <p>Le premier jour de votre location, votre vélo sera disponible à partir de <%= @listing.availability.pickup_time %>.
               Retour avant <%= @listing.availability.dropoff_time %>.</p>
             <hr>
@@ -52,8 +52,12 @@
       </div>
       <div class="row">
         <div class="col-sm-12">
-          <div><%= link_to "Continuer" , listing_bookings_payment_path(start_date: @start_date, end_date: @end_date),
-            class: "btn btn-primary btn-lg mt-5" %></div>
+          <div>
+            <%= link_to "Continuer", listing_bookings_payment_path(start_date: @start_date, end_date: @end_date),
+                class: "btn btn-primary btn-lg mt-5" %>
+            <%= link_to "Annuler", web_listing_path(@listing), class: "btn btn-outline-primary btn-lg mt-5" %>
+          </div>
+
         </div>
       </div>
     </div>

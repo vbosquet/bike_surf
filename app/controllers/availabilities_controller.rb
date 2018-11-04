@@ -21,13 +21,13 @@ class AvailabilitiesController < ApplicationController
 		@availability = Availability.find(params[:id])
 
 		if params[:commit] == "Annuler"
-			redirect_to listing_details_path(@listing)
+			redirect_to edit_listing_path(@listing)
 			return nil
 		end
 
 		if @availability.update_attributes(params_updated)
 			flash[:success] = "Informations enregistrées avec succès"
-			redirect_to listing_details_path(@listing)
+			redirect_to edit_listing_path(@listing)
 		else
 			flash.now[:error] = @availability.errors.values
 			redirect_to :back

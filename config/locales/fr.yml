@@ -11,6 +11,17 @@ fr:
     zero: photo
     one: photo
     other: photos
+  days:
+    zero: jour
+    one: jour
+    other: jours
+  languages:
+    en: English
+    fr: Français
+    nl: Nederlands
+    it: Italiano
+    de: Deutsch
+    es: Español
   views:
     pagination:
       first: "&laquo;"

@@ -16,9 +16,9 @@
   <div>
     <%= link_to "Modifier", listing_availability_rental_length_path(listing_id: @listing, availability_id: @listing.availability), class: "btn btn-outline-primary float-sm-right" %>
     <h5 class="mt-5 mb-5">Durée de la location</h5>
-    <p><span class="float-right label label-info label-pill"><%= @listing.availability.minimum_rental %> jour(s)</span> Durée minimum</p>
+    <p><span class="float-right label label-info label-pill"><%= @listing.availability.minimum_rental %> <%= t(:days, count: @listing.availability.minimum_rental) %></span> Durée minimum</p>
     <hr>
-    <p><span class="float-right label label-info label-pill"><%= @listing.availability.maximum_rental %> jour(s)</span> Durée maximum</p>
+    <p><span class="float-right label label-info label-pill"><%= @listing.availability.maximum_rental %> <%= t(:days, count: @listing.availability.maximum_rental) %></span> Durée maximum</p>
     <hr>
   <div>
     <%= link_to "Modifier", listing_availability_checkin_setting_path(listing_id: @listing, availability_id: @listing.availability), class: "btn btn-outline-primary float-sm-right" %>

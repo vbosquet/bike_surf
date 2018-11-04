@@ -10,11 +10,8 @@
             <%= form_for [@listing, @booking] do |f| %>
               <div class="form-group">
                   <label>Dites un petit mot à <%= @listing.user.firstname %></label>
-                  <small class="form-text text-muted">
-                    Dites-en plus sur qui vous êtes et sur vos différentes expériences en cyclisme.
-                  </small>
                   <%= f.fields_for :messages do |ff| %>
-                    <%= ff.cktext_area :body, :class => "form-control", ckeditor: { language: 'fr'} %>
+                    <%= ff.cktext_area :body, class: "form-control", ckeditor: { language: 'fr'} %>
                     <% end %>
                 </div>
               <%= f.hidden_field :listing_id, value: @listing.id %>
@@ -25,6 +22,9 @@
                 <%= ff.hidden_field :status, value: "pending" %>
               <% end %>
               <%= f.submit "Payer", class: "btn btn-primary btn-lg mt-5" %>
+              <%= link_to "Annuler",
+                  listing_bookings_resume_path(listing_id: @listing.id, start_date: @start_date, end_date: @end_date),
+                  class: "btn btn-outline-primary btn-lg mt-5" %>
             <% end %>
             </div>
         </div>

@@ -1,21 +1,16 @@
 class ListingsController < ApplicationController
 	before_action :authenticate_user!
-	before_action :set_full_sanitizer, only: [:preview, :details]
+	before_action :set_full_sanitizer, only: [:show, :edit]
 
 	def index
 		@listings = current_user.listings
 	end
 
-	def preview
-		@listing = Listing.find(params[:listing_id])
-		gon.latitude = @listing.location.latitude
-		gon.longitude = @listing.location.longitude
-		render 'preview'
-	end
-
-	def details
-		@listing = Listing.find(params[:listing_id])
-		render 'details'
+	def show
+		@listing = Listing.find(params[:id])
+		gon.disabled_dates = @listing.bookings.dates
+		# gon.latitude = @listing.location.latitude
+		# gon.longitude = @listing.location.longitude
 	end
 
 	def new
@@ -39,6 +34,10 @@ class ListingsController < ApplicationController
 		end
 	end
 
+	def edit
+		@listing = Listing.find(params[:id])
+	end
+
 	def edit_description
 		@listing = Listing.find(params[:listing_id])
 		render "listings/edit/edit_description"
@@ -58,13 +57,13 @@ class ListingsController < ApplicationController
 		@listing = Listing.find(params[:id])
 
 		if params[:commit] == "Annuler"
-			redirect_to listing_details_path(@listing)
+			redirect_to edit_listing_path(@listing)
 			return nil
 		end
 
 		if @listing.update_attributes(listing_params)
 			flash[:success] = "Annonce modifiée avec succès"
-			redirect_to listing_details_path(@listing)
+			redirect_to edit_listing_path(@listing)
 		else
 			flash[:error] = @listing.errors.values
 			redirect_to :back

@@ -20,7 +20,7 @@
   </div>
   <hr>
   <div id="descriptionSection">
-    <%= link_to "Modifier", listing_details_description_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
+    <%= link_to "Modifier", listing_edit_description_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
     <h5 class="mt-4 mb-4">Titre et description</h5>
     <p><%= @listing.title %></p>
     <p class="collapse" id="description" aria-expanded="false"><%= @full_sanitizer.sanitize(@listing.description) %></p>
@@ -42,7 +42,7 @@
   </div>
   <hr>
   <div id="locationSection">
-    <%= link_to "Modifier", listing_details_location_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
+    <%= link_to "Modifier", listing_edit_location_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
     <h5 class="mt-4 mb-4">
       Adresse
       <small class="form-text text-muted">Visible uniquement par les utilisateurs ayant une réservation</small>
@@ -51,7 +51,7 @@
   </div>
   <hr>
   <div id="statusSection">
-    <%= link_to "Modifier", listing_details_status_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
+    <%= link_to "Modifier", listing_edit_status_path(@listing), class: "btn btn-outline-primary float-sm-right" %>
     <h5 class="mt-4 mb-4">Statut de l'annonce</h5>
     <p><%= @listing.listed? ? "Publiée" : "Désactivée" %></p>
   </div>

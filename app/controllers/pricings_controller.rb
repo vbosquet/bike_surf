@@ -21,13 +21,13 @@ class PricingsController < ApplicationController
 		@pricing = Pricing.find(params[:id])
 
 		if params[:commit] == "Annuler"
-			redirect_to listing_details_path(@listing)
+			redirect_to edit_listing_path(@listing)
 			return nil
 		end
 
 		if @pricing.update_attributes(pricing_params)
 			flash[:success] = "Informations enregistrées avec succès"
-			redirect_to listing_details_path(@listing)
+			redirect_to edit_listing_path(@listing)
 		else
 			flash.now[:error] = @pricing.errors.values
 			redirect_to :back

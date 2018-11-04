@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root to:'home#index'
   get 'dashboard', to: 'dashboard#index'
 
-  resources :listings, except: [:show, :edit] do
+  resources :listings do
   	resources :pricings, except: [:edit] do
       get 'daily_price'
       get 'discounts'
@@ -19,21 +19,20 @@ Rails.application.routes.draw do
       get 'equipments'
       resources :photos
     end
-    get 'preview'
-    get 'details'
-    get 'details/description', to: 'listings#edit_description'
-    get 'details/location', to: 'listings#edit_location'
-    get 'details/status', to: 'listings#edit_status'
+    get 'edit/description', to: 'listings#edit_description'
+    get 'edit/location', to: 'listings#edit_location'
+    get 'edit/status', to: 'listings#edit_status'
     resources :bookings, only: [:create, :index]
     get 'bookings/resume', to: 'bookings#resume'
     get 'bookings/payment', to: 'bookings#payment'
+    resources :messages, only: [:new]
   end
 
   get 'search', to: 'listings#search'
   namespace :web do
     resources :listings, only: [:index, :show]
   end
-  
+
   get '/rentals/current', to: 'bookings#current_rentals'
   get '/rentals/past', to: 'bookings#past_rentals'
   get '/rentals/upcoming', to: 'bookings#upcoming_rentals'
@@ -41,5 +40,5 @@ Rails.application.routes.draw do
 
   resources :bookings, only: [:show, :update]
   resources :conversations
-  resources :messages
+  resources :messages, except: [:new]
 end

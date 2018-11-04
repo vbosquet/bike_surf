@@ -2,7 +2,7 @@
   <div class="col-sm-12">
     <div id="titleSection">
       <% if @listing.user == current_user %>
-        <%= link_to "Modifier l'annonce", listing_details_path(@listing), class: "btn btn-primary float-sm-right" %>
+        <%= link_to "Modifier l'annonce", edit_listing_path(@listing), class: "btn btn-primary float-sm-right" %>
       <% end %>
       <div class="mt-4 mb-4">
         <h1><%= @listing.title %></h1>
@@ -32,7 +32,13 @@
     <div id="descriptionSection">
       <p class="collapse" id="description" aria-expanded="false"><%= @full_sanitizer.sanitize(@listing.description) %></p>
       <a role="button" class="collapsed expandLink" data-toggle="collapse" href="#description" aria-expanded="false" aria-controls="description"></a>
-      <div class="mt-4"><%= link_to "Contacter le propriétaire", "#" %></div>
+      <div class="mt-4">
+        <% if @listing.user == current_user %>
+          <a href="#forbiddenAccessModal" data-toggle="modal">Contacter le propriétaire</a>
+        <% else %>
+          <%= link_to "Contacter le propriétaire", new_listing_message_path(@listing) %>
+        <% end %>
+      </div>
       <hr>
     </div>
     <div id="equipmentSection">
@@ -63,33 +69,16 @@
         <h5 >Propriétaire : <%= @listing.user.firstname %></h5>
         <p>Membre depuis <%= l(@listing.user.created_at, format: :short) %></p>
       </div>
-      <p>Langues : <%= @listing.user.languages.compact.join(' ')%></p>
-      <%= link_to "Contacter le propriétaire", "#" %>
-      <hr>
-    </div>
-  </div>
-  <div id="bookingSection" class="col-sm-5">
-    <div class="border pt-4 pb-4 pl-4 pr-4">
-      <h5><%= @listing.pricing.present? ? @listing.pricing.base_price : 0 %>€ par jour</h5>
-      <hr>
-      <%= form_tag listing_bookings_resume_path(@listing), method: :get do %>
-        <label>Durée de la location :</label>
-        <div class="row">
-          <div class="col">
-            <div class="form-group">
-              <%= text_field_tag :start_date, nil, {class: "form-control date", id: "startDate", placeholder: "Jour d'arrivée"} %>
-            </div>
-          </div>
-          <div class="col">
-            <div class="form-group ">
-              <%= text_field_tag :end_date, nil, {class: "form-control date", id: "endDate", placeholder: "Jour de départ"} %>
-            </div>
-          </div>
-        </div>
-        <div class="text-center">
-          <%= submit_tag "Demande de réservation", class: "btn btn-primary btn-block" %>
-        </div>
+      <p>Langues : <%= @listing.user.languages.reject(&:empty?).map{ |key| I18n.t(key, scope: :languages) }.compact.join(', ') %></p>
+      <% if @listing.user == current_user %>
+        <a href="#forbiddenAccessModal" data-toggle="modal">Contacter le propriétaire</a>
+      <% else %>
+        <%= link_to "Contacter le propriétaire", new_listing_message_path(@listing) %>
       <% end %>
+      <hr>
     </div>
   </div>
+  <%= render partial: "bookings/form" %>
 </div>
+
+<%= render partial: "modals/forbidden_access" %>

@@ -25,13 +25,13 @@ class BikesController < ApplicationController
     @bike = Bike.find(params[:id])
 
 		if params[:commit] == "Annuler"
-			redirect_to listing_details_path(@listing)
+			redirect_to edit_listing_path(@listing)
 			return nil
 		end
 
 		if @bike.update_attributes(bike_params)
 			flash[:success] = "Informations enregistrées avec succès"
-			redirect_to listing_details_path(@listing)
+			redirect_to edit_listing_path(@listing)
 		else
 			flash.now[:error] = @bike.errors.values
 			redirect_to :back

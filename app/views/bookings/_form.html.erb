@@ -1,0 +1,30 @@
+<div id="bookingSection" class="col-sm-5">
+  <div class="border pt-4 pb-4 pl-4 pr-4">
+    <h5><%= @listing.pricing.present? ? @listing.pricing.base_price : 0 %>€ par jour</h5>
+    <hr>
+    <%= form_tag listing_bookings_resume_path(@listing), method: :get do %>
+      <label>Durée de la location :</label>
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <%= text_field_tag :start_date, nil, {class: "form-control date", id: "startDate", placeholder: "Jour d'arrivée"} %>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group ">
+            <%= text_field_tag :end_date, nil, {class: "form-control date", id: "endDate", placeholder: "Jour de départ"} %>
+          </div>
+        </div>
+      </div>
+      <div class="text-center">
+        <% if @listing.user == current_user %>
+          <a href="#forbiddenAccessModal" data-toggle="modal" class="btn btn-primary btn-block">Demande de réservation</a>
+        <% else %>
+          <%= submit_tag "Demande de réservation", class: "btn btn-primary btn-block" %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= render partial: "modals/forbidden_access" %>

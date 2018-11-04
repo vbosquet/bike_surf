@@ -7,8 +7,10 @@ class Web::ListingsController < ApplicationController
 
   def show
 		@listing = Listing.find(params[:id])
-		gon.latitude = @listing.location.latitude
-		gon.longitude = @listing.location.longitude
+    gon.disabled_dates = @listing.bookings.dates
+    @prev_url =  web_listing_path(@listing)
+		# gon.latitude = @listing.location.latitude
+		# gon.longitude = @listing.location.longitude
     @full_sanitizer = Rails::Html::FullSanitizer.new
 	end
 

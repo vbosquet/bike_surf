@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="row row-offcanvas row-offcanvas-left">
+    <div class="col main pt-5 mt-3">
+      <%= render 'layouts/messages' %>
+      <div class="row">
+        <div class="col-sm-7">
+          <div class="mb-3 mt-sm-3">
+            <%= link_to web_listing_path(@listing) do %>
+              <i class="fa fa-angle-left"></i> Retour
+            <% end %>
+          </div>
+          <div class="mb-4">
+            <%= image_tag current_user.avatar.url(:thumb), class: "rounded-circle float-sm-right" %>
+            <h1 class="pt-3">Contactez <%= @listing.user.firstname %></h1>
+          </div>
+          <hr >
+          <h5 class="mt-5 mb-4">Ce qu'il faut attendre de votre location</h5>
+
+          <div>
+            <div class="row">
+                <p class="col-12 col-sm-12">Utiliser le vélo
+                <a class="float-right" data-toggle="collapse" href="#bikePicking" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <i class="fa fa-angle-down"></i>
+                  <i class="fa fa-angle-up"></i>
+                </a>
+                </p>
+            </div>
+            <p class="collapse" id="bikePicking">
+              Le premier jour de votre location, votre vélo sera disponible à partir de <%= @listing.availability.pickup_time %>.
+              Retour avant <%= @listing.availability.dropoff_time %>.
+            </p>
+            <hr>
+          </div>
+
+          <div>
+            <div class="row">
+                <p class="col-12 col-sm-12">Caractéristiques et accessoires
+                <a class="float-right" data-toggle="collapse" href="#featuresAndAccessories" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <i class="fa fa-angle-down"></i>
+                  <i class="fa fa-angle-up"></i>
+                </a>
+                </p>
+            </div>
+            <p class="collapse" id="featuresAndAccessories">
+              Vous diposerez des accessoires suivants : <%= @listing.bike.formatedEquipments %>.
+            </p>
+            <hr>
+          </div>
+
+          <div>
+            <div class="row">
+                <p class="col-12 col-sm-12">Caution
+                <a class="float-right" data-toggle="collapse" href="#deposit" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <i class="fa fa-angle-down"></i>
+                  <i class="fa fa-angle-up"></i>
+                </a>
+                </p>
+            </div>
+            <p class="collapse" id="deposit">
+              En cas de réclamation du propriétaire dans les 14 jours suivant la fin de votre location, vous serez responsable des dommages à hauteur maximale de <%= @listing.pricing.security_deposit %> <%= @listing.pricing.currency %>.
+            </p>
+            <hr>
+          </div>
+
+          <div>
+            <div class="row">
+                <p class="col-12 col-sm-12">Conditions d'annulation
+                <a class="float-right" data-toggle="collapse" href="#cancelationTerms" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  <i class="fa fa-angle-down"></i>
+                  <i class="fa fa-angle-up"></i>
+                </a>
+                </p>
+            </div>
+            <p class="collapse" id="cancelationTerms">
+              Strictes avec période de grâce : remboursement intégral en cas d'annulation dans les 48 heures qui suivent la réservation.
+            </p>
+            <hr>
+          </div>
+
+          <h5 class="mt-5 mb-4">Vous avez une autre question à poser à <%= @listing.user.firstname %> ?</h5>
+          <%= form_tag messages_path do %>
+            <%= hidden_field_tag :listing_id, @listing.id %>
+            <%= cktext_area_tag :body, nil, { class: "form-control", ckeditor: { language: 'fr'} } %>
+            <%= submit_tag "Envoyer le message", class: "btn btn-primary btn-lg mt-4 mb-5" %>
+          <% end %>
+
+        </div>
+        <%= render partial: "bookings/form" %>
+      </div>
+    </div>
+  </div>
+</div>

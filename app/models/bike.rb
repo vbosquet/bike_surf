@@ -11,4 +11,14 @@ class Bike < ApplicationRecord
 			:hasBackPedalBrake, :child_seat).first
 		return equipments
 	end
+
+	def formatedEquipments
+		formatedEquipemnts = Array.new
+		self.equipments.keys.each do |key|
+			if self.equipments[key]
+				formatedEquipemnts.push(Bike.human_attribute_name(key).downcase)
+			end
+		end
+		return formatedEquipemnts.compact.join(', ')
+	end
 end

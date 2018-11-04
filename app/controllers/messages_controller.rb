@@ -1,12 +1,17 @@
 class MessagesController < ApplicationController
+
   before_action :authenticate_user!
+  before_action :find_listing
+  before_action :set_conversation, only: [:create]
+
+  def new
+  end
 
   def create
-    @conversation = Conversation.find(params[:conversation_id])
-    message = @conversation.messages.build(message_params)
+    message = @conversation.messages.build(body: params[:body], user_id: current_user.id)
     if message.save
+      flash[:success] = "Message envoyé avec succès."
       redirect_to conversation_path(@conversation)
-      Rails.logger.debug("Message envoyé avec succès.")
     else
       render "conversations/show"
       Rails.logger.debug("Impossible d'envoyer votre message. Veuillez réessayer.")
@@ -15,8 +20,17 @@ class MessagesController < ApplicationController
 
   private
 
-  def message_params
-    params.require(:message).permit(:body).merge(user_id: current_user.id)
+  def find_listing
+    @listing = Listing.find(params[:listing_id])
+  end
+
+  def set_conversation
+    conversations = Conversation.all.where('borrower_id = ? and lender_id = ?', current_user.id, @listing.user.id)
+    if conversations.present?
+      @conversation = conversations.last
+    else
+      @conversation = Conversation.create(borrower_id: current_user.id, lender_id: @listing.user.id)
+    end
   end
 
 end
