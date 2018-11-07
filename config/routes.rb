@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     end
     resources :bikes, except: [:edit] do
       get 'equipments'
+      get 'size'
       resources :photos
     end
     get 'edit/description', to: 'listings#edit_description'

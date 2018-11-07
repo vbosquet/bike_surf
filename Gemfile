@@ -34,26 +34,27 @@ gem 'jbuilder', '~> 2.5'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'mysql2', "~> 0.5.1"
-gem 'devise', "~> 4.4.3"
-gem "paperclip", "~> 5.2.0"
-gem 'geocoder', "~> 1.4.7"
-gem 'money', "~> 6.11.3"
+gem 'mysql2', '~> 0.5.1'
+gem 'devise', '~> 4.4.3'
+gem 'paperclip', '~> 5.2.0'
+gem 'geocoder', '~> 1.4.7'
+gem 'money', '~> 6.11.3'
 gem 'momentjs-rails', '~> 2.20.1'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
 gem 'popper_js', '~> 1.12.9'
-gem "font-awesome-rails", "~> 4.7.0.3"
-gem 'gon', "~> 6.1.0"
-gem 'ransack', "~> 1.8.8"
+gem 'font-awesome-rails', '~> 4.7.0.3'
+gem 'gon', '~> 6.1.0'
+gem 'ransack', '~> 1.8.8'
 gem 'ckeditor', '~> 4.2.4'
-gem 'country_select', "~> 3.1.1"
-gem 'countries', "~> 2.1.4"
-gem 'fullcalendar-rails', "~> 3.0.0.0"
-gem 'paper_trail', "~> 9.2.0"
-gem 'rails-html-sanitizer', "~> 1.O.4"
-gem 'kaminari', "~> 1.1.1"
-gem "strip_attributes", "~> 1.8.0"
-gem 'pluck_to_hash', "~> 1.0.2"
+gem 'country_select', '~> 3.1.1'
+gem 'countries', '~> 2.1.4'
+gem 'fullcalendar-rails', '~> 3.0.0.0'
+gem 'paper_trail', '~> 9.2.0'
+gem 'rails-html-sanitizer', '~> 1.O.4'
+gem 'kaminari', '~> 1.1.1'
+gem 'strip_attributes', '~> 1.8.0'
+gem 'pluck_to_hash', '~> 1.0.2'
+gem 'owlcarousel-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -37,10 +37,9 @@ fr:
           refused: "Refusée"
           canceled: "Annulée"
       bike:
-        sizes:
-          small: "Petit"
-          medium: "Medium"
-          large: "Large"
+        small: "Petit"
+        medium: "Medium"
+        large: "Large"
         lights: "Lumières"
         helmet: "Casque"
         fonts: "Fontes"

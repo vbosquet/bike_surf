@@ -1,73 +1,78 @@
-<%= form_for @listing, html: { multipart: true } do |f| %>
 <div class="row">
-  <div class="form-group col-sm-8">
-    <label>Titre :</label>
-    <%= f.text_field :title, class: "form-control" %>
-  </div>
-  <div class="form-group col-sm-8">
-    <label>Description :</label>
-    <%= f.cktext_area :description, :class => "form-control", ckeditor: { language: 'fr'} %>
+  <div class="col-sm-8">
+    <h3 class="form-text text-muted mb-5">Etape 1 : quel type de vélo avez-vous ?</h3>
+    <%= form_for @listing, html: { multipart: true } do |f| %>
+
+    <div id="descriptionSection">
+      <h5 class="mt-4 mb-4">Titre et description</h5>
+      <%= f.text_field :title, class: "form-control mb-4", placeholder: "Donnez un titre à votre annonce." %>
+      <%= f.cktext_area :description, class: "form-control mb-4", ckeditor: { language: 'fr'} %>
+    </div>
+
+    <%= f.fields_for :bike do |ff| %>
+    <div id="equipmentSection">
+      <h5 class="mt-4 mb-4">Equipements</h5>
+      <% Bike.equipmentTypes.keys.in_groups_of(2) do |key1, key2| %>
+      <div class="row">
+        <div class="col-6 col-sm-6 form-check">
+          <label class="form-check-label">
+            <%= ff.check_box key1, class: "form-check-input" %> <%= Bike.human_attribute_name(key1) %>
+          </label>
+        </div>
+        <% if key2 %>
+        <div class="col-6 col-sm-6 form-check">
+          <label class="form-check-label">
+            <%= ff.check_box key2, class: "form-check-input" %> <%= Bike.human_attribute_name(key2) %>
+          </label>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+
+    <div id="sizeSection">
+      <h5 class="mt-4 mb-4">Taille</h5>
+      <div class="row">
+        <% Bike.sizes.keys.each do |key| %>
+        <div class="form-check">
+          <label class="form-check-label">
+            <%= ff.radio_button :size, key, class: "form-check-input" %> <%= Bike.human_attribute_name(key) %>
+          </label>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <% end %>
+
+    <%= f.fields_for :location do |ff| %>
+    <div id="locationSection">
+      <h5 class="mt-4 mb-4">Adresse</h5>
+      <div class="form-row">
+        <div class="col-sm-3 mb-3">
+          <%= ff.text_field :street_number, class: "form-control", placeholder: "Numéro"%>
+        </div>
+        <div class="col-sm-9 mb-3">
+          <%= ff.text_field :route, class: "form-control", placeholder: "Rue"%>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-sm-4 mb-3">
+          <%= ff.text_field :locality, class: "form-control", placeholder: "Ville"%>
+        </div>
+        <div class="col-sm-3 mb-3">
+          <%= ff.text_field :postal_code, class: "form-control", placeholder: "Code postal"%>
+        </div>
+        <div class="col-sm-5 mb-3">
+          <%= ff.country_select :country_code, {include_blank: 'Pays'}, {class: "form-control"} %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+
+    <div class="mt-5">
+      <%= f.submit "Continuer", class: "btn btn-primary btn-lg" %>
+      <%= f.submit "Annuler", class: "btn btn-outline-primary btn-lg" %>
+    </div>
+    <% end %>
   </div>
 </div>
-
-<br >
-<h3>Le vélo</h1>
-  <hr />
-
-  <%= f.fields_for :bike do |ff| %>
-  <div class="row">
-    <div class="form-group col-sm-8">
-      <label>Photo :</label>
-      <%= ff.file_field :photo, class: "form-control-file" %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="form-check">
-      <label class="form-check-label">
-        <%= ff.check_box :lights, class: "form-check-input" %> Lumières
-      </label>
-    </div>
-  </div>
-
-  <br>
-  <div class="row">
-    <div class="col-sm-8">
-      <label>Taille :</label>
-      <%= ff.select(:size, Bike.sizes.keys, {prompt: 'Choisissez'}, {class: "form-control"})%>
-    </div>
-  </div>
-  <% end %>
-
-  <br >
-  <h3>Point de collecte</h1>
-    <hr />
-
-    <label>Adresse :</label>
-    <%= f.fields_for :location do |ff| %>
-    <div class="row">
-      <div class="col-sm-3">
-        <%= ff.text_field :street_number, class: "form-control", placeholder: "Numéro"%>
-      </div>
-      <div class="col-sm-5">
-        <%= ff.text_field :route, class: "form-control", placeholder: "Rue"%>
-      </div>
-    </div>
-    <br >
-    <div class="row">
-      <div class="col-sm-3">
-        <%= ff.text_field :locality, class: "form-control", placeholder: "Ville"%>
-      </div>
-      <div class="col-sm-2">
-        <%= ff.text_field :postal_code, class: "form-control", placeholder: "Code postal"%>
-      </div>
-      <div class="col-sm-3">
-        <%= ff.country_select :country_code, {include_blank: 'Choisissez un pays'}, {class: "form-control"} %>
-      </div>
-    </div>
-    <% end %>
-    <br>
-    <div>
-      <%= f.submit "Continuer", class: "btn btn-primary" %>
-    </div>
-    <% end %>

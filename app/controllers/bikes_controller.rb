@@ -21,6 +21,11 @@ class BikesController < ApplicationController
     render 'bikes/edit/equipments'
   end
 
+  def size
+    @bike = Bike.find(params[:bike_id])
+    render 'bikes/edit/size'
+  end
+
   def update
     @bike = Bike.find(params[:id])
 

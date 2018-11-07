@@ -2,25 +2,18 @@
   <div class="row row-offcanvas row-offcanvas-left">
     <div class="col main pt-5 mt-3">
       <%= render 'layouts/messages' %>
-      <h1>Quels équipements proposez-vous ?</h1>
+      <h1>Quelle est la taille de votre vélo ?</h1>
       <hr>
       <div class="row">
         <div class="mt-4 col-sm-8">
           <%= form_for [@listing, @bike], html: { multipart: true } do |f| %>
-          <% Bike.equipmentTypes.keys.in_groups_of(2) do |key1, key2| %>
+          <% Bike.sizes.keys.each do |key| %>
           <div class="row">
-            <div class="col-6 col-sm-6 form-check">
+            <div class="form-check">
               <label class="form-check-label">
-                <%= f.check_box key1, class: "form-check-input" %> <%= Bike.human_attribute_name(key1) %>
+                <%= f.radio_button :size, key, class: "form-check-input" %> <%= Bike.human_attribute_name(key) %>
               </label>
             </div>
-            <% if key2 %>
-            <div class="col-6 col-sm-6 form-check">
-              <label class="form-check-label">
-                <%= f.check_box key2, class: "form-check-input" %> <%= Bike.human_attribute_name(key2) %>
-              </label>
-            </div>
-            <% end %>
           </div>
           <% end %>
           <div class="mt-5">

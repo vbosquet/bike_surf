@@ -12,6 +12,8 @@
  *
 
  *= require fullcalendar
+ *= require owl.carousel
+ *= require owl.theme
  *= require_tree .
  *= require_self
  */

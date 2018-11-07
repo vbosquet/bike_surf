@@ -25,6 +25,12 @@ class ListingsController < ApplicationController
 
 	def create
 		@listing = Listing.new(listing_params)
+
+		if params[:commit] == "Annuler"
+			redirect_to listings_path
+			return nil
+		end
+
 		if @listing.save
 			flash[:success] = "Annonce créée avec succès"
 			redirect_to new_listing_pricing_path(@listing)

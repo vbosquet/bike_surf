@@ -23,4 +23,5 @@
 //= require ckeditor/init
 //= require ckeditor/plugins/wordcount/plugin
 //= require ckeditor/config
+//= require owl.carousel
 //= require_tree .

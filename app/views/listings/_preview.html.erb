@@ -13,19 +13,12 @@
 </div>
 <div class="row">
   <div class="col-sm-7">
-    <div id="photoSection">
-      <div class="row">
-        <% @listing.bike.photos.take(3).each do |photo| %>
-          <div class="col-md-4 mb-4">
-            <div class="img-thumbnail">
-              <%= image_tag photo.attachment.url(:medium), style: "width:100%" %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      <% if @listing.bike.photos.size > 3 %>
-        <div class="mb-4">
-          <%= link_to "+ Plus" , "#" %>
+    <div id="photoSection" class="mb-4">
+      <% if @listing.bike.photos.present? %>
+        <div class="owl-carousel owl-theme">
+          <% @listing.bike.photos.each do |photo| %>
+            <div><%= image_tag photo.attachment.url(:medium), style: "width:100%" %></div>
+          <% end %>
         </div>
       <% end %>
     </div>
@@ -41,21 +34,27 @@
       </div>
       <hr>
     </div>
+    <div id="sizeSection">
+      <h5 class="mt-4 mb-4">Taille</h5>
+      <p><i class="fa fa-bicycle"></i> <%= Bike.human_attribute_name(@listing.bike.size) %></p>
+      <hr>
+    </div>
     <div id="equipmentSection">
-      <h5 class="mt-4 mb-4">Caractéristiques & équipements</h5>
-      <p>Taille : <%= Bike.human_enum_name(:size, @listing.bike.size) %></p>
-      <div class="collapse" id="equipments" aria-expanded="false">
-        <% @listing.bike.equipments.keys.each do |key| %>
-          <% if @listing.bike.equipments[key] %>
-            <p><i class="fa fa-bicycle"></i> <%= Bike.human_attribute_name(key) %></p>
+      <h5 class="mt-4 mb-4">Equipements</h5>
+      <% @listing.bike.equipments.keys.in_groups_of(2) do |key1, key2| %>
+        <div class="row">
+          <% if @listing.bike.equipments[key1] %>
+            <p class="col-6 col-sm-6"><i class="fa fa-circle"></i> <%= Bike.human_attribute_name(key1) %></p>
           <% end %>
-        <% end %>
-      </div>
-      <a role="button" class="collapsed expandLink" data-toggle="collapse" href="#equipments" aria-expanded="false" aria-controls="equipments"></a>
+          <% if @listing.bike.equipments[key2] %>
+            <p class="col-6 col-sm-6"><i class="fa fa-circle"></i> <%= Bike.human_attribute_name(key2) %></p>
+          <% end %>
+        </div>
+      <% end %>
       <hr>
     </div>
     <div id="availabilitySection">
-      <h5 class="mt-4 mb-4">Disponibilité</h5>
+      <h5 class="mt-4 mb-4">Disponibilités</h5>
       <div id="calendar" data-url='/listings/<%= @listing.id %>/bookings.json'></div>
       <hr>
     </div>
