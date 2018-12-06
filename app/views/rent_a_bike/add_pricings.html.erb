@@ -4,7 +4,12 @@
       <%= render 'layouts/messages' %>
       <h1>Nouvelle annonce</h1>
       <hr >
-      <%= render partial: "form" %>
+      <div class="row">
+        <div class="col-sm-8">
+          <h3 class="form-text text-muted mb-5">Etape 2 : quels tarifs proposez-vous ?</h3>
+          <%= render partial: "pricing_form" %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

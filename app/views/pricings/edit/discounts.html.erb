@@ -15,7 +15,7 @@
           <small class="form-text text-muted">
             Prix moyen à la semaine avec une réduction de <%= content_tag('span', @pricing.weekly_discount, id: 'discount_weekly') %> % : €<%= content_tag('span', @pricing.average_weekly, id: 'average_weekly') %>
           </small>
-          <%= f.text_field :weekly_discount, class: "form-control", data: {pricing_id: @pricing.id } %>
+          <%= f.text_field :weekly_discount, class: "form-control", data: {base_price: @pricing.base_price } %>
         </div>
       </div>
       <div class="row">
@@ -24,7 +24,7 @@
           <small class="form-text text-muted">
             Prix moyen au mois avec une réduction de <%= content_tag('span', @pricing.monthly_discount, id: 'discount_monthly') %> % : €<%= content_tag('span', @pricing.average_monthly, id: 'average_monthly') %>
           </small>
-          <%= f.text_field :monthly_discount, class: "form-control", data: {pricing_id: @pricing.id } %>
+          <%= f.text_field :monthly_discount, class: "form-control", data: {base_price: @pricing.base_price } %>
         </div>
       </div>
       <div class="mt-3">

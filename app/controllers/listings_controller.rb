@@ -13,33 +13,6 @@ class ListingsController < ApplicationController
 		# gon.longitude = @listing.location.longitude
 	end
 
-	def new
-		@listing = Listing.new
-		unless @listing.bike.present?
-			@listing.build_bike
-		end
-		unless @listing.location.present?
-			@listing.build_location
-		end
-	end
-
-	def create
-		@listing = Listing.new(listing_params)
-
-		if params[:commit] == "Annuler"
-			redirect_to listings_path
-			return nil
-		end
-
-		if @listing.save
-			flash[:success] = "Annonce créée avec succès"
-			redirect_to new_listing_pricing_path(@listing)
-		else
-			flash.now[:error] = @listing.errors.values
-			render 'new'
-		end
-	end
-
 	def edit
 		@listing = Listing.find(params[:id])
 	end

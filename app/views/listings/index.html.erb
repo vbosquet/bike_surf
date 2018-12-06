@@ -4,7 +4,7 @@
       <%= render 'layouts/messages' %>
       <h1>
         <span>Mes annonces</span>
-        <%= link_to "Créer une nouvelle annonce", new_listing_path, class: "btn btn-outline-primary float-sm-right" %>
+        <%= link_to "Créer une nouvelle annonce", rent_a_bike_path(:add_description), class: "btn btn-outline-primary float-sm-right" %>
       </h1>
       <hr >
       <% @listings.each_slice(3) do |listings| %>
@@ -14,14 +14,14 @@
           <div class="card-header">
             <%= listing.listed? ? "Publiée" : "Désactivée" %>
           </div>
-          <% if listing.bike.photos.present? %>
+          <% if listing.bike.present? && listing.bike.photos.present? %>
             <%= image_tag listing.bike.photos.first.attachment.url(:medium), class: "card-img-top" %>
           <% end %>
           <div class="card-body">
             <h4 class="card-title"><%= listing.title %></h4>
             <p class="card-text">
-              Taille : <%= listing.bike.size %><br >
-              Lumières : <%= listing.bike.lights ? "Oui" : "Non" %>
+              Taille : <%= listing.bike.size if listing.bike.present? %><br >
+              Lumières : <%= listing.bike.present? && listing.bike.lights ? "Oui" : "Non" %>
             </p>
             <%= link_to "Aperçu", listing_path(listing), class: "card-link" %>
             <%= link_to "Modifier", edit_listing_path(listing), class: "card-link" %>

@@ -1,0 +1,50 @@
+<%= form_for @listing, url: wizard_path, method: :put do |f| %>
+
+<%= f.fields_for :availability do |ff| %>
+
+<div id="reservationPreferencesSection">
+  <h5 class="mt-4">Préférences de réservation</h5>
+  <hr>
+  <div class="form-group mt-4">
+    <label>Délai :</label>
+    <%= ff.select(:advance_notice, Availability.advance_notices.keys, {prompt: 'Choisissez'}, {class: "form-control advance-notice"})%>
+  </div>
+  <div class="form-group mb-5 deadline">
+    <label>Les cyclistes peuvent réserver le jour même jusqu'à :</label>
+    <%= ff.text_field :deadline, class: "form-control time" %>
+  </div>
+</div>
+
+<div id="rentalLengthSection">
+  <h5 class="mt-4">Durée de la location</h5>
+  <hr>
+  <div class="form-group mt-4">
+    <label>Durée minimum de location :</label>
+    <%= ff.number_field :minimum_rental, min: 1, class: "form-control" %>
+  </div>
+  <div class="form-group mb-5">
+    <label>Durée maximum de location :</label>
+    <%= ff.number_field :maximum_rental, min: 1, class: "form-control" %>
+  </div>
+</div>
+
+<div id="checkinSettingSection">
+  <h5 class="mt-4">Réception et dépôt</h5>
+  <hr>
+  <div class="form-group mt-4">
+    <label>Heure de réception :</label>
+    <%= ff.text_field :pickup_time, class: "form-control time" %>
+  </div>
+  <div class="form-group mb-5">
+    <label>Heure de dépôt :</label>
+    <%= ff.text_field :dropoff_time, class: "form-control time" %>
+  </div>
+</div>
+<% end %>
+
+<div class="mt-4">
+  <%= f.submit "Enregistrer", class: "btn btn-primary" %>
+  <!--<%= f.submit "Annuler", class: "btn btn-outline-primary" %>-->
+</div>
+
+<% end %>

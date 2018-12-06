@@ -55,6 +55,7 @@ gem 'kaminari', '~> 1.1.1'
 gem 'strip_attributes', '~> 1.8.0'
 gem 'pluck_to_hash', '~> 1.0.2'
 gem 'owlcarousel-rails'
+gem 'wicked', '~> 1.3.3'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

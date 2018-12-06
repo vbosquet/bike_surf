@@ -2,21 +2,6 @@ class PricingsController < ApplicationController
 	before_action :authenticate_user!
 	before_action :find_listing, except: [:calculate_average]
 
-	def new
-		@pricing = Pricing.new
-	end
-
-	def create
-		@pricing = Pricing.new(pricing_params)
-		if @pricing.save
-			flash[:success] = "Informations enregistrées avec succès"
-			redirect_to new_listing_availability_path(@listing)
-		else
-			flash.now[:error] = @pricing.errors.values
-			render 'new'
-		end
-	end
-
 	def update
 		@pricing = Pricing.find(params[:id])
 
@@ -56,10 +41,12 @@ class PricingsController < ApplicationController
 
 	def calculate_average
 		discount = params[:discount].to_i
+		base_price = params[:base_price].to_i
 		type = params[:average_type]
-		pricing = Pricing.find(params[:pricing_id])
-		price = type == "weekly" ? pricing.base_price * 7 : pricing.base_price * 28
+
+		price = type == "weekly" ? base_price * 7 : base_price * 28
 		average = price - (price * (discount / 100.0))
+
 		render json: average.round
 	end
 

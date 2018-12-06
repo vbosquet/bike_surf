@@ -6,7 +6,7 @@
       <% end %>
       <div class="mt-4 mb-4">
         <h1><%= @listing.title %></h1>
-        <p class="form-text text-muted"><%= @listing.location.locality %></p>
+        <p class="form-text text-muted"><%= @listing.location.locality if @listing.location.present? %></p>
       </div>
     </div>
   </div>

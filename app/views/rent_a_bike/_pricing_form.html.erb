@@ -1,0 +1,76 @@
+<%= form_for @listing, url: wizard_path, method: :put do |f| %>
+
+<%= f.fields_for :pricing do |ff| %>
+
+<div id="basePriceSection">
+  <h5 class="mt-4">Prix par jour</h5>
+  <hr>
+  <div class="form-group mt-4">
+    <label>Devise :</label>
+    <%= ff.select(:currency, Pricing.all_currencies, {prompt: 'Choisissez'}, {class: "form-control"})%>
+  </div>
+  <div class="form-group mb-5">
+    <label>Prix de base :</label>
+    <%= ff.text_field :base_price, class: "form-control" %>
+  </div>
+</div>
+
+<div id="discountsSection">
+  <h5 class="mt-4">Réductions en fonction de la durée du séjour</h5>
+  <hr >
+  <p class="form-text text-muted mb-4">
+    Encouragez les voyageurs à utiliser votre vélo plus longtemps avec des réductions au mois ou à la semaine.
+    <a href="#discountsModal" data-toggle="modal">En savoir plus</a>
+  </p>
+  <div class="form-group">
+    <label>Réduction à la semaine (%) :</label>
+    <small class="form-text text-muted">
+      Prix moyen à la semaine avec une réduction de <%= content_tag('span', 0, id: 'discount_weekly') %> % : €<%= content_tag('span', 0, id: 'average_weekly') %>
+    </small>
+    <%= ff.text_field :weekly_discount, class: "form-control" %>
+  </div>
+  <div class="form-group mb-5">
+    <label>Réduction au mois (%) :</label>
+    <small class="form-text text-muted">
+      Prix moyen au mois avec une réduction de <%= content_tag('span', 0, id: 'discount_monthly') %> % : €<%= content_tag('span', 0, id: 'average_monthly') %>
+    </small>
+    <%= ff.text_field :monthly_discount, class: "form-control" %>
+  </div>
+</div>
+
+<div id="feesSection">
+  <h5 class="mt-4">Frais supplémentaires</h5>
+  <hr >
+  <div class="form-group mt-4">
+    <label>Frais de maintenance :</label>
+    <small class="form-text text-muted">
+      Ces frais s'appliqueront à chaque réservation.
+    </small>
+    <%= ff.text_field :maintenance_fee, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <label>Caution :</label>
+    <small class="form-text text-muted">
+      Si vous effectuez une réclamation dans les 14 jours suivant la remise du vélo, l'utilisateur sera responsable des dommages à hauteur maximale de cette somme.
+    </small>
+    <%= ff.text_field :security_deposit, class: "form-control" %>
+  </div>
+  <div class="form-group mb-5">
+    <label>Tarif weekend :</label>
+    <small class="form-text text-muted">
+      Ce prix par jour remplacera votre tarif de base pour les journées du samedi et du dimanche.
+    </small>
+    <%= ff.text_field :weekend_pricing, class: "form-control" %>
+  </div>
+</div>
+
+<% end %>
+
+<div class="mt-4">
+  <%= f.submit "Continuer", class: "btn btn-primary" %>
+  <!--<%= f.submit "Annuler", class: "btn btn-outline-primary" %>-->
+</div>
+
+<% end %>
+
+<%= render partial: "modals/discounts" %>

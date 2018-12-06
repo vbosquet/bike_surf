@@ -2,21 +2,6 @@ class AvailabilitiesController < ApplicationController
 	before_action :authenticate_user!
 	before_action :find_listing
 
-	def new
-		@availability = Availability.new
-	end
-
-	def create
-		@availability = Availability.new(availability_params)
-		if @availability.save
-			flash[:success] = "Informations enregistrées avec succès"
-			redirect_to listing_edit_status_path(@listing)
-		else
-			flash.now[:error] = @availability.errors.values
-			render 'new'
-		end
-	end
-
 	def update
 		@availability = Availability.find(params[:id])
 

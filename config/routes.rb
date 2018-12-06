@@ -42,4 +42,5 @@ Rails.application.routes.draw do
   resources :bookings, only: [:show, :update]
   resources :conversations
   resources :messages, except: [:new]
+  resources :rent_a_bike
 end
